@@ -60,7 +60,7 @@ class User {
     }
     
     func getEmail() -> String {
-        return self.getEmail()
+        return self.email
     }
     
     func setPassword(password: String) {

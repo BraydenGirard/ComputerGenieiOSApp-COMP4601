@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     @IBOutlet var emailErrorLabel: UILabel!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordErrorLabel: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let validator = Validator()
     
@@ -35,12 +36,14 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     
     func completeLogin(notification: NSNotification) {
         //Log the user in here and give them their token from the notification
-        println("Login successful")
+        println("Controller: Login successful")
+        activityIndicator.stopAnimating()
     }
     
     func failLogin(notification:NSNotification) {
         //Show an error
-        println("Login fail - incorrect email or password")
+        println("Controller: Login failed")
+        activityIndicator.stopAnimating()
     }
 
     
@@ -50,8 +53,8 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         println("Validation Success!")
         
         // TODO: Send login request to server
+        activityIndicator.startAnimating()
         NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
-        //self.presentViewController(alert, animated: true, completion: nil)
         
     }
     func validationFailed(errors:[UITextField:ValidationError]) {

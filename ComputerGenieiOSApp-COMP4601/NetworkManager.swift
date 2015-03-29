@@ -83,17 +83,20 @@ class NetworkManager {
                     if let successFinal = success {
                         if(successFinal == "true") {
                             var dictionary: [String: AnyObject]  = ["token" : serverMessage]
-                            NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
+                            NSNotificationCenter.defaultCenter().postNotificationName("SignupSuccess", object: nil, userInfo: dictionary)
                         } else {
-                            NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                            println("Network Manager: Success is equal to: \(successFinal)")
+                            NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil)
                         }
                     } else
                     {
-                        NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                        println("Network Manager: Failed to parse success")
+                        NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil)
                     }
                 }
                 else {
-                    NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                    println("Network Manager: Failed to parse xml")
+                    NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil)
                 }
 
             }
@@ -144,14 +147,17 @@ class NetworkManager {
                             NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
     
                         } else {
+                            println("Network Manager: Success is equal to: \(successFinal)")
                             NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                         }
                     } else
                     {
+                        println("Network Manager: Failed to parse success")
                         NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                     }
                 }
                 else {
+                    println("Network Manager: Failed to parse xml")
                     NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                 }
             }

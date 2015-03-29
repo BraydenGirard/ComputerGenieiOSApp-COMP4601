@@ -14,7 +14,6 @@ let FEMALE = "F"
 class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
     
     @IBOutlet var emailField: UITextField!
-    @IBOutlet var emailConfirmField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordConfirmField: UITextField!
     @IBOutlet var nameField: UITextField!
@@ -25,6 +24,7 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     @IBOutlet var maleButton: UIButton!
     @IBOutlet var femaleButton: UIButton!
     @IBOutlet var dateErrorLabel: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let validator = Validator()
     
@@ -38,7 +38,6 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         
         validator.registerField(emailField, errorLabel: emailErrorLabel, rules: [RequiredRule(), EmailRule()])
-        validator.registerField(emailConfirmField, errorLabel: emailErrorLabel, rules: [RequiredRule(), ConfirmationRule(confirmField: emailField)])
         validator.registerField(passwordField, errorLabel: passwordErrorLabel, rules: [RequiredRule(), PasswordRule()])
         validator.registerField(passwordConfirmField, errorLabel: passwordErrorLabel, rules: [RequiredRule(), ConfirmationRule(confirmField: passwordField)])
         validator.registerField(nameField, errorLabel: nameErrorLabel, rules: [RequiredRule(), FullNameRule()])
@@ -54,11 +53,14 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     func completeSignup(notification: NSNotification) {
         //Log the user in and give them their token
+        println("Controller: Signup Success")
+        activityIndicator.stopAnimating()
     }
     
     func failSignup(notification:NSNotification) {
         //Show error
-        println("Signup failed")
+        println("Controller: Signup failed")
+        activityIndicator.stopAnimating()
     }
     
     @IBAction func signupPushed(sender: UIButton) {
@@ -109,7 +111,8 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
             newUser.setBirthDate(date)
         }
         
-        // TODO: Send new user to server
+        activityIndicator.startAnimating()
+        NetworkManager.sharedInstance.sendSignupRequest(newUser)
         
         //self.presentViewController(alert, animated: true, completion: nil)
     }
