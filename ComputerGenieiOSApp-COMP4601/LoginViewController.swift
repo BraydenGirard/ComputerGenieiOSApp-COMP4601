@@ -25,10 +25,22 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         
         validator.registerField(emailField, errorLabel: emailErrorLabel, rules: [RequiredRule(), EmailRule()])
         validator.registerField(passwordField, errorLabel: passwordErrorLabel, rules: [RequiredRule(), PasswordRule()])
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeLogin:", name: "LoginSuccess", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failLogin:", name: "LoginFail", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func completeLogin(notification: NSNotification) {
+        //Log the user in here and give them their token from the notification
+        println("Login successful")
+    }
+    
+    func failLogin(notification:NSNotification) {
+        //Show an error
+        println("Login fail - incorrect email or password")
     }
 
     
@@ -38,7 +50,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         println("Validation Success!")
         
         // TODO: Send login request to server
-        
+        NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
         //self.presentViewController(alert, animated: true, completion: nil)
         
     }

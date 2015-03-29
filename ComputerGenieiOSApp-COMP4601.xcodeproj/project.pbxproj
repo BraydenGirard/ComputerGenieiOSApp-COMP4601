@@ -25,7 +25,6 @@
 		F6547CCF1AC779DE00905BEB /* male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC01AC779DE00905BEB /* male@2x.png */; };
 		F6547CD01AC779DE00905BEB /* male@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC11AC779DE00905BEB /* male@3x.png */; };
 		F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CD11AC77DC400905BEB /* SharedConstants.swift */; };
-		F6547CD61AC7879C00905BEB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CD51AC7879C00905BEB /* Utils.swift */; };
 		F66D70781AC7261C0044B056 /* AEXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70771AC7261C0044B056 /* AEXML.swift */; };
 		F66D70CE1AC73C430044B056 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CC1AC73C430044B056 /* User.swift */; };
 		F66D70CF1AC73C430044B056 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CD1AC73C430044B056 /* NetworkManager.swift */; };
@@ -86,6 +85,27 @@
 			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
 		};
+		F6547CDC1AC788A600905BEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		F6547CDE1AC788A600905BEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = CryptoSwiftTests;
+		};
+		F6547CE01AC788D100905BEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
 		F6E6292E1AC71A2B00DA1009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F6E629101AC71A2B00DA1009 /* Project object */;
@@ -138,7 +158,7 @@
 		F6547CC01AC779DE00905BEB /* male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@2x.png"; path = "Resources/Images/male@2x.png"; sourceTree = "<group>"; };
 		F6547CC11AC779DE00905BEB /* male@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@3x.png"; path = "Resources/Images/male@3x.png"; sourceTree = "<group>"; };
 		F6547CD11AC77DC400905BEB /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
-		F6547CD51AC7879C00905BEB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		F66D70771AC7261C0044B056 /* AEXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AEXML.swift; sourceTree = "<group>"; };
 		F66D70CC1AC73C430044B056 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F66D70CD1AC73C430044B056 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -262,6 +282,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		F6547CD81AC788A600905BEB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6547CDD1AC788A600905BEB /* CryptoSwift.framework */,
+				F6547CDF1AC788A600905BEB /* CryptoSwiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F66D70DC1AC740A10044B056 /* Swift-Validator */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +314,7 @@
 		F6E6290F1AC71A2B00DA1009 = {
 			isa = PBXGroup;
 			children = (
+				F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */,
 				5F5E73AC1AC722B500B3B25A /* Alamofire.xcodeproj */,
 				F6E6291A1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601 */,
 				F6E629301AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601Tests */,
@@ -321,7 +351,6 @@
 			isa = PBXGroup;
 			children = (
 				F6E6291C1AC71A2B00DA1009 /* Info.plist */,
-				F6547CD51AC7879C00905BEB /* Utils.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -359,6 +388,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F6547CE11AC788D100905BEB /* PBXTargetDependency */,
 				5F5E73BC1AC722E900B3B25A /* PBXTargetDependency */,
 			);
 			name = "ComputerGenieiOSApp-COMP4601";
@@ -418,6 +448,10 @@
 					ProductGroup = 5F5E73AD1AC722B500B3B25A /* Products */;
 					ProjectRef = 5F5E73AC1AC722B500B3B25A /* Alamofire.xcodeproj */;
 				},
+				{
+					ProductGroup = F6547CD81AC788A600905BEB /* Products */;
+					ProjectRef = F6547CD71AC788A600905BEB /* CryptoSwift.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -454,6 +488,20 @@
 			fileType = wrapper.cfbundle;
 			path = "Alamofire OSX Tests.xctest";
 			remoteRef = 5F5E73B91AC722B500B3B25A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F6547CDD1AC788A600905BEB /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = F6547CDC1AC788A600905BEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F6547CDF1AC788A600905BEB /* CryptoSwiftTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CryptoSwiftTests.xctest;
+			remoteRef = F6547CDE1AC788A600905BEB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -515,7 +563,6 @@
 				F6547CB01AC7708400905BEB /* DateRule.swift in Sources */,
 				F66D70781AC7261C0044B056 /* AEXML.swift in Sources */,
 				F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */,
-				F6547CD61AC7879C00905BEB /* Utils.swift in Sources */,
 				F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */,
 				F66D70F41AC740C70044B056 /* ZipCodeRule.swift in Sources */,
 				F66D70F01AC740C70044B056 /* Rule.swift in Sources */,
@@ -537,6 +584,11 @@
 			isa = PBXTargetDependency;
 			name = "Alamofire iOS";
 			targetProxy = 5F5E73BB1AC722E900B3B25A /* PBXContainerItemProxy */;
+		};
+		F6547CE11AC788D100905BEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = F6547CE01AC788D100905BEB /* PBXContainerItemProxy */;
 		};
 		F6E6292F1AC71A2B00DA1009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

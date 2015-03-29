@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CryptoSwift
+import Alamofire
 
 class NetworkManager {
     
@@ -22,104 +24,107 @@ class NetworkManager {
         
         return Static.instance!
     }
-    
+   
     func sendSignupRequest(newUser: User) {
         var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
+      
+    
+        var passwordData = (newUser.getPassword() as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+        let passwordHash = passwordData?.sha512()
+        let lastLogin = newUser.getLastLogin()
         
         let xmlString: String = "<?xml version=\"1.0\" ?>\n" + "<User>" +
                                 "<authToken>" + 0 + "</authToken>" +
-                                "<id>" + user.getId() + "</id>" +
-                                "<firstname>" + user.getFirstName() + "</firstname>" +
-                                "<lastname>" + user.getLastName() + "</lastname>" +
-                                "<email>" + user.getEmail() + "</email>" +
-                                "<passwordHash>" + user. + "</passwordHash>" +
-                                "<gender>" + name + "</gender>" +
-                                "<birthday>" + text + "</birthday>" +
-                                "<lastLoginTime>" + text + "</lastLoginTime>" +
+                                "<id>" + newUser.getId() + "</id>" +
+                                "<firstname>" + newUser.getFirstName() + "</firstname>" +
+                                "<lastname>" + newUser.getLastName() + "</lastname>" +
+                                "<email>" + newUser.getEmail() + "</email>" +
+                                "<passwordHash>" + passwordHash?.hexString + "</passwordHash>" +
+                                "<gender>" + newUser.getGender() + "</gender>" +
+                                "<birthday>" + newUser.getBirthDate() + "</birthday>" +
+                                "<lastLoginTime>" + lastLogin + "</lastLoginTime>" +
                                 "</User>"
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
-        let length: NSString = NSString(format: "%d", data.length)
-        
-        var err: NSError?
-        request.HTTPBody = data
-        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue(length, forHTTPHeaderField: "Content-Length")
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            var err: NSError? = error
+       
+        Alamofire.request(.POST, APPSIGNUP,  data: data, contentType: "application/xml").responseString {
             
-            if(err != nil) {
-                var dictionary = Dictionary<String, String>()
-                dictionary["error"] = err!.localizedDescription
-                NSNotificationCenter.defaultCenter().postNotificationName("NETWORK-ERROR", object: nil, userInfo: dictionary)
+            (request, response, string, error) in
+            
+            if (error != nil) {
+                println( error?.localizedDescription)
+                NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
                 
-            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
-                
-                var result: String! = ""
-                
-                if(httpResponse.statusCode == 200) {
-                    result = "Document Created"
-                } else if (httpResponse.statusCode == 204) {
-                    result = "Document Creation Failed: No Content"
-                } else if (httpResponse.statusCode == 406) {
-                    result = "Document Creation Failed: Bad Request"
-                } else if (httpResponse.statusCode == 404) {
-                    result = "Document Creation Failed: Link Not Found"
+            } else {
+                let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+                var err: NSError?
+                if let xml = AEXMLDocument(xmlData: xmlData!, error: &err) {
+                    
+                    var httpCode = xml.root["httpCode"].value
+                    var httpMessage = xml.root["httpMessage"].value
+                    var serverMessage = xml.root["serverMessage"].value
+                    var success = xml.root["success"].value
+                    
+                    if success {
+                        var dictionary = Dictionary<String, String>()
+                        dictionary["userToken"]
+                        NSNotificationCenter.defaultCenter().postNotificationName("SignupSuccess", object: nil, userInfo: dictionary)
+                    } else
+                    {
+                        NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil, userInfo: nil)
+                    }
+                    
+                   
+                    
                 } else {
-                    result = "Document Creation Failed: Internal Server Error"
+                    //Error getting xml back
+                    println("description: \(error?.localizedDescription)\ninfo: \(err?.userInfo)")
+                    NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil, userInfo: nil)
                 }
-                
-                var dictionary = Dictionary<String, String>()
-                dictionary["message"] = result
-                NSNotificationCenter.defaultCenter().postNotificationName("CREATE", object: nil, userInfo: dictionary)
             }
-            
-        })
-        
-        task.resume()
+        }
     }
     
-    func sendLoginRequet(user: User) {
-        var request = NSMutableURLRequest(URL: NSURL(string: APPLOGIN + user.getEmail() + "/" + user.getPassword())!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "GET"
+    func sendLoginRequet(email: String, password: String) {
         
-        let data : NSData = ("").dataUsingEncoding(NSUTF8StringEncoding)!;
-        let length: NSString = NSString(format: "%d", data.length)
+        var passwordData = (password as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+        let passwordHash = passwordData?.sha512()
         
-        var err: NSError?
-        request.HTTPBody = data
-        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue(length, forHTTPHeaderField: "Content-Length")
-        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
-        
-        println("sent")
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            var err: NSError? = error
+        Alamofire.request(.GET, APPLOGIN + email + "/" + passwordHash?.hexString, parameters: _).responseString {
             
-            if(err != nil) {
-                var dictionary = Dictionary<String, String>()
-                dictionary["error"] = err!.localizedDescription
-                NSNotificationCenter.defaultCenter().postNotificationName("NETWORK-ERROR", object: nil, userInfo: dictionary)
-            } else {
-                var dictionary = Dictionary<String, NSData>()
-                dictionary["data"] = data
-                NSNotificationCenter.defaultCenter().postNotificationName("VIEW-XML", object: nil, userInfo: dictionary)
-            }
+            (request, response, string, error) in
             
-        })
-        
-        task.resume()
+            if (error != nil) {
+                    println( error?.localizedDescription)
+                    NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+                    
+                } else {
+                    let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+                    var err: NSError?
+                    if let xml = AEXMLDocument(xmlData: xmlData!, error: &err) {
+                        
+                        var httpCode = xml.root["httpCode"].value
+                        var httpMessage = xml.root["httpMessage"].value
+                        var serverMessage = xml.root["serverMessage"].value
+                        var success = xml.root["success"].value
+                        
+                        if success {
+                            // Parse xml here
+                            var dictionary = Dictionary<String, String>()
+                            dictionary["userToken"]
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
+                        } else
+                        {
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil, userInfo: nil)
+                        }
+                        
+                    } else {
+                        //Error getting xml back
+                        println("description: \(error?.localizedDescription)\ninfo: \(err?.userInfo)")
+                        NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil, userInfo: nil)
+                    }
+                }
+        }
     }
 
     

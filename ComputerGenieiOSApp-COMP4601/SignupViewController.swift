@@ -43,12 +43,23 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
         validator.registerField(passwordConfirmField, errorLabel: passwordErrorLabel, rules: [RequiredRule(), ConfirmationRule(confirmField: passwordField)])
         validator.registerField(nameField, errorLabel: nameErrorLabel, rules: [RequiredRule(), FullNameRule()])
         validator.registerField(dateField, errorLabel: dateErrorLabel, rules: [DateRule()])
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeSignup:", name: "SignupSuccess", object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failSignup:", name: "SignupFail", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func completeSignup(notification: NSNotification) {
+        //Log the user in and give them their token
+    }
+    
+    func failSignup(notification:NSNotification) {
+        //Show error
+        println("Signup failed")
+    }
     
     @IBAction func signupPushed(sender: UIButton) {
         self.clearErrors()

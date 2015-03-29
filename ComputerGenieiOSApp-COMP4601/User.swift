@@ -10,12 +10,14 @@ import Foundation
 
 class User {
     
+    private var token: String?
     private let id: String
     private let email: String
     private var password: String
     private var name: String
     private var birthDate: String?
     private var gender: String?
+    private var lastLogin: String?
     
     init(id: String, email: String, password: String, name: String) {
         self.id = id
@@ -27,7 +29,7 @@ class User {
     func getAge() -> Int {
         
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "MM-DD-YY"
         
         if let birthday = dateFormatter.dateFromString(birthDate!) {
        
@@ -43,6 +45,14 @@ class User {
         }
         
         return 0
+    }
+    
+    func getToken() -> String? {
+        return self.token
+    }
+    
+    func setToken(token: String ) {
+        self.token = token
     }
     
     func getId() -> String {
@@ -106,5 +116,15 @@ class User {
     
     func getGender() -> String? {
         return self.gender
+    }
+    
+    func updateLastLogin() {
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        self.lastLogin = dateFormatter.stringFromDate(NSDate())
+    }
+    
+    func getLastLogin() -> String? {
+        return self.lastLogin
     }
 }
