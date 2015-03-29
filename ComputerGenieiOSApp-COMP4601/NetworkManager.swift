@@ -24,107 +24,141 @@ class NetworkManager {
         
         return Static.instance!
     }
-   
+    
     func sendSignupRequest(newUser: User) {
         var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
-      
-    
-        var passwordData = (newUser.getPassword() as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-        let passwordHash = passwordData?.sha512()
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        let id = newUser.getId()
+        let firstname = newUser.getFirstName()
+        let lastname = newUser.getLastName()
+        let email = newUser.getEmail()
+        let password = newUser.getPassword()
+        let passwordHash = password.sha512()
+        let gender = newUser.getGender()
+        let birthdate = newUser.getBirthDate()
         let lastLogin = newUser.getLastLogin()
         
-        let xmlString: String = "<?xml version=\"1.0\" ?>\n" + "<User>" +
-                                "<authToken>" + 0 + "</authToken>" +
-                                "<id>" + newUser.getId() + "</id>" +
-                                "<firstname>" + newUser.getFirstName() + "</firstname>" +
-                                "<lastname>" + newUser.getLastName() + "</lastname>" +
-                                "<email>" + newUser.getEmail() + "</email>" +
-                                "<passwordHash>" + passwordHash?.hexString + "</passwordHash>" +
-                                "<gender>" + newUser.getGender() + "</gender>" +
-                                "<birthday>" + newUser.getBirthDate() + "</birthday>" +
-                                "<lastLoginTime>" + lastLogin + "</lastLoginTime>" +
-                                "</User>"
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<User>"
+        xmlString += "<authToken>0</authToken>"
+        xmlString += "<id>\(id)</id>"
+        xmlString += "<firstname>\(firstname)</firstname>"
+        xmlString += "<lastname>\(lastname)</lastname>"
+        xmlString += "<email>\(email)</email>"
+        xmlString += "<passwordHash>\(passwordHash)</passwordHash>"
+        xmlString += "<gender>\(gender)</gender>"
+        xmlString += "<birthday>\(birthdate)</birthday>"
+        xmlString += "<lastLoginTime>\(lastLogin)</lastLoginTime>"
+        xmlString += "</User>"
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
-       
-        Alamofire.request(.POST, APPSIGNUP,  data: data, contentType: "application/xml").responseString {
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
             
-            (request, response, string, error) in
-            
-            if (error != nil) {
-                println( error?.localizedDescription)
-                NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+            if(err != nil) {
+                var dictionary = Dictionary<String, String>()
+                dictionary["error"] = err!.localizedDescription
+                NSNotificationCenter.defaultCenter().postNotificationName("NETWORK-ERROR", object: nil, userInfo: dictionary)
                 
-            } else {
-                let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-                var err: NSError?
-                if let xml = AEXMLDocument(xmlData: xmlData!, error: &err) {
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    let httpCode = xml.root["httpCode"].value
+                    let httpMessage = xml.root["httpMessage"].value
+                    let serverMessage = xml.root["serverMessage"].value!
+                    let success = xml.root["success"].value
                     
-                    var httpCode = xml.root["httpCode"].value
-                    var httpMessage = xml.root["httpMessage"].value
-                    var serverMessage = xml.root["serverMessage"].value
-                    var success = xml.root["success"].value
-                    
-                    if success {
-                        var dictionary = Dictionary<String, String>()
-                        dictionary["userToken"]
-                        NSNotificationCenter.defaultCenter().postNotificationName("SignupSuccess", object: nil, userInfo: dictionary)
+                    if let successFinal = success {
+                        if(successFinal == "true") {
+                            var dictionary: [String: AnyObject]  = ["token" : serverMessage]
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
+                        } else {
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                        }
                     } else
                     {
-                        NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil, userInfo: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                     }
-                    
-                   
-                    
-                } else {
-                    //Error getting xml back
-                    println("description: \(error?.localizedDescription)\ninfo: \(err?.userInfo)")
-                    NSNotificationCenter.defaultCenter().postNotificationName("SignupFail", object: nil, userInfo: nil)
                 }
+                else {
+                    NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                }
+
             }
-        }
+            
+        })
+        
+        task.resume()
     }
     
     func sendLoginRequet(email: String, password: String) {
         
-        var passwordData = (password as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-        let passwordHash = passwordData?.sha512()
+        let passwordHash = password.sha512()
+        var request = NSMutableURLRequest(URL: NSURL(string: APPLOGIN + email + "/" + passwordHash!)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
         
-        Alamofire.request(.GET, APPLOGIN + email + "/" + passwordHash?.hexString, parameters: _).responseString {
+        let data : NSData = ("").dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        println("sent")
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
             
-            (request, response, string, error) in
-            
-            if (error != nil) {
-                    println( error?.localizedDescription)
-                    NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+            if(err != nil) {
+                var dictionary = Dictionary<String, String>()
+                dictionary["error"] = err!.localizedDescription
+                NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+            } else {
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    let httpCode = xml.root["httpCode"].value
+                    let httpMessage = xml.root["httpMessage"].value
+                    let serverMessage = xml.root["serverMessage"].value!
+                    let success = xml.root["success"].value
                     
-                } else {
-                    let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-                    var err: NSError?
-                    if let xml = AEXMLDocument(xmlData: xmlData!, error: &err) {
-                        
-                        var httpCode = xml.root["httpCode"].value
-                        var httpMessage = xml.root["httpMessage"].value
-                        var serverMessage = xml.root["serverMessage"].value
-                        var success = xml.root["success"].value
-                        
-                        if success {
-                            // Parse xml here
-                            var dictionary = Dictionary<String, String>()
-                            dictionary["userToken"]
+                    if let successFinal = success {
+                        if(successFinal == "true") {
+                            var dictionary: [String: AnyObject]  = ["token" : serverMessage]
                             NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
-                        } else
-                        {
-                            NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil, userInfo: nil)
+    
+                        } else {
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                         }
-                        
-                    } else {
-                        //Error getting xml back
-                        println("description: \(error?.localizedDescription)\ninfo: \(err?.userInfo)")
-                        NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil, userInfo: nil)
+                    } else
+                    {
+                        NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
                     }
                 }
-        }
+                else {
+                    NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
+                }
+            }
+            
+        })
+        
+        task.resume()
     }
 
     
