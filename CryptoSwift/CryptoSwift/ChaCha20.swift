@@ -10,7 +10,7 @@ import Foundation
 
 public class ChaCha20 {
     
-    private let blockSizeBytes = 512 / 8
+    static let blockSize = 64 // 512 / 8
     private let stateSize = 16
     private var context:Context?
     
@@ -24,7 +24,7 @@ public class ChaCha20 {
         }
     }
     
-    init?(key:NSData, iv:NSData) {
+    public init?(key:[UInt8], iv:[UInt8]) {
         if let c = contextSetup(iv: iv, key: key) {
             context = c
         } else {
@@ -32,20 +32,26 @@ public class ChaCha20 {
         }
     }
     
-    func encrypt(message:NSData) -> NSData? {
+    convenience public init?(key:String, iv:String) {
+        if let kkey = key.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)?.bytes(), let iiv = iv.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)?.bytes() {
+            self.init(key: kkey, iv: iiv)
+        } else {
+            self.init(key: [UInt8](), iv: [UInt8]()) //FIXME: this is due Swift bug, remove this line later, when fixed
+            return nil
+        }
+    }
+
+    
+    public func encrypt(bytes:[UInt8]) -> [UInt8]? {
         if (context == nil) {
             return nil
         }
         
-        if let output = encryptBytes(message.bytes()) {
-            return NSData.withBytes(output)
-        }
-        
-        return nil
+        return encryptBytes(bytes)
     }
     
-    func decrypt(message:NSData) -> NSData? {
-        return encrypt(message)
+    public func decrypt(bytes:[UInt8]) -> [UInt8]? {
+        return encrypt(bytes)
     }
     
     private func wordToByte(input:[UInt32] /* 64 */) -> [UInt8]? /* 16 */ {
@@ -77,11 +83,7 @@ public class ChaCha20 {
 
         return output;
     }
-    
-    private func contextSetup(# iv:NSData, key:NSData) -> Context? {
-        return contextSetup(iv: iv.bytes(), key: key.bytes())
-    }
-    
+        
     private func contextSetup(# iv:[UInt8], key:[UInt8]) -> Context? {
         var ctx = Context()
         let kbits = key.count * 8
@@ -145,18 +147,18 @@ public class ChaCha20 {
                         ctx.input[13] = ctx.input[13] &+ 1
                         /* stopping at 2^70 bytes per nonce is user's responsibility */
                     }
-                    if (bytes <= blockSizeBytes) {
+                    if (bytes <= ChaCha20.blockSize) {
                         for (var i = 0; i < bytes; i++) {
                             c[i + cPos] = message[i + mPos] ^ output[i]
                         }
                         return c
                     }
-                    for (var i = 0; i < blockSizeBytes; i++) {
+                    for (var i = 0; i < ChaCha20.blockSize; i++) {
                         c[i + cPos] = message[i + mPos] ^ output[i]
                     }
-                    bytes -= blockSizeBytes
-                    cPos += blockSizeBytes
-                    mPos += blockSizeBytes
+                    bytes -= ChaCha20.blockSize
+                    cPos += ChaCha20.blockSize
+                    mPos += ChaCha20.blockSize
                 }
             }
         }

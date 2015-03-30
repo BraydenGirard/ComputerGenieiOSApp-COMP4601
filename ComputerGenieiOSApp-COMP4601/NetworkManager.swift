@@ -69,7 +69,7 @@ class NetworkManager {
         var err: NSError?
         request.HTTPBody = data
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue(length as String, forHTTPHeaderField: "Content-Length")
         
         println(xmlString)
         println("Url: " + APPSIGNUP)
@@ -131,7 +131,7 @@ class NetworkManager {
         var err: NSError?
         request.HTTPBody = data
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue(length as String, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
         println("sent")
@@ -156,7 +156,7 @@ class NetworkManager {
                     let birthday = xml.root["birthday"].value
                     let lastLogin = xml.root["lastLoginTime"].value!
                     
-                    if(httpResponse.statusCode == 200) {
+                    if(httpResponse!.statusCode == 200) {
                             UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin))
                         
                             NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil)
@@ -193,7 +193,7 @@ class NetworkManager {
         var err: NSError?
         request.HTTPBody = data
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue(length as String, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
         println("sent")
@@ -222,7 +222,7 @@ class NetworkManager {
                     let email = xml.root["email"].value!
                     let password = xml.root["passwordHash"].value!
                     
-                    if(httpResponse.statusCode == 200) {
+                    if(httpResponse!.statusCode == 200) {
                   
                     
                             UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin))

@@ -184,7 +184,6 @@
 			children = (
 				F66D70CD1AC73C430044B056 /* NetworkManager.swift */,
 				F66D70771AC7261C0044B056 /* AEXML.swift */,
-				F6547CD11AC77DC400905BEB /* SharedConstants.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -343,6 +342,7 @@
 		F6F281621AC8EA4300EFA6B8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F6547CD11AC77DC400905BEB /* SharedConstants.swift */,
 				F6F281631AC8EA5800EFA6B8 /* UserDefaultsManager.swift */,
 			);
 			name = Utilities;

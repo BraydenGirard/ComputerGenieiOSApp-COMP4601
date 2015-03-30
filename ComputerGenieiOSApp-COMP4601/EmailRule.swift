@@ -22,7 +22,7 @@ class EmailRule: Rule {
     
     func validate(value: String) -> Bool {
         let test = NSPredicate(format: "SELF MATCHES %@", self.REGEX)
-        if test!.evaluateWithObject(value) {
+        if test.evaluateWithObject(value) {
             return true
         }
         return false

@@ -8,16 +8,21 @@
 
 import Foundation
 
-class HashBase {
+protocol _Hash {
+    var size:Int { get }
+    func prepare(len:Int) -> NSMutableData;
+}
+
+internal class HashBase {
     
     var message: NSData
     
-    init(_ message: NSData) {
+    internal init(_ message: NSData) {
         self.message = message
     }
     
     /** Common part for hash calculation. Prepare header data. */
-    func prepare(_ len:Int = 64) -> NSMutableData {
+    internal func prepare(_ len:Int = 64) -> NSMutableData {
         var tmpMessage: NSMutableData = NSMutableData(data: self.message)
         
         // Step 1. Append Padding Bits
@@ -30,7 +35,7 @@ class HashBase {
             counter++
             msgLength++
         }
-        var bufZeros = UnsafeMutablePointer<UInt8>(calloc(UInt(counter), UInt(sizeof(UInt8))))
+        var bufZeros = UnsafeMutablePointer<UInt8>(calloc(counter, sizeof(UInt8)))
         tmpMessage.appendBytes(bufZeros, length: counter)
         
         return tmpMessage

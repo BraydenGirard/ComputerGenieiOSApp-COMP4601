@@ -57,7 +57,7 @@ class UserDefaultsManager {
     }
     
     func getToken() -> String {
-        return userDefaults.valueForKey(userTokenKeyConstant)==nil ? "" : userDefaults.valueForKey(userTokenKeyConstant) as String
+        return userDefaults.valueForKey(userTokenKeyConstant)==nil ? "" : userDefaults.valueForKey(userTokenKeyConstant) as! String
     }
     
     //User - Save / Get
@@ -82,7 +82,7 @@ class UserDefaultsManager {
     }
     
     func getEmailID() -> String {
-        return userDefaults.valueForKey(userEmailKeyConstant)==nil ? "" : userDefaults.valueForKey(userEmailKeyConstant) as String
+        return userDefaults.valueForKey(userEmailKeyConstant)==nil ? "" : userDefaults.valueForKey(userEmailKeyConstant) as! String
     }
     
     //UserID - Save / Get
@@ -91,7 +91,7 @@ class UserDefaultsManager {
     }
     
     func getUserID() -> String {
-        return userDefaults.valueForKey(userIdKeyConstant)==nil ? "" : userDefaults.valueForKey(userIdKeyConstant) as String
+        return userDefaults.valueForKey(userIdKeyConstant)==nil ? "" : userDefaults.valueForKey(userIdKeyConstant) as! String
     }
     
     //UserName - Save / Get
@@ -100,7 +100,7 @@ class UserDefaultsManager {
     }
     
     func getUserName() -> String {
-        return userDefaults.valueForKey(userNameKeyConstant)==nil ? "" : userDefaults.valueForKey(userNameKeyConstant) as String
+        return userDefaults.valueForKey(userNameKeyConstant)==nil ? "" : userDefaults.valueForKey(userNameKeyConstant) as! String
     }
     
     //Password - Save / Get
@@ -109,7 +109,7 @@ class UserDefaultsManager {
     }
     
     func getPassword() -> String {
-        return userDefaults.valueForKey(userPasswordKeyConstant)==nil ? "" : userDefaults.valueForKey(userPasswordKeyConstant) as String
+        return userDefaults.valueForKey(userPasswordKeyConstant)==nil ? "" : userDefaults.valueForKey(userPasswordKeyConstant) as! String
     }
     
     //Birthdate - Save / Get
@@ -118,7 +118,7 @@ class UserDefaultsManager {
     }
     
     func getBirthdate() -> String {
-        return userDefaults.valueForKey(userBirthdateKeyConstant)==nil ? "" : userDefaults.valueForKey(userBirthdateKeyConstant) as String
+        return userDefaults.valueForKey(userBirthdateKeyConstant)==nil ? "" : userDefaults.valueForKey(userBirthdateKeyConstant) as! String
     }
     
     //Gender - Save / Get
@@ -127,7 +127,7 @@ class UserDefaultsManager {
     }
     
     func getGender() -> String {
-        return userDefaults.valueForKey(userGenderKeyConstant)==nil ? "" : userDefaults.valueForKey(userGenderKeyConstant) as String
+        return userDefaults.valueForKey(userGenderKeyConstant)==nil ? "" : userDefaults.valueForKey(userGenderKeyConstant) as! String
     }
     
     //LastActive - Save / Get
@@ -136,6 +136,6 @@ class UserDefaultsManager {
     }
     
     func getLastLogin() -> String {
-        return userDefaults.valueForKey(userLastLoginKeyConstant) == nil ? "" : userDefaults.valueForKey(userLastLoginKeyConstant) as String
+        return userDefaults.valueForKey(userLastLoginKeyConstant) == nil ? "" : userDefaults.valueForKey(userLastLoginKeyConstant) as! String
     }
 }
