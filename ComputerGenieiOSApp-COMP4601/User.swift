@@ -26,6 +26,17 @@ class User {
         self.name = name
     }
     
+    init(token: String?, id: String, email: String, password: String, name: String, birthdate: String?, gender: String?, lastLogin: String?) {
+        self.token = token
+        self.id = id
+        self.email = email
+        self.password = password
+        self.name = name
+        self.birthDate = birthdate
+        self.gender = gender
+        self.lastLogin = lastLogin
+    }
+    
     func getAge() -> Int {
         
         var dateFormatter = NSDateFormatter()

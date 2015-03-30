@@ -55,6 +55,7 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
         //Log the user in and give them their token
         println("Controller: Signup Success")
         activityIndicator.stopAnimating()
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func failSignup(notification:NSNotification) {

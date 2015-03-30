@@ -47,6 +47,12 @@
 		F6E629251AC71A2B00DA1009 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6E629241AC71A2B00DA1009 /* Images.xcassets */; };
 		F6E629281AC71A2B00DA1009 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E629261AC71A2B00DA1009 /* LaunchScreen.xib */; };
 		F6E629341AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */; };
+		F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281481AC8836600EFA6B8 /* MainController.swift */; };
+		F6F2815F1AC8E60700EFA6B8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */; };
+		F6F281611AC8E8A500EFA6B8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */; };
+		F6F281641AC8EA5800EFA6B8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281631AC8EA5800EFA6B8 /* UserDefaultsManager.swift */; };
+		F6F281671AC8F7C000EFA6B8 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281651AC8F7C000EFA6B8 /* ENSideMenu.swift */; };
+		F6F281681AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281661AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +191,12 @@
 		F6E6292D1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ComputerGenieiOSApp-COMP4601Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E629321AC71A2B00DA1009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerGenieiOSApp_COMP4601Tests.swift; sourceTree = "<group>"; };
+		F6F281481AC8836600EFA6B8 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		F6F281631AC8EA5800EFA6B8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		F6F281651AC8F7C000EFA6B8 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
+		F6F281661AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,8 +241,13 @@
 		F6547CAC1AC7630700905BEB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F6F281651AC8F7C000EFA6B8 /* ENSideMenu.swift */,
+				F6F281661AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift */,
 				F6E6291F1AC71A2B00DA1009 /* LoginViewController.swift */,
 				F66D70D01AC73CE10044B056 /* SignupViewController.swift */,
+				F6F281481AC8836600EFA6B8 /* MainController.swift */,
+				F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */,
+				F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -334,6 +351,7 @@
 		F6E6291A1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601 */ = {
 			isa = PBXGroup;
 			children = (
+				F6F281621AC8EA4300EFA6B8 /* Utilities */,
 				F6547CB11AC779C900905BEB /* Resources */,
 				F6E6291D1AC71A2B00DA1009 /* AppDelegate.swift */,
 				F6547CAE1AC7632900905BEB /* Views */,
@@ -370,6 +388,14 @@
 				F6E629321AC71A2B00DA1009 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F6F281621AC8EA4300EFA6B8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F6F281631AC8EA5800EFA6B8 /* UserDefaultsManager.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -547,10 +573,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F66D70D11AC73CE10044B056 /* SignupViewController.swift in Sources */,
+				F6F281611AC8E8A500EFA6B8 /* NavigationViewController.swift in Sources */,
+				F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */,
 				F66D70CE1AC73C430044B056 /* User.swift in Sources */,
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
 				F66D70EE1AC740C70044B056 /* PhoneNumberRule.swift in Sources */,
+				F6F281671AC8F7C000EFA6B8 /* ENSideMenu.swift in Sources */,
 				F6E629201AC71A2B00DA1009 /* LoginViewController.swift in Sources */,
 				F66D70EB1AC740C70044B056 /* FullNameRule.swift in Sources */,
 				F66D70EF1AC740C70044B056 /* RequiredRule.swift in Sources */,
@@ -558,11 +587,14 @@
 				F66D70EC1AC740C70044B056 /* MinLengthRule.swift in Sources */,
 				F66D70E91AC740C70044B056 /* ConfirmRule.swift in Sources */,
 				F66D70ED1AC740C70044B056 /* PasswordRule.swift in Sources */,
+				F6F281641AC8EA5800EFA6B8 /* UserDefaultsManager.swift in Sources */,
 				F66D70F31AC740C70044B056 /* Validator.swift in Sources */,
 				F66D70F11AC740C70044B056 /* ValidationError.swift in Sources */,
 				F6547CB01AC7708400905BEB /* DateRule.swift in Sources */,
 				F66D70781AC7261C0044B056 /* AEXML.swift in Sources */,
+				F6F2815F1AC8E60700EFA6B8 /* TableViewController.swift in Sources */,
 				F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */,
+				F6F281681AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift in Sources */,
 				F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */,
 				F66D70F41AC740C70044B056 /* ZipCodeRule.swift in Sources */,
 				F66D70F01AC740C70044B056 /* Rule.swift in Sources */,

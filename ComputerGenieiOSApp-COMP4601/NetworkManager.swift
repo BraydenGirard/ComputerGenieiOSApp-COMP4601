@@ -61,6 +61,8 @@ class NetworkManager {
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         
+        println(xmlString)
+        println("Url: " + APPSIGNUP)
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
@@ -82,7 +84,9 @@ class NetworkManager {
                     
                     if let successFinal = success {
                         if(successFinal == "true") {
-                            var dictionary: [String: AnyObject]  = ["token" : serverMessage]
+                            newUser.setToken(serverMessage)
+                            UserDefaultsManager.sharedInstance.saveUserData(newUser)
+                            var dictionary: [String: AnyObject]  = [userTokenKeyConstant : serverMessage]
                             NSNotificationCenter.defaultCenter().postNotificationName("SignupSuccess", object: nil, userInfo: dictionary)
                         } else {
                             println("Network Manager: Success is equal to: \(successFinal)")
@@ -143,8 +147,8 @@ class NetworkManager {
                     
                     if let successFinal = success {
                         if(successFinal == "true") {
-                            var dictionary: [String: AnyObject]  = ["token" : serverMessage]
-                            NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil, userInfo: dictionary)
+                            UserDefaultsManager.sharedInstance.saveToken(serverMessage)
+                            NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil)
     
                         } else {
                             println("Network Manager: Success is equal to: \(successFinal)")

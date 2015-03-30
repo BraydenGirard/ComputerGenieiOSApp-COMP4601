@@ -8,6 +8,8 @@
 
 import UIKit
 
+let loginSegue = "login_segue"
+
 class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
 
     @IBOutlet var emailField: UITextField!
@@ -18,11 +20,11 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     
     let validator = Validator()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
+        self.navigationItem.hidesBackButton = true;
         
         validator.registerField(emailField, errorLabel: emailErrorLabel, rules: [RequiredRule(), EmailRule()])
         validator.registerField(passwordField, errorLabel: passwordErrorLabel, rules: [RequiredRule(), PasswordRule()])
@@ -38,6 +40,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         //Log the user in here and give them their token from the notification
         println("Controller: Login successful")
         activityIndicator.stopAnimating()
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func failLogin(notification:NSNotification) {

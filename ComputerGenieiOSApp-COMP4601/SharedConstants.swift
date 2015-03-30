@@ -25,3 +25,4 @@ let APPLOGIN: String = APPCURRENTSERVER + "/user/0/"
 
 //Find user - GET /user/{authToken}/{id}
 let APPUSER: String = APPCURRENTSERVER + "/user/"
+
