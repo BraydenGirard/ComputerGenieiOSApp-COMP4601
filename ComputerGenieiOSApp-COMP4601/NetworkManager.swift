@@ -49,14 +49,16 @@ class NetworkManager {
         xmlString += "<email>\(email)</email>"
         xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
         if let genderFinal = gender {
+            println("Found a gender")
             xmlString += "<gender>\(genderFinal)</gender>"
         } else {
-            xmlString += "<gender xsi:nil=\"true\"/>"
+            xmlString += "<gender></gender>"
         }
         if let birthdateFinal = birthdate {
+            println("Found a birthdate")
             xmlString += "<birthday>\(birthdateFinal)</birthday>"
         } else {
-            xmlString += "<birthday xsi:nil=\"true\"/>"
+            xmlString += "<birthday></birthday>"
         }
         xmlString += "<lastLoginTime>\(lastLogin)</lastLoginTime>"
         xmlString += "</User>"
