@@ -379,16 +379,30 @@
                                     <rect key="frame" x="182" y="381" width="37" height="37"/>
                                 </variation>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UC6-jL-3GC">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="170" y="134" width="49" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="logoutPushed:" destination="fWq-th-w2w" eventType="touchUpInside" id="zQM-RJ-UxP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="J8A-av-BON"/>
+                                <exclude reference="UC6-jL-3GC"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="J8A-av-BON"/>
+                                <include reference="UC6-jL-3GC"/>
                             </mask>
                         </variation>
                     </view>

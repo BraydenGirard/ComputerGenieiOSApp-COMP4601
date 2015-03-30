@@ -53,15 +53,20 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     func completeSignup(notification: NSNotification) {
         //Log the user in and give them their token
-        println("Controller: Signup Success")
-        activityIndicator.stopAnimating()
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Signup successful")
+            self.activityIndicator.stopAnimating()
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
     }
     
     func failSignup(notification:NSNotification) {
         //Show error
-        println("Controller: Signup failed")
-        activityIndicator.stopAnimating()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Signup failed")
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     @IBAction func signupPushed(sender: UIButton) {

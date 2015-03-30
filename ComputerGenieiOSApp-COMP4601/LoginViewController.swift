@@ -38,15 +38,21 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     
     func completeLogin(notification: NSNotification) {
         //Log the user in here and give them their token from the notification
-        println("Controller: Login successful")
-        activityIndicator.stopAnimating()
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Login successful")
+            self.activityIndicator.stopAnimating()
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
+       
     }
     
     func failLogin(notification:NSNotification) {
         //Show an error
-        println("Controller: Login failed")
-        activityIndicator.stopAnimating()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Login failed")
+            self.activityIndicator.stopAnimating()
+        }
     }
 
     

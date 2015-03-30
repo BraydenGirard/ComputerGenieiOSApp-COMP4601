@@ -12,6 +12,7 @@ class MainController: UIViewController {
     
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    
     var firstLoad = false
     
     override func viewDidLoad() {
@@ -39,7 +40,10 @@ class MainController: UIViewController {
     
     
     
-    
+    @IBAction func logoutPushed(sender: UIButton) {
+        UserDefaultsManager.sharedInstance.clearUserDefaults()
+        self.performSegueWithIdentifier(loginSegue, sender: self)
+    }
     
     
     

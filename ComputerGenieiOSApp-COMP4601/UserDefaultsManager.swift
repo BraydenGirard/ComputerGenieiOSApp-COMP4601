@@ -69,7 +69,7 @@ class UserDefaultsManager {
         savePassword(user.getPassword())
         saveBirthdate(user.getBirthDate())
         saveGender(user.getGender())
-        saveLastLogin(user.getLastLogin()!)
+        saveLastLogin(user.getLastLogin())
     }
     
     func getUserData() -> User {
@@ -131,7 +131,7 @@ class UserDefaultsManager {
     }
     
     //LastActive - Save / Get
-    private func saveLastLogin(lastActive: String) {
+    private func saveLastLogin(lastActive: String?) {
         userDefaults.setValue(lastActive, forKey: userLastLoginKeyConstant)
     }
     
