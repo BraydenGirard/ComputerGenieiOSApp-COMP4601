@@ -1,45 +1,38 @@
 //
-//  MainController.swift
+//  ProductsViewController.swift
 //  ComputerGenieiOSApp-COMP4601
 //
-//  Created by Brayden Girard on 2015-03-29.
+//  Created by Brayden Girard on 2015-03-30.
 //  Copyright (c) 2015 Brayden Girard. All rights reserved.
 //
 
 import UIKit
 
-class MainController: UIViewController, ENSideMenuDelegate {
-    
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
-    
-    var firstLoad = false
-    
+class ProductsViewController: UIViewController, ENSideMenuDelegate {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstLoad = true
+        self.title = "Your Products"
+        let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 27, 18)
+        button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         
+        let barButton = UIBarButtonItem(customView: button)
+
+        self.navigationItem.leftBarButtonItem = barButton
     }
     
     override func viewDidAppear(animated: Bool) {
-        let defaults = NSUserDefaults.standardUserDefaults()
         
-        if let token = defaults.stringForKey(userTokenKeyConstant)
-        {
-            //Setup view
-        } else {
-            println("Calling login segue")
-            self.performSegueWithIdentifier(loginSegue, sender: self)
-        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-    @IBAction func toggleSideMenu(sender: UIButton) {
+    func toggleSideMenu(sender: UIButton) {
         println("Button pushed")
         self.toggleSideMenuView()
     }
@@ -57,7 +50,4 @@ class MainController: UIViewController, ENSideMenuDelegate {
         println("sideMenuShouldOpenSideMenu")
         return true
     }
-    
-    
-    
 }

@@ -35,6 +35,17 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Signup"
+        let button = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        button.frame = CGRectMake(0, 0, 50, 36)
+        button.setTitle("< Back", forState: UIControlState.Normal)
+        button.addTarget(self, action: "backPushed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        
+        self.navigationItem.leftBarButtonItem = barButton
+
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         
         validator.registerField(emailField, errorLabel: emailErrorLabel, rules: [RequiredRule(), EmailRule()])
@@ -72,6 +83,10 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     @IBAction func signupPushed(sender: UIButton) {
         self.clearErrors()
         validator.validateAll(self)
+    }
+    
+    func backPushed(sender: UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
  
     @IBAction func malePushed(sender: UIButton) {

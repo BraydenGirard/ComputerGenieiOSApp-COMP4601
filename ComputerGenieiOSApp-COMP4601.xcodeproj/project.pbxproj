@@ -24,6 +24,7 @@
 		F6547CCF1AC779DE00905BEB /* male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC01AC779DE00905BEB /* male@2x.png */; };
 		F6547CD01AC779DE00905BEB /* male@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC11AC779DE00905BEB /* male@3x.png */; };
 		F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CD11AC77DC400905BEB /* SharedConstants.swift */; };
+		F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */; };
 		F66D70781AC7261C0044B056 /* AEXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70771AC7261C0044B056 /* AEXML.swift */; };
 		F66D70CE1AC73C430044B056 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CC1AC73C430044B056 /* User.swift */; };
 		F66D70CF1AC73C430044B056 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CD1AC73C430044B056 /* NetworkManager.swift */; };
@@ -40,12 +41,24 @@
 		F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70E61AC740C70044B056 /* ValidationRule.swift */; };
 		F66D70F31AC740C70044B056 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70E71AC740C70044B056 /* Validator.swift */; };
 		F66D70F41AC740C70044B056 /* ZipCodeRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70E81AC740C70044B056 /* ZipCodeRule.swift */; };
+		F6AD85A91ACA06A2000B29B5 /* OSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85A81ACA06A2000B29B5 /* OSViewController.swift */; };
+		F6AD85AC1ACA06C5000B29B5 /* UseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85AB1ACA06C5000B29B5 /* UseViewController.swift */; };
+		F6AD85AE1ACA06D5000B29B5 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */; };
+		F6AD85B01ACA06E9000B29B5 /* AdvancedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */; };
+		F6AD85B21ACA06F8000B29B5 /* GenieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */; };
 		F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6291D1AC71A2B00DA1009 /* AppDelegate.swift */; };
 		F6E629201AC71A2B00DA1009 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6291F1AC71A2B00DA1009 /* LoginViewController.swift */; };
 		F6E629231AC71A2B00DA1009 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6E629211AC71A2B00DA1009 /* Main.storyboard */; };
 		F6E629251AC71A2B00DA1009 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6E629241AC71A2B00DA1009 /* Images.xcassets */; };
 		F6E629281AC71A2B00DA1009 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E629261AC71A2B00DA1009 /* LaunchScreen.xib */; };
 		F6E629341AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */; };
+		F6EEAEA91AC9D0FF0064EDEA /* menu_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA61AC9D0FF0064EDEA /* menu_button.png */; };
+		F6EEAEAA1AC9D0FF0064EDEA /* menu_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA71AC9D0FF0064EDEA /* menu_button@2x.png */; };
+		F6EEAEAB1AC9D0FF0064EDEA /* menu_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA81AC9D0FF0064EDEA /* menu_button@3x.png */; };
+		F6EEAEAF1AC9D7420064EDEA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEAEAE1AC9D7420064EDEA /* ProfileViewController.swift */; };
+		F6EEAEB11AC9D7580064EDEA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEAEB01AC9D7580064EDEA /* SettingsViewController.swift */; };
+		F6EEAEB31AC9D7660064EDEA /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEAEB21AC9D7660064EDEA /* ProductsViewController.swift */; };
+		F6EEAEB51AC9D7730064EDEA /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEAEB41AC9D7730064EDEA /* FindViewController.swift */; };
 		F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281481AC8836600EFA6B8 /* MainController.swift */; };
 		F6F2815F1AC8E60700EFA6B8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */; };
 		F6F281611AC8E8A500EFA6B8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */; };
@@ -126,6 +139,7 @@
 		F6547CC01AC779DE00905BEB /* male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@2x.png"; path = "Resources/Images/male@2x.png"; sourceTree = "<group>"; };
 		F6547CC11AC779DE00905BEB /* male@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@3x.png"; path = "Resources/Images/male@3x.png"; sourceTree = "<group>"; };
 		F6547CD11AC77DC400905BEB /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieRequest.swift; sourceTree = "<group>"; };
 		F66D40B31AC9A6F1008CD6B2 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		F66D70771AC7261C0044B056 /* AEXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AEXML.swift; sourceTree = "<group>"; };
 		F66D70CC1AC73C430044B056 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -143,6 +157,11 @@
 		F66D70E61AC740C70044B056 /* ValidationRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationRule.swift; sourceTree = "<group>"; };
 		F66D70E71AC740C70044B056 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		F66D70E81AC740C70044B056 /* ZipCodeRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeRule.swift; sourceTree = "<group>"; };
+		F6AD85A81ACA06A2000B29B5 /* OSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSViewController.swift; sourceTree = "<group>"; };
+		F6AD85AB1ACA06C5000B29B5 /* UseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseViewController.swift; sourceTree = "<group>"; };
+		F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
+		F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedViewController.swift; sourceTree = "<group>"; };
+		F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieViewController.swift; sourceTree = "<group>"; };
 		F6E629181AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ComputerGenieiOSApp-COMP4601.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E6291C1AC71A2B00DA1009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E6291D1AC71A2B00DA1009 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +172,13 @@
 		F6E6292D1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ComputerGenieiOSApp-COMP4601Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E629321AC71A2B00DA1009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerGenieiOSApp_COMP4601Tests.swift; sourceTree = "<group>"; };
+		F6EEAEA61AC9D0FF0064EDEA /* menu_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_button.png; path = Resources/Images/menu_button.png; sourceTree = "<group>"; };
+		F6EEAEA71AC9D0FF0064EDEA /* menu_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu_button@2x.png"; path = "Resources/Images/menu_button@2x.png"; sourceTree = "<group>"; };
+		F6EEAEA81AC9D0FF0064EDEA /* menu_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu_button@3x.png"; path = "Resources/Images/menu_button@3x.png"; sourceTree = "<group>"; };
+		F6EEAEAE1AC9D7420064EDEA /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F6EEAEB01AC9D7580064EDEA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F6EEAEB21AC9D7660064EDEA /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		F6EEAEB41AC9D7730064EDEA /* FindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		F6F281481AC8836600EFA6B8 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +225,15 @@
 				F6F281481AC8836600EFA6B8 /* MainController.swift */,
 				F6F2815E1AC8E60700EFA6B8 /* TableViewController.swift */,
 				F6F281601AC8E8A500EFA6B8 /* NavigationViewController.swift */,
+				F6EEAEAE1AC9D7420064EDEA /* ProfileViewController.swift */,
+				F6EEAEB01AC9D7580064EDEA /* SettingsViewController.swift */,
+				F6EEAEB21AC9D7660064EDEA /* ProductsViewController.swift */,
+				F6EEAEB41AC9D7730064EDEA /* FindViewController.swift */,
+				F6AD85A81ACA06A2000B29B5 /* OSViewController.swift */,
+				F6AD85AB1ACA06C5000B29B5 /* UseViewController.swift */,
+				F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */,
+				F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */,
+				F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -207,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				F66D70CC1AC73C430044B056 /* User.swift */,
+				F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -231,6 +267,9 @@
 		F6547CB21AC779CF00905BEB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F6EEAEA61AC9D0FF0064EDEA /* menu_button.png */,
+				F6EEAEA71AC9D0FF0064EDEA /* menu_button@2x.png */,
+				F6EEAEA81AC9D0FF0064EDEA /* menu_button@3x.png */,
 				F6547CB31AC779DE00905BEB /* female_selected.png */,
 				F6547CB41AC779DE00905BEB /* female_selected@2x.png */,
 				F6547CB51AC779DE00905BEB /* female_selected@3x.png */,
@@ -454,9 +493,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6EEAEA91AC9D0FF0064EDEA /* menu_button.png in Resources */,
 				F6547CCF1AC779DE00905BEB /* male@2x.png in Resources */,
 				F6547CC21AC779DE00905BEB /* female_selected.png in Resources */,
 				F6547CD01AC779DE00905BEB /* male@3x.png in Resources */,
+				F6EEAEAB1AC9D0FF0064EDEA /* menu_button@3x.png in Resources */,
 				F6547CC91AC779DE00905BEB /* logo@2x.png in Resources */,
 				F6547CCD1AC779DE00905BEB /* male_selected@3x.png in Resources */,
 				F6E629231AC71A2B00DA1009 /* Main.storyboard in Resources */,
@@ -464,6 +505,7 @@
 				F6547CCB1AC779DE00905BEB /* male_selected.png in Resources */,
 				F6E629281AC71A2B00DA1009 /* LaunchScreen.xib in Resources */,
 				F6547CC61AC779DE00905BEB /* female@2x.png in Resources */,
+				F6EEAEAA1AC9D0FF0064EDEA /* menu_button@2x.png in Resources */,
 				F6547CC51AC779DE00905BEB /* female.png in Resources */,
 				F6547CC81AC779DE00905BEB /* logo.png in Resources */,
 				F6547CCE1AC779DE00905BEB /* male.png in Resources */,
@@ -494,9 +536,16 @@
 				F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */,
 				F66D70CE1AC73C430044B056 /* User.swift in Sources */,
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
+				F6EEAEB51AC9D7730064EDEA /* FindViewController.swift in Sources */,
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
+				F6EEAEAF1AC9D7420064EDEA /* ProfileViewController.swift in Sources */,
 				F66D70EE1AC740C70044B056 /* PhoneNumberRule.swift in Sources */,
 				F6F281671AC8F7C000EFA6B8 /* ENSideMenu.swift in Sources */,
+				F6EEAEB31AC9D7660064EDEA /* ProductsViewController.swift in Sources */,
+				F6AD85AE1ACA06D5000B29B5 /* PriceViewController.swift in Sources */,
+				F6AD85B21ACA06F8000B29B5 /* GenieViewController.swift in Sources */,
+				F6AD85B01ACA06E9000B29B5 /* AdvancedViewController.swift in Sources */,
+				F6AD85A91ACA06A2000B29B5 /* OSViewController.swift in Sources */,
 				F6E629201AC71A2B00DA1009 /* LoginViewController.swift in Sources */,
 				F66D70EB1AC740C70044B056 /* FullNameRule.swift in Sources */,
 				F66D70EF1AC740C70044B056 /* RequiredRule.swift in Sources */,
@@ -504,6 +553,7 @@
 				F66D70EC1AC740C70044B056 /* MinLengthRule.swift in Sources */,
 				F66D70E91AC740C70044B056 /* ConfirmRule.swift in Sources */,
 				F66D70ED1AC740C70044B056 /* PasswordRule.swift in Sources */,
+				F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */,
 				F6F281641AC8EA5800EFA6B8 /* UserDefaultsManager.swift in Sources */,
 				F66D70F31AC740C70044B056 /* Validator.swift in Sources */,
 				F66D70F11AC740C70044B056 /* ValidationError.swift in Sources */,
@@ -511,9 +561,11 @@
 				F66D70781AC7261C0044B056 /* AEXML.swift in Sources */,
 				F6F2815F1AC8E60700EFA6B8 /* TableViewController.swift in Sources */,
 				F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */,
+				F6EEAEB11AC9D7580064EDEA /* SettingsViewController.swift in Sources */,
 				F6F281681AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift in Sources */,
 				F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */,
 				F66D70F41AC740C70044B056 /* ZipCodeRule.swift in Sources */,
+				F6AD85AC1ACA06C5000B29B5 /* UseViewController.swift in Sources */,
 				F66D70F01AC740C70044B056 /* Rule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
