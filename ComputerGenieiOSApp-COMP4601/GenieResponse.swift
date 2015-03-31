@@ -10,18 +10,24 @@ import Foundation
 
 class GenieResponse {
     
+    private let id: String
     private let name: String
     private let url: String
     private let image: String
     private let price: Float
     private let retailer: String
     
-    init(name: String, url: String, image: String, price: Float, retailer: String) {
+    init(id: String, name: String, url: String, image: String, price: Float, retailer: String) {
         self.name = name
         self.url = url
         self.image = image
         self.price = price
         self.retailer = retailer
+        self.id = id
+    }
+    
+    func getId() -> String {
+        return self.id
     }
     
     func getName() -> String {

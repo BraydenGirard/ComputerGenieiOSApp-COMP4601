@@ -62,35 +62,26 @@ class GenieViewController: UITableViewController{
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CELL") as? UITableViewCell
-        
-        if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL")
-            cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel?.textColor = UIColor.darkGrayColor()
-            let selectedBackgroundView = UIView(frame: CGRectMake(0, 0, cell!.frame.size.width, cell!.frame.size.height))
-            selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
-            cell!.selectedBackgroundView = selectedBackgroundView
-        }
+        var cell = tableView.dequeueReusableCellWithIdentifier("BasicCell") as? ImageCell
         
         switch (indexPath.row) {
         case 0:
-            cell?.textLabel?.text = "Home"
+            cell?.titleLabel.text = "Home"
             break
         case 1:
-            cell?.textLabel?.text = "Profile"
+            cell?.titleLabel.text = "Profile"
             break
         case 2:
-            cell?.textLabel?.text = "Find Product"
+            cell?.titleLabel.text = "Find Product"
             break
         case 3:
-            cell?.textLabel?.text = "Your Products"
+            cell?.titleLabel.text = "Your Products"
             break
         case 4:
-            cell?.textLabel?.text = "Settings"
+            cell?.titleLabel.text = "Settings"
             break
         default:
-            cell?.textLabel?.text = "Home"
+            cell?.titleLabel.text = "Home"
             break
         }
         

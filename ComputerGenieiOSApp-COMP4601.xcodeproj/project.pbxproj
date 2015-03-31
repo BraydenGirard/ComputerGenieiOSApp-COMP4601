@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F610E49B1ACB1885000B1518 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F610E49A1ACB1885000B1518 /* BasicCell.swift */; };
+		F610E49E1ACB1963000B1518 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F610E49D1ACB1963000B1518 /* ImageCell.swift */; };
 		F6443D091ACB050900C8759F /* GenieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6443D081ACB050900C8759F /* GenieResponse.swift */; };
 		F6547CB01AC7708400905BEB /* DateRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CAF1AC7708400905BEB /* DateRule.swift */; };
 		F6547CC21AC779DE00905BEB /* female_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CB31AC779DE00905BEB /* female_selected.png */; };
@@ -123,6 +125,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F610E49A1ACB1885000B1518 /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
+		F610E49D1ACB1963000B1518 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		F6443D081ACB050900C8759F /* GenieResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieResponse.swift; sourceTree = "<group>"; };
 		F6547CAF1AC7708400905BEB /* DateRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateRule.swift; sourceTree = "<group>"; };
 		F6547CB31AC779DE00905BEB /* female_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = female_selected.png; path = Resources/Images/female_selected.png; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 				F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */,
 				F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */,
 				F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */,
+				F610E49A1ACB1885000B1518 /* BasicCell.swift */,
+				F610E49D1ACB1963000B1518 /* ImageCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -536,6 +542,7 @@
 			files = (
 				F66D70D11AC73CE10044B056 /* SignupViewController.swift in Sources */,
 				F6F281611AC8E8A500EFA6B8 /* NavigationViewController.swift in Sources */,
+				F610E49B1ACB1885000B1518 /* BasicCell.swift in Sources */,
 				F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */,
 				F66D70CE1AC73C430044B056 /* User.swift in Sources */,
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
@@ -543,6 +550,7 @@
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
 				F6EEAEAF1AC9D7420064EDEA /* ProfileViewController.swift in Sources */,
 				F66D70EE1AC740C70044B056 /* PhoneNumberRule.swift in Sources */,
+				F610E49E1ACB1963000B1518 /* ImageCell.swift in Sources */,
 				F6F281671AC8F7C000EFA6B8 /* ENSideMenu.swift in Sources */,
 				F6EEAEB31AC9D7660064EDEA /* ProductsViewController.swift in Sources */,
 				F6AD85AE1ACA06D5000B29B5 /* PriceViewController.swift in Sources */,

@@ -185,6 +185,7 @@ class NetworkManager {
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
                     
                     var results: [GenieResponse]?
+                    var idFinal: String?
                     var nameFinal: String?
                     var urlFinal: String?
                     var imageFinal: String?
@@ -194,7 +195,12 @@ class NetworkManager {
                     //GenieResponses
                     if let responses = xml.root["GenieResponses"]["GenieResponse"].all {
                         for response in responses {
-                           
+                            if let id = response["id"].value {
+                                idFinal = id
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
                             if let name = response["name"].value {
                                 nameFinal = name
                             } else {
@@ -226,7 +232,7 @@ class NetworkManager {
                                 continue
                             }
                             
-                            results?.append(GenieResponse(name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!))
+                            results?.append(GenieResponse(id: idFinal!, name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!))
                         }
                     }
                     
