@@ -21,6 +21,8 @@ class AdvancedViewController: UIViewController {
     
     var genieRequest: GenieRequest?
     
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +30,9 @@ class AdvancedViewController: UIViewController {
         screenLabel.text = "Unspecified"
         memoryLabel.text = "Unspecified"
         hddLabel.text = "Unspecified"
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeGenie:", name: "GenieSuccess", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failGenie:", name: "GenieFail", object: nil)
         
     }
     
@@ -39,9 +44,30 @@ class AdvancedViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    func completeGenie(notification: NSNotification) {
+        //Log the user in here and give them their token from the notification
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Genie request successful")
+            self.activityIndicator.stopAnimating()
+            self.performSegueWithIdentifier("genie_segue", sender: notification)
+        }
+        
+    }
+    
+    func failGenie(notification:NSNotification) {
+        //Show an error
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Genie request failed")
+            self.activityIndicator.stopAnimating()
+        }
+    }
+
+    
     @IBAction func geniePushed(sender: UIButton) {
         self.genieRequest?.print()
-        self.performSegueWithIdentifier("genie_segue", sender: sender)
+        self.activityIndicator.startAnimating()
+        NetworkManager.sharedInstance.sendGenieRequest(self.genieRequest!)
     }
     
     @IBAction func screenChanged(sender: UISlider) {
@@ -122,7 +148,11 @@ class AdvancedViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "genie_segue") {
-            //Do genie magic here
+            let destinationViewController = segue.destinationViewController as GenieViewController
+            let notification = sender as NSNotification
+            let userInfo:Dictionary<String, [GenieResponse]> = notification.userInfo as Dictionary<String, [GenieResponse]>
+            let genieResponse = userInfo["genieresponse"]
+            destinationViewController.setGenieResponse(genieResponse)
         }
     }
     

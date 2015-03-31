@@ -11,14 +11,14 @@ import Foundation
 let unknown = "Unknown"
 class GenieRequest {
     
-    var form: String
-    var os: String
-    var use: String
-    var price: Int
-    var screen: Int
-    var memory: Int
-    var hdd: Int
-    var ssd: Bool
+    private var form: String
+    private var os: String
+    private var use: String
+    private var price: Int
+    private var screen: Int
+    private var memory: Int
+    private var hdd: Int
+    private var ssd: Bool
     
     init() {
         self.form = unknown

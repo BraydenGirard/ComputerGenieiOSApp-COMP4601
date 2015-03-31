@@ -25,6 +25,10 @@ class NetworkManager {
         return Static.instance!
     }
     
+    /******************************************
+                POST network requests
+    ******************************************/
+    
     func sendSignupRequest(newUser: User) {
         var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
         var session = NSURLSession.sharedSession()
@@ -117,6 +121,142 @@ class NetworkManager {
         
         task.resume()
     }
+
+    func sendGenieRequest(genieRequest: GenieRequest) {
+        var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        let form = genieRequest.getForm()
+        let os = genieRequest.getOS()
+        let use = genieRequest.getUse()
+        let price = genieRequest.getPrice()
+        let screen = genieRequest.getScreen()
+        let memory = genieRequest.getMemory()
+        let hdd = genieRequest.getHDD()
+        let ssd = genieRequest.getSSD()
+        
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<GenieRequest>"
+        xmlString += "<form>\(form)</form>"
+        xmlString += "<os>\(os)</os>"
+        xmlString += "<use>\(use)</use>"
+        xmlString += "<price>\(price)</price>"
+        if screen == 0 {
+             xmlString += "<screen></screen>"
+        } else {
+             xmlString += "<screen>\(screen)</screen>"
+        }
+       
+        if memory == 0 {
+            xmlString += "<memory></memory>"
+        } else {
+            xmlString += "<memory>\(memory)</memory>"
+        }
+        if hdd == 0 {
+            xmlString += "<hdd></hdd>"
+        } else {
+            xmlString += "<hdd>\(hdd)</hdd>"
+        }
+        xmlString += "<ssd>\(ssd)</ssd>"
+        xmlString += "</GenieRequest>"
+        
+        let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        
+        println(xmlString)
+        println("Url: " + APPGENIE)
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
+            
+            if(err != nil) {
+                NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
+                
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    
+                    var results: [GenieResponse]?
+                    var nameFinal: String?
+                    var urlFinal: String?
+                    var imageFinal: String?
+                    var priceFinal: Float?
+                    var retailerFinal: String?
+                    
+                    //GenieResponses
+                    if let responses = xml.root["GenieResponses"]["GenieResponse"].all {
+                        for response in responses {
+                           
+                            if let name = response["name"].value {
+                                nameFinal = name
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
+                            if let url = response["url"].value {
+                                urlFinal = url
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
+                            if let image = response["image"].value {
+                                imageFinal = image
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
+                            if let price = response["price"].value {
+                                priceFinal = (price as NSString).floatValue
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
+                            if let retailer = response["retailer"].value {
+                                retailerFinal = retailer
+                            } else {
+                                println("Broken genie response")
+                                continue
+                            }
+                            
+                            results?.append(GenieResponse(name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!))
+                        }
+                    }
+                    
+                    if(httpResponse.statusCode == 200) {
+                        //Send genie object through notification
+                        var resultDict: Dictionary<String,[GenieResponse]> = ["genieresponse": results!]
+                        NSNotificationCenter.defaultCenter().postNotificationName("GenieSuccess", object: nil, userInfo: resultDict)
+                    } else {
+                        println("Network Manager: Response code was not 200")
+                        NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
+                    }
+                } else
+                {
+                    println("Network Manager: Failed to parse success")
+                    NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
+                }
+            }
+            else {
+                println("Network Manager: Did not get response code")
+                NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
+            }
+            
+        })
+        
+        task.resume()
+    }
+    
+    /******************************************
+                GET network requests
+    ******************************************/
     
     func sendLoginRequet(email: String, password: String) {
         

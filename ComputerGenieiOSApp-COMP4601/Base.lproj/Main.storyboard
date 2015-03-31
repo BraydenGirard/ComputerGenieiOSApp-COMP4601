@@ -681,7 +681,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="78" y="618" width="263" height="32"/>
+                                    <rect key="frame" x="78" y="545" width="263" height="32"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKX-3U-oPF">
@@ -720,15 +720,6 @@
                                     <rect key="frame" x="53" y="277" width="154" height="21"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry just skip this step and computer genie will do some magic!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjy-1l-wfO">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="24" y="658" width="544" height="21"/>
-                                </variation>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V93-lp-BiJ">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Let The Genie Do The Work">
@@ -741,6 +732,22 @@
                                     <action selector="geniePushed:" destination="sHE-HB-03g" eventType="touchUpInside" id="qwy-mw-Ccm"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="J6v-B1-79s">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="190" y="423" width="37" height="37"/>
+                                </variation>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry just skip this step and computer genie will do some magic!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjy-1l-wfO">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="23" y="585" width="544" height="21"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -758,8 +765,9 @@
                                 <exclude reference="XbJ-OJ-Om5"/>
                                 <exclude reference="bsN-eo-v4v"/>
                                 <exclude reference="MqT-Ov-fS1"/>
-                                <exclude reference="mjy-1l-wfO"/>
                                 <exclude reference="V93-lp-BiJ"/>
+                                <exclude reference="J6v-B1-79s"/>
+                                <exclude reference="mjy-1l-wfO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -777,12 +785,14 @@
                                 <include reference="XbJ-OJ-Om5"/>
                                 <include reference="bsN-eo-v4v"/>
                                 <include reference="MqT-Ov-fS1"/>
-                                <include reference="mjy-1l-wfO"/>
                                 <include reference="V93-lp-BiJ"/>
+                                <include reference="J6v-B1-79s"/>
+                                <include reference="mjy-1l-wfO"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="J6v-B1-79s" id="5g8-L0-yZi"/>
                         <outlet property="hddLabel" destination="bsN-eo-v4v" id="XLf-CE-zPF"/>
                         <outlet property="hddSlider" destination="Cd9-yz-SmY" id="VHW-Rv-Ar5"/>
                         <outlet property="memoryLabel" destination="hKX-3U-oPF" id="Oii-gS-obO"/>
@@ -790,7 +800,7 @@
                         <outlet property="screenLabel" destination="XbJ-OJ-Om5" id="9hg-om-gME"/>
                         <outlet property="screenSlider" destination="Hdg-ci-jxI" id="ZEf-zN-rcM"/>
                         <outlet property="ssdSwitch" destination="4pB-IH-3hk" id="hpF-o8-DED"/>
-                        <segue destination="o5G-nY-NKH" kind="show" identifier="genie_segue" id="0C7-e9-XKB"/>
+                        <segue destination="N1E-iG-IVf" kind="show" identifier="genie_sgue" id="f9x-p9-n2R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OgZ-7o-j67" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -798,22 +808,29 @@
             <point key="canvasLocation" x="3142.5" y="150"/>
         </scene>
         <!--Genie View Controller-->
-        <scene sceneID="3i1-v9-pF3">
+        <scene sceneID="6ca-bv-RRc">
             <objects>
-                <viewController id="o5G-nY-NKH" customClass="GenieViewController" customModule="ComputerGenieiOSApp_COMP4601" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jOm-V9-7S4"/>
-                        <viewControllerLayoutGuide type="bottom" id="XHI-uA-wAH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tqg-6g-Ghr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableViewController id="N1E-iG-IVf" customClass="GenieViewController" customModule="ComputerGenieiOSApp_COMP4601" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T0h-aI-TMQ">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JEm-an-YX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ije-TQ-gCv">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ije-TQ-gCv" id="IW0-FN-Ned">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="N1E-iG-IVf" id="D6j-FU-FGQ"/>
+                            <outlet property="delegate" destination="N1E-iG-IVf" id="9MC-1k-h76"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QDA-b8-ZlP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3955.5" y="145.5"/>
+            <point key="canvasLocation" x="4135.5" y="150"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="Yvn-qs-rb9">
