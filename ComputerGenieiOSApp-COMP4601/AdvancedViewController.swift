@@ -109,7 +109,7 @@ class AdvancedViewController: UIViewController {
         }
     }
     @IBAction func ssdChanged(sender: UISwitch) {
-        if ssdSwitch.state == UIControlState.Selected{
+        if sender.on {
             self.genieRequest?.setSSD(true)
         } else {
             self.genieRequest?.setSSD(false)
