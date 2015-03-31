@@ -14,10 +14,11 @@ class GenieViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Genie's Recommendation"
+        self.navigationItem.hidesBackButton = true;
     }
     
     override func viewDidAppear(animated: Bool) {
-        
+    
     }
     
     override func didReceiveMemoryWarning() {

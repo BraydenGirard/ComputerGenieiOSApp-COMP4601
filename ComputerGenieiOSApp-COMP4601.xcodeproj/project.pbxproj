@@ -24,6 +24,7 @@
 		F6547CCF1AC779DE00905BEB /* male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC01AC779DE00905BEB /* male@2x.png */; };
 		F6547CD01AC779DE00905BEB /* male@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CC11AC779DE00905BEB /* male@3x.png */; };
 		F6547CD21AC77DC400905BEB /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CD11AC77DC400905BEB /* SharedConstants.swift */; };
+		F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */; };
 		F66D70781AC7261C0044B056 /* AEXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70771AC7261C0044B056 /* AEXML.swift */; };
 		F66D70CE1AC73C430044B056 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CC1AC73C430044B056 /* User.swift */; };
 		F66D70CF1AC73C430044B056 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D70CD1AC73C430044B056 /* NetworkManager.swift */; };
@@ -138,6 +139,7 @@
 		F6547CC01AC779DE00905BEB /* male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@2x.png"; path = "Resources/Images/male@2x.png"; sourceTree = "<group>"; };
 		F6547CC11AC779DE00905BEB /* male@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "male@3x.png"; path = "Resources/Images/male@3x.png"; sourceTree = "<group>"; };
 		F6547CD11AC77DC400905BEB /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieRequest.swift; sourceTree = "<group>"; };
 		F66D40B31AC9A6F1008CD6B2 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		F66D70771AC7261C0044B056 /* AEXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AEXML.swift; sourceTree = "<group>"; };
 		F66D70CC1AC73C430044B056 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				F66D70CC1AC73C430044B056 /* User.swift */,
+				F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				F66D70EC1AC740C70044B056 /* MinLengthRule.swift in Sources */,
 				F66D70E91AC740C70044B056 /* ConfirmRule.swift in Sources */,
 				F66D70ED1AC740C70044B056 /* PasswordRule.swift in Sources */,
+				F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */,
 				F6F281641AC8EA5800EFA6B8 /* UserDefaultsManager.swift in Sources */,
 				F66D70F31AC740C70044B056 /* Validator.swift in Sources */,
 				F66D70F11AC740C70044B056 /* ValidationError.swift in Sources */,

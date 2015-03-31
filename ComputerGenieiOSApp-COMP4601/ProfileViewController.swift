@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
         
         self.title = "Profile"
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        button.frame = CGRectMake(0, 0, 36, 24)
+        button.frame = CGRectMake(0, 0, 27, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
         button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         

@@ -14,6 +14,8 @@ class PriceViewController: UIViewController {
         case FiveHundred = 1, OneThousand, TwoThousand, TwoThousandUp
     }
     
+    var genieRequest: GenieRequest?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,7 +23,7 @@ class PriceViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        
+        genieRequest?.print()
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,15 +33,30 @@ class PriceViewController: UIViewController {
     @IBAction func buttonPushed(sender: UIButton) {
         switch sender.tag {
         case Price.FiveHundred.rawValue:
+            self.genieRequest?.setPrice(500)
             self.performSegueWithIdentifier("advanced_segue", sender: sender)
         case Price.OneThousand.rawValue:
+             self.genieRequest?.setPrice(1000)
             self.performSegueWithIdentifier("advanced_segue", sender: sender)
         case Price.TwoThousand.rawValue:
+             self.genieRequest?.setPrice(2000)
             self.performSegueWithIdentifier("advanced_segue", sender: sender)
         case Price.TwoThousandUp.rawValue:
+             self.genieRequest?.setPrice(5000)
             self.performSegueWithIdentifier("advanced_segue", sender: sender)
         default:
             println("Error occured with button tag")
+        }
+    }
+    
+    func setGenieRequest(genieRequest: GenieRequest?) {
+        self.genieRequest = genieRequest
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "advanced_segue") {
+            let destinationViewController = segue.destinationViewController as AdvancedViewController
+            destinationViewController.setGenieRequest(self.genieRequest)
         }
     }
 }

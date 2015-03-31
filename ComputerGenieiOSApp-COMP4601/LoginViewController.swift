@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Login"
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         self.navigationItem.hidesBackButton = true;
         

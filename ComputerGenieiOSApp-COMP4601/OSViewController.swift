@@ -13,6 +13,8 @@ class OSViewController: UIViewController {
         case Windows = 1, Mac, Chrome
     }
     
+    var genieRequest: GenieRequest?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +22,7 @@ class OSViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        
+        genieRequest?.print()
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,13 +32,27 @@ class OSViewController: UIViewController {
     @IBAction func buttonPushed(sender: UIButton) {
         switch sender.tag {
         case OS.Windows.rawValue:
+            self.genieRequest?.setOS("Windows")
             self.performSegueWithIdentifier("use_segue", sender: sender)
         case OS.Mac.rawValue:
+            self.genieRequest?.setOS("Mac")
             self.performSegueWithIdentifier("use_segue", sender: sender)
         case OS.Chrome.rawValue:
+            self.genieRequest?.setOS("Chrome")
             self.performSegueWithIdentifier("use_segue", sender: sender)
         default:
             println("Error occured with button tag")
+        }
+    }
+    
+    func setGenieRequest(genieRequest: GenieRequest?) {
+        self.genieRequest = genieRequest
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "use_segue") {
+            let destinationViewController = segue.destinationViewController as UseViewController
+            destinationViewController.setGenieRequest(self.genieRequest)
         }
     }
     

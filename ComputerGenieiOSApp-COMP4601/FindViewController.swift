@@ -14,12 +14,14 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
         case Desktop = 1, Laptop
     }
     
+    var genieRequest: GenieRequest?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Form Factor"
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        button.frame = CGRectMake(0, 0, 36, 24)
+        button.frame = CGRectMake(0, 0, 27, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
         button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -29,7 +31,8 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        
+        genieRequest = GenieRequest()
+        genieRequest?.print()
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,11 +42,21 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     @IBAction func buttonPushed(sender: UIButton) {
         switch sender.tag {
         case Hardware.Desktop.rawValue:
+            self.genieRequest?.setForm("Desktop")
             self.performSegueWithIdentifier("os_segue", sender: sender)
         case Hardware.Laptop.rawValue:
+            
+            self.genieRequest?.setForm("Laptop")
             self.performSegueWithIdentifier("os_segue", sender: sender)
         default:
             println("Error occured with button tag")
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "os_segue") {
+            let destinationViewController = segue.destinationViewController as OSViewController
+            destinationViewController.setGenieRequest(self.genieRequest)
         }
     }
     
