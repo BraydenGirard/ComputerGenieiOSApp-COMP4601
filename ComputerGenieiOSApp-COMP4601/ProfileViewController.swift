@@ -14,10 +14,10 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "Profile"
+    
+        self.title =  UserDefaultsManager.sharedInstance.getUserName()
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        button.frame = CGRectMake(0, 0, 27, 18)
+        button.frame = CGRectMake(0, 0, 25, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
         button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         
