@@ -60,6 +60,12 @@
 		F610E50B1ACBAD5F000B1518 /* Mac-Pro-main.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F610E5051ACBAD5F000B1518 /* Mac-Pro-main.jpg */; };
 		F610E50C1ACBAD5F000B1518 /* msi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F610E5061ACBAD5F000B1518 /* msi.jpg */; };
 		F610E50E1ACBADD0000B1518 /* 10922499_10155071690660403_6916885496692688167_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F610E50D1ACBADD0000B1518 /* 10922499_10155071690660403_6916885496692688167_n.jpg */; };
+		F61E68001ACC811300DEDAFE /* review_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FA1ACC811300DEDAFE /* review_btn.png */; };
+		F61E68011ACC811300DEDAFE /* review_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FB1ACC811300DEDAFE /* review_btn@2x.png */; };
+		F61E68021ACC811300DEDAFE /* review_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FC1ACC811300DEDAFE /* review_btn@3x.png */; };
+		F61E68031ACC811300DEDAFE /* find_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FD1ACC811300DEDAFE /* find_btn.png */; };
+		F61E68041ACC811300DEDAFE /* find_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FE1ACC811300DEDAFE /* find_btn@2x.png */; };
+		F61E68051ACC811300DEDAFE /* find_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61E67FF1ACC811300DEDAFE /* find_btn@3x.png */; };
 		F6443D091ACB050900C8759F /* GenieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6443D081ACB050900C8759F /* GenieResponse.swift */; };
 		F6547CB01AC7708400905BEB /* DateRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6547CAF1AC7708400905BEB /* DateRule.swift */; };
 		F6547CC21AC779DE00905BEB /* female_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F6547CB31AC779DE00905BEB /* female_selected.png */; };
@@ -229,6 +235,12 @@
 		F610E5051ACBAD5F000B1518 /* Mac-Pro-main.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Mac-Pro-main.jpg"; path = "../../../Desktop/Mac-Pro-main.jpg"; sourceTree = "<group>"; };
 		F610E5061ACBAD5F000B1518 /* msi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = msi.jpg; path = ../../../Desktop/msi.jpg; sourceTree = "<group>"; };
 		F610E50D1ACBADD0000B1518 /* 10922499_10155071690660403_6916885496692688167_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 10922499_10155071690660403_6916885496692688167_n.jpg; path = ../../../Downloads/10922499_10155071690660403_6916885496692688167_n.jpg; sourceTree = "<group>"; };
+		F61E67FA1ACC811300DEDAFE /* review_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = review_btn.png; path = Resources/Images/review_btn.png; sourceTree = "<group>"; };
+		F61E67FB1ACC811300DEDAFE /* review_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "review_btn@2x.png"; path = "Resources/Images/review_btn@2x.png"; sourceTree = "<group>"; };
+		F61E67FC1ACC811300DEDAFE /* review_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "review_btn@3x.png"; path = "Resources/Images/review_btn@3x.png"; sourceTree = "<group>"; };
+		F61E67FD1ACC811300DEDAFE /* find_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = find_btn.png; path = Resources/Images/find_btn.png; sourceTree = "<group>"; };
+		F61E67FE1ACC811300DEDAFE /* find_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find_btn@2x.png"; path = "Resources/Images/find_btn@2x.png"; sourceTree = "<group>"; };
+		F61E67FF1ACC811300DEDAFE /* find_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find_btn@3x.png"; path = "Resources/Images/find_btn@3x.png"; sourceTree = "<group>"; };
 		F6443D081ACB050900C8759F /* GenieResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieResponse.swift; sourceTree = "<group>"; };
 		F6547CAF1AC7708400905BEB /* DateRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateRule.swift; sourceTree = "<group>"; };
 		F6547CB31AC779DE00905BEB /* female_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = female_selected.png; path = Resources/Images/female_selected.png; sourceTree = "<group>"; };
@@ -454,6 +466,12 @@
 				F610E5051ACBAD5F000B1518 /* Mac-Pro-main.jpg */,
 				F610E5061ACBAD5F000B1518 /* msi.jpg */,
 				F610E50D1ACBADD0000B1518 /* 10922499_10155071690660403_6916885496692688167_n.jpg */,
+				F61E67FA1ACC811300DEDAFE /* review_btn.png */,
+				F61E67FB1ACC811300DEDAFE /* review_btn@2x.png */,
+				F61E67FC1ACC811300DEDAFE /* review_btn@3x.png */,
+				F61E67FD1ACC811300DEDAFE /* find_btn.png */,
+				F61E67FE1ACC811300DEDAFE /* find_btn@2x.png */,
+				F61E67FF1ACC811300DEDAFE /* find_btn@3x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -665,13 +683,16 @@
 			files = (
 				F6EEAEA91AC9D0FF0064EDEA /* menu_button.png in Resources */,
 				F610E4CA1ACB89C0000B1518 /* email_field.png in Resources */,
+				F61E68001ACC811300DEDAFE /* review_btn.png in Resources */,
 				F6547CCF1AC779DE00905BEB /* male@2x.png in Resources */,
 				F610E4D41ACB89C0000B1518 /* error_field.png in Resources */,
 				F610E4ED1ACBA339000B1518 /* find_button@3x.png in Resources */,
 				F610E4A61ACB55E9000B1518 /* Montserrat-Light.otf in Resources */,
+				F61E68011ACC811300DEDAFE /* review_btn@2x.png in Resources */,
 				F6547CC21AC779DE00905BEB /* female_selected.png in Resources */,
 				F610E4C31ACB89C0000B1518 /* signup_button@3x.png in Resources */,
 				F6547CD01AC779DE00905BEB /* male@3x.png in Resources */,
+				F61E68031ACC811300DEDAFE /* find_btn.png in Resources */,
 				F6EEAEAB1AC9D0FF0064EDEA /* menu_button@3x.png in Resources */,
 				F610E4A71ACB55EB000B1518 /* Montserrat-Hairline.otf in Resources */,
 				F610E4CC1ACB89C0000B1518 /* email_field@3x.png in Resources */,
@@ -690,8 +711,10 @@
 				F610E4FE1ACBAA49000B1518 /* background_profile@3x.png in Resources */,
 				F610E4EC1ACBA339000B1518 /* find_button.png in Resources */,
 				F610E4CE1ACB89C0000B1518 /* password_field@2x.png in Resources */,
+				F61E68021ACC811300DEDAFE /* review_btn@3x.png in Resources */,
 				F610E4F81ACBAA49000B1518 /* good_review@3x.png in Resources */,
 				F610E4CD1ACB89C0000B1518 /* password_field.png in Resources */,
+				F61E68051ACC811300DEDAFE /* find_btn@3x.png in Resources */,
 				F610E4FB1ACBAA49000B1518 /* bad_review.png in Resources */,
 				F6547CC41AC779DE00905BEB /* female_selected@3x.png in Resources */,
 				F610E4DA1ACB979B000B1518 /* login_foreground@3x.png in Resources */,
@@ -711,6 +734,7 @@
 				F610E4E91ACBA339000B1518 /* review_button.png in Resources */,
 				F610E5081ACBAD5F000B1518 /* dell-adds-new-studio-entertainment-desktops-4.jpg in Resources */,
 				F610E4E21ACB9E7B000B1518 /* background_login@2x.png in Resources */,
+				F61E68041ACC811300DEDAFE /* find_btn@2x.png in Resources */,
 				F6547CCE1AC779DE00905BEB /* male.png in Resources */,
 				F610E4DC1ACB979B000B1518 /* login_foreground@2x.png in Resources */,
 				F610E4FA1ACBAA49000B1518 /* good_review@2x.png in Resources */,

@@ -924,28 +924,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrs-Hm-n8v">
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCs-e8-E0b">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
-                                <state key="normal" title="  Find A Computer" image="find_button.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="88" y="320" width="226" height="62"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="P1R-Ph-DZN" kind="show" id="Lzp-5H-c9H"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCs-e8-E0b">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
-                                <state key="normal" title="  My Reviews" image="review_button.png">
+                                <color key="backgroundColor" red="0.082352941176470587" green="0.58823529411764708" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6XZ-LZ-iSr">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="100"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="140" id="iqT-pL-ciQ">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="250"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="22"/>
+                                <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Reviews" image="review_btn.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="110" y="492" width="181" height="62"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6XZ-LZ-iSr"/>
+                                        <exclude reference="iqT-pL-ciQ"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="6XZ-LZ-iSr"/>
+                                        <include reference="iqT-pL-ciQ"/>
+                                    </mask>
                                 </variation>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Computer Genie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8U-ZZ-Ag5">
@@ -954,21 +960,55 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xrs-Hm-n8v">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.08235294118" green="0.58823529409999997" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="CHB-HJ-Uf6">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="250"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="45" id="Hdd-c4-QvI">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="100"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="22"/>
+                                <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Find Computer" image="find_btn.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CHB-HJ-Uf6"/>
+                                        <exclude reference="Hdd-c4-QvI"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="CHB-HJ-Uf6"/>
+                                        <include reference="Hdd-c4-QvI"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="P1R-Ph-DZN" kind="show" id="Lzp-5H-c9H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="xrs-Hm-n8v" secondAttribute="centerY" constant="49" id="Dxc-Sn-bJs"/>
                             <constraint firstAttribute="centerY" secondItem="YCs-e8-E0b" secondAttribute="centerY" constant="-123" id="IAC-m5-zQw"/>
                             <constraint firstAttribute="centerX" secondItem="YCs-e8-E0b" secondAttribute="centerX" id="QFT-mQ-bO5"/>
-                            <constraint firstAttribute="centerX" secondItem="xrs-Hm-n8v" secondAttribute="centerX" constant="-0.5" id="gWc-53-CUM"/>
+                            <constraint firstAttribute="centerX" secondItem="xrs-Hm-n8v" secondAttribute="centerX" constant="-0.5" id="gWc-53-CUM">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="centerX" secondItem="E8U-ZZ-Ag5" secondAttribute="centerX" id="lHW-pt-Kwj"/>
                             <constraint firstItem="E8U-ZZ-Ag5" firstAttribute="top" secondItem="XCI-la-Gep" secondAttribute="bottom" constant="55" id="mSv-EB-fVe"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="xrs-Hm-n8v"/>
                                 <exclude reference="YCs-e8-E0b"/>
                                 <exclude reference="E8U-ZZ-Ag5"/>
+                                <exclude reference="xrs-Hm-n8v"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="lHW-pt-Kwj"/>
@@ -981,9 +1021,9 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="xrs-Hm-n8v"/>
                                 <include reference="YCs-e8-E0b"/>
                                 <include reference="E8U-ZZ-Ag5"/>
+                                <include reference="xrs-Hm-n8v"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="lHW-pt-Kwj"/>
@@ -1029,42 +1069,100 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CbW-sK-ow3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="P47-Io-e8Y">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Laptop">
+                                <color key="backgroundColor" red="0.08235294118" green="0.58823529409999997" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9S1-6S-Dmp">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="250"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="45" id="dbb-Z7-3CZ">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="100"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="22"/>
+                                <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Laptop" image="find_btn.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="177" y="482" width="67" height="30"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9S1-6S-Dmp"/>
+                                        <exclude reference="dbb-Z7-3CZ"/>
+                                    </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="buttonPushed:" destination="P1R-Ph-DZN" eventType="touchUpInside" id="9p7-kl-VdH"/>
-                                </connections>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="9S1-6S-Dmp"/>
+                                        <include reference="dbb-Z7-3CZ"/>
+                                    </mask>
+                                </variation>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sXK-8p-eQD">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="HRw-N8-Lis">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Desktop">
+                                <color key="backgroundColor" red="0.08235294118" green="0.58823529409999997" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="MCC-dP-cky">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="100"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="150" id="UmB-b1-yIl">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="250"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="22"/>
+                                <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Desktop" image="find_btn.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="166" y="254" width="85" height="30"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UmB-b1-yIl"/>
+                                        <exclude reference="MCC-dP-cky"/>
+                                    </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="buttonPushed:" destination="P1R-Ph-DZN" eventType="touchUpInside" id="FKb-bp-IR2"/>
-                                </connections>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="UmB-b1-yIl"/>
+                                        <include reference="MCC-dP-cky"/>
+                                    </mask>
+                                </variation>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="P47-Io-e8Y" secondAttribute="centerY" constant="-140" id="LU6-fa-IWS">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-120"/>
+                            </constraint>
+                            <constraint firstAttribute="centerY" secondItem="HRw-N8-Lis" secondAttribute="centerY" constant="116" id="Pf2-Qd-gZB">
+                                <variation key="heightClass=regular-widthClass=compact" constant="120"/>
+                            </constraint>
+                            <constraint firstAttribute="centerX" secondItem="P47-Io-e8Y" secondAttribute="centerX" constant="6" id="Q0N-pg-56d">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstAttribute="centerX" secondItem="HRw-N8-Lis" secondAttribute="centerX" id="yCL-Pg-Nms"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="CbW-sK-ow3"/>
-                                <exclude reference="sXK-8p-eQD"/>
+                                <exclude reference="P47-Io-e8Y"/>
+                                <exclude reference="HRw-N8-Lis"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Pf2-Qd-gZB"/>
+                                <exclude reference="yCL-Pg-Nms"/>
+                                <exclude reference="LU6-fa-IWS"/>
+                                <exclude reference="Q0N-pg-56d"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="CbW-sK-ow3"/>
-                                <include reference="sXK-8p-eQD"/>
+                                <include reference="P47-Io-e8Y"/>
+                                <include reference="HRw-N8-Lis"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Pf2-Qd-gZB"/>
+                                <include reference="yCL-Pg-Nms"/>
+                                <include reference="LU6-fa-IWS"/>
+                                <include reference="Q0N-pg-56d"/>
                             </mask>
                         </variation>
                     </view>
@@ -1693,7 +1791,7 @@
         <image name="bad_review.png" width="130" height="45"/>
         <image name="email_field.png" width="267" height="43"/>
         <image name="female.png" width="22" height="47"/>
-        <image name="find_button.png" width="62" height="62"/>
+        <image name="find_btn.png" width="50" height="47"/>
         <image name="good_review.png" width="134" height="46"/>
         <image name="login_button.png" width="150" height="45"/>
         <image name="login_foreground.png" width="325" height="350"/>
@@ -1701,7 +1799,7 @@
         <image name="male.png" width="18" height="47"/>
         <image name="menu_button.png" width="25" height="18"/>
         <image name="password_field.png" width="267" height="44"/>
-        <image name="review_button.png" width="62" height="62"/>
+        <image name="review_btn.png" width="50" height="49"/>
         <image name="signup_button.png" width="150" height="45"/>
     </resources>
 </document>
