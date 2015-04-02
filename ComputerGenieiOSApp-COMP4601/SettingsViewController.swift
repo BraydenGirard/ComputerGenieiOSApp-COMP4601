@@ -56,7 +56,7 @@ class SettingsViewController: UIViewController, ENSideMenuDelegate {
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
 
-        var homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("HomeViewController") as UIViewController
+        var homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("NavigationViewController") as ENSideMenuNavigationController
         
         self.presentViewController(homeViewController, animated: true, completion: {})
     }

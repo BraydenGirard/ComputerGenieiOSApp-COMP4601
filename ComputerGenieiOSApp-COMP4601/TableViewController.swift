@@ -108,7 +108,7 @@ class TableViewController: UITableViewController {
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("FindViewController")as UIViewController
             break
         case 3:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ProductsViewController")as UIViewController
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ProductsViewController")as UITableViewController
             break
         case 4:
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SettingsViewController")as UIViewController

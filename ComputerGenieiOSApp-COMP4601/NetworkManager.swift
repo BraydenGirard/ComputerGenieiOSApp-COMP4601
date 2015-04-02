@@ -122,8 +122,8 @@ class NetworkManager {
         task.resume()
     }
 
-    func sendGenieRequest(genieRequest: GenieRequest) {
-        var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
+    func sendGenieRequest(genieRequest: GenieRequest, user: User) {
+        var request = NSMutableURLRequest(URL: NSURL(string: APPGENIE + user.getToken()!)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
@@ -169,12 +169,21 @@ class NetworkManager {
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         
+        println("============================THE URL SENT==============================")
+        println(APPGENIE + user.getToken()!)
+        println("============================THE XML SENT==============================")
         println(xmlString)
-        println("Url: " + APPGENIE)
+       
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("============================THE RESPONSE RECEIVED==============================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("============================THE XML Received==============================")
+            println(strData)
+
+           
+            
             var err: NSError? = error
             
             if(err != nil) {

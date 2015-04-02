@@ -27,5 +27,5 @@ let APPLOGIN: String = APPCURRENTSERVER + "/user/0/"
 let APPUSER: String = APPCURRENTSERVER + "/user/"
 
 //Genie Request = POST /genierequest
-let APPGENIE: String = APPCURRENTSERVER + "/genierequest"
+let APPGENIE: String = APPCURRENTSERVER + "/genie/"
 

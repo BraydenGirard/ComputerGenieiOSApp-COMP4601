@@ -43,7 +43,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         NSOperationQueue.mainQueue().addOperationWithBlock {
             println("Controller: Login successful")
             self.activityIndicator.stopAnimating()
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.navigationController?.popViewControllerAnimated(true)
         }
        
     }

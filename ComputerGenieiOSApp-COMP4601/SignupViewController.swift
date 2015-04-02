@@ -36,10 +36,13 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
         super.viewDidLoad()
         
         self.title = "Signup"
-        let button = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        button.frame = CGRectMake(0, 0, 50, 36)
-        button.setTitle("< Back", forState: UIControlState.Normal)
-        button.addTarget(self, action: "backPushed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+    
+        let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 25, 18)
+        
+        button.setImage(UIImage(named: "back_btn"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
         
         let barButton = UIBarButtonItem(customView: button)
         
@@ -60,6 +63,10 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func completeSignup(notification: NSNotification) {

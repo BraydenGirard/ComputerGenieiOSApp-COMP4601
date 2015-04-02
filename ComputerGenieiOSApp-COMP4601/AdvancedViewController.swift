@@ -90,7 +90,7 @@ class AdvancedViewController: UIViewController {
     @IBAction func geniePushed(sender: UIButton) {
         self.genieRequest?.print()
         self.activityIndicator.startAnimating()
-        NetworkManager.sharedInstance.sendGenieRequest(self.genieRequest!)
+        NetworkManager.sharedInstance.sendGenieRequest(self.genieRequest!, user: UserDefaultsManager.sharedInstance.getUserData())
     }
     
     @IBAction func screenChanged(sender: UISlider) {
