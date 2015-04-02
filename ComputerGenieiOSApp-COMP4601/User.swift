@@ -87,7 +87,7 @@ class User {
     }
     
     func getName() -> String {
-        return name
+       return self.getFirstName() + " " + self.getLastName()
     }
     
     func getFirstName() -> String {

@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         //UIView.appearance().backgroundColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
-
+ 
+        
         return true
     }
 

@@ -19,7 +19,7 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Form Factor"
+        self.title = "Find Product"
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         button.frame = CGRectMake(0, 0, 25, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
@@ -28,6 +28,14 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
         let barButton = UIBarButtonItem(customView: button)
       
         self.navigationItem.leftBarButtonItem = barButton
+        
+        let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button2.frame = CGRectMake(0, 0, 25, 18)
+        button2.setImage(UIImage(named: "lamp_0"), forState: UIControlState.Normal)
+        
+        let barButton2 = UIBarButtonItem(customView: button2)
+        
+        self.navigationItem.rightBarButtonItem = barButton2
     }
     
     override func viewDidAppear(animated: Bool) {

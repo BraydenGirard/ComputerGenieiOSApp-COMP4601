@@ -19,6 +19,23 @@ class OSViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Operating System"
+        let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 25, 18)
+        
+        button.setImage(UIImage(named: "back_btn"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button2.frame = CGRectMake(0, 0, 25, 18)
+        button2.setImage(UIImage(named: "lamp_1"), forState: UIControlState.Normal)
+        
+        let barButton2 = UIBarButtonItem(customView: button2)
+        
+        self.navigationItem.rightBarButtonItem = barButton2
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,6 +60,10 @@ class OSViewController: UIViewController {
         default:
             println("Error occured with button tag")
         }
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func setGenieRequest(genieRequest: GenieRequest?) {

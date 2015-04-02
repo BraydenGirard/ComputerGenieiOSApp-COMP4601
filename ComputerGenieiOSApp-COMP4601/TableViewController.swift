@@ -67,7 +67,7 @@ class TableViewController: UITableViewController {
             cell?.textLabel?.text = "Find Product"
             break
         case 3:
-            cell?.textLabel?.text = "Your Products"
+            cell?.textLabel?.text = "My Reviews"
             break
         case 4:
             cell?.textLabel?.text = "Settings"
@@ -89,10 +89,10 @@ class TableViewController: UITableViewController {
         
         println("did select row: \(indexPath.row)")
         
-        if (indexPath.row == selectedMenuItem) {
-            return
-        }
-        selectedMenuItem = indexPath.row
+     //   if (indexPath.row == selectedMenuItem) {
+     //       return
+     //   }
+     //   selectedMenuItem = indexPath.row
         
         //Present new view controller
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)

@@ -303,7 +303,7 @@ class NetworkManager {
                     let lastLogin = xml.root["lastLoginTime"].value!
                     
                     if(httpResponse.statusCode == 200) {
-                            UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin))
+                            UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + " " + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin))
                         
                             NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil)
     

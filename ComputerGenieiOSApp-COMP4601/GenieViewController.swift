@@ -15,17 +15,26 @@ class GenieViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Genie's Recommendation"
+        self.title = "Genie Recommendations"
         self.navigationItem.hidesBackButton = true;
         
         let button = UIButton.buttonWithType(UIButtonType.System) as UIButton
         button.frame = CGRectMake(0, 0, 50, 36)
         button.setTitle("Done", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         button.addTarget(self, action: "donePushed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         let barButton = UIBarButtonItem(customView: button)
         
-        self.navigationItem.rightBarButtonItem = barButton
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button2.frame = CGRectMake(0, 0, 25, 18)
+        button2.setImage(UIImage(named: "lamp_5"), forState: UIControlState.Normal)
+        
+        let barButton2 = UIBarButtonItem(customView: button2)
+        
+        self.navigationItem.rightBarButtonItem = barButton2
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -62,29 +71,10 @@ class GenieViewController: UITableViewController{
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("BasicCell") as? ImageCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("ImageCell") as? ImageCell
+        var response = genieResponse![indexPath.row]
         
-        switch (indexPath.row) {
-        case 0:
-            cell?.titleLabel.text = "Home"
-            break
-        case 1:
-            cell?.titleLabel.text = "Profile"
-            break
-        case 2:
-            cell?.titleLabel.text = "Find Product"
-            break
-        case 3:
-            cell?.titleLabel.text = "Your Products"
-            break
-        case 4:
-            cell?.titleLabel.text = "Settings"
-            break
-        default:
-            cell?.titleLabel.text = "Home"
-            break
-        }
-        
+        cell?.textLabel?.text = response.getName()
         
         return cell!
     }

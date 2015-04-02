@@ -31,8 +31,27 @@ class AdvancedViewController: UIViewController {
         memoryLabel.text = "Unspecified"
         hddLabel.text = "Unspecified"
         
+        let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 25, 18)
+        
+        button.setImage(UIImage(named: "back_btn"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeGenie:", name: "GenieSuccess", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failGenie:", name: "GenieFail", object: nil)
+
+        let button2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button2.frame = CGRectMake(0, 0, 25, 18)
+        button2.setImage(UIImage(named: "lamp_4"), forState: UIControlState.Normal)
+        
+        let barButton2 = UIBarButtonItem(customView: button2)
+        
+        self.navigationItem.rightBarButtonItem = barButton2
         
     }
     
@@ -42,6 +61,10 @@ class AdvancedViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func completeGenie(notification: NSNotification) {

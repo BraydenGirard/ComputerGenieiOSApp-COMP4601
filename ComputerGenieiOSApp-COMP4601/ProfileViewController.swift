@@ -11,18 +11,24 @@ import UIKit
 class ProfileViewController: UIViewController, ENSideMenuDelegate {
     
 
+    @IBOutlet var profile_img: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.title =  UserDefaultsManager.sharedInstance.getUserName()
+        
+        profile_img.layer.borderWidth = 3.0
+        profile_img.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        self.title =  UserDefaultsManager.sharedInstance.getUserData().getName()
+        
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         button.frame = CGRectMake(0, 0, 25, 18)
+        
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
         button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         
         let barButton = UIBarButtonItem(customView: button)
-    
+        
         self.navigationItem.leftBarButtonItem = barButton
         
     }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ProductsViewController: UIViewController, ENSideMenuDelegate {
+class ProductsViewController: UITableViewController, ENSideMenuDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Your Products"
+        self.title = "My Reviews"
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         button.frame = CGRectMake(0, 0, 25, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
@@ -30,6 +30,37 @@ class ProductsViewController: UIViewController, ENSideMenuDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // Return the number of sections.
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return the number of rows in the section.
+        return 5
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("ImageCell") as? ImageCell
+        
+        cell?.textLabel?.text = "Test"
+        
+        return cell!
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50.0
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        println("did select row: \(indexPath.row)")
+        
     }
     
     func toggleSideMenu(sender: UIButton) {

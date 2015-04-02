@@ -38,7 +38,6 @@ class MainController: UIViewController, ENSideMenuDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    
     @IBAction func toggleSideMenu(sender: UIButton) {
         println("Button pushed")
         self.toggleSideMenuView()
