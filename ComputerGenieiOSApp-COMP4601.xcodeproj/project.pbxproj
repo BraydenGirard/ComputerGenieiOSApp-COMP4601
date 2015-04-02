@@ -138,6 +138,8 @@
 		F6AD85AE1ACA06D5000B29B5 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */; };
 		F6AD85B01ACA06E9000B29B5 /* AdvancedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */; };
 		F6AD85B21ACA06F8000B29B5 /* GenieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */; };
+		F6D336D31ACE0B3B0040F24C /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D40B91AC9A6F2008CD6B2 /* CryptoSwift.framework */; };
+		F6D336D41ACE0B780040F24C /* CryptoSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F66D40B91AC9A6F2008CD6B2 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6291D1AC71A2B00DA1009 /* AppDelegate.swift */; };
 		F6E629201AC71A2B00DA1009 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6291F1AC71A2B00DA1009 /* LoginViewController.swift */; };
 		F6E629231AC71A2B00DA1009 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6E629211AC71A2B00DA1009 /* Main.storyboard */; };
@@ -244,6 +246,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F6D336D41ACE0B780040F24C /* CryptoSwift.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6D336D31ACE0B3B0040F24C /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
