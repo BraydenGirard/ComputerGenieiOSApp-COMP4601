@@ -173,9 +173,10 @@ class AdvancedViewController: UIViewController {
         if (segue.identifier == "genie_segue") {
             let destinationViewController = segue.destinationViewController as GenieViewController
             let notification = sender as NSNotification
-            let userInfo:Dictionary<String, [GenieResponse]> = notification.userInfo as Dictionary<String, [GenieResponse]>
-            let genieResponse = userInfo["genieresponse"]
-            destinationViewController.setGenieResponse(genieResponse)
+            
+            if let userInfo: Dictionary<String, GenieResponse> = notification.userInfo as? Dictionary<String, GenieResponse> {
+                destinationViewController.setGenieResponse(userInfo)
+            }
         }
     }
     

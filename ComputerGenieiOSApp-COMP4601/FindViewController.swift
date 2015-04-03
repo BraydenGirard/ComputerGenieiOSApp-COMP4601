@@ -50,11 +50,11 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     @IBAction func buttonPushed(sender: UIButton) {
         switch sender.tag {
         case Hardware.Desktop.rawValue:
-            self.genieRequest?.setForm("Desktop")
+            self.genieRequest?.setForm("DESKTOP")
             self.performSegueWithIdentifier("os_segue", sender: sender)
         case Hardware.Laptop.rawValue:
             
-            self.genieRequest?.setForm("Laptop")
+            self.genieRequest?.setForm("LAPTOP")
             self.performSegueWithIdentifier("os_segue", sender: sender)
         default:
             println("Error occured with button tag")

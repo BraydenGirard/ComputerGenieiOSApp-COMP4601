@@ -10,10 +10,13 @@ import UIKit
 
 class GenieViewController: UITableViewController{
     
-    var genieResponse: [GenieResponse]?
+    var genieResponse: [GenieResponse] = []
+    var imageCache: NSCache!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageCache = NSCache()
         
         self.title = "Genie Recommendations"
         self.navigationItem.hidesBackButton = true;
@@ -35,6 +38,7 @@ class GenieViewController: UITableViewController{
         let barButton2 = UIBarButtonItem(customView: button2)
         
         self.navigationItem.rightBarButtonItem = barButton2
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,8 +53,13 @@ class GenieViewController: UITableViewController{
         
     }
     
-    func setGenieResponse(genieResponse: [GenieResponse]?) {
-        self.genieResponse = genieResponse
+    func setGenieResponse(responses: Dictionary<String, GenieResponse>) {
+        
+        for response in responses.values {
+            self.genieResponse.append(response)
+        }
+        
+        self.tableView.reloadData()
     }
     
     func donePushed(sender: UIButton) {
@@ -66,27 +75,96 @@ class GenieViewController: UITableViewController{
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 5
+        return self.genieResponse.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImageCell") as? ImageCell
-        var response = genieResponse![indexPath.row]
+        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as GenieResultCell!
         
-        cell?.textLabel?.text = response.getName()
+        var response = genieResponse[indexPath.row]
+        cell?.setGenie(response)
+        println(response.getImage())
+        
+        var image: UIImage? = self.imageCache.objectForKey(response.getId()) as? UIImage
+        
+        if(image != nil) {
+            cell.setThumbnailImage(image!)
+            
+        } else {
+            
+            cell.setThumbnailImage(UIImage(named: "find_btn.png")!)
+            var urlString = response.getImage()
+            
+            if urlString != "" {
+                var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                dispatch_async(q, {
+                    var image = (UIImage(named: "find_btn.png")!)
+                    
+                    let url = NSURL(string: urlString)
+                    if url != nil {
+                        if let data = NSData(contentsOfURL: url!) {
+                            image = (UIImage(data: data)!)
+                        }
+                    }
+                    
+                    self.imageCache.setObject(image, forKey: response.getId())
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.setThumbnailImage(image)
+                    });
+                });
+            } else {
+                cell.setThumbnailImage((UIImage(named: "find_btn.png")!))
+            }
+            
+        }
         
         return cell!
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50.0
+        return 120.0
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? GenieResultCell {
+            let url = cell.getGenie().getUrl()
+            UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        }
+        
         println("did select row: \(indexPath.row)")
         
     }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        
+        var reviewProductAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Review", handler:{action, indexpath in
+            println("MORE•ACTION");
+            self.performSegueWithIdentifier("productReviews", sender: tableView.cellForRowAtIndexPath(indexPath))
+            
+        });
+        reviewProductAction.backgroundColor = UIColor(red: 184.0/255.0, green: 120.0/255.0, blue: 22.0/255.0, alpha: 1.0);
+        
+        return [reviewProductAction]
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "genie_segue") {
+            let destinationViewController = segue.destinationViewController as ProductReviewsViewController
+            if let cell = sender as? GenieResultCell {
+                destinationViewController.setProductId(cell.getGenie().getId())
+            }
+        }
+    }
 }

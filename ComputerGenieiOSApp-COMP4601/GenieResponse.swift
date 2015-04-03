@@ -39,7 +39,7 @@ class GenieResponse {
     }
     
     func getImage() -> String {
-        return self.name
+        return self.image
     }
     
     func getPrice() -> Float {

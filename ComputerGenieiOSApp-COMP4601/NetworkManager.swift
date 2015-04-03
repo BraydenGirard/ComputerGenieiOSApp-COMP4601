@@ -193,7 +193,7 @@ class NetworkManager {
                 
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
                     
-                    var results: [GenieResponse]?
+                    var results: Dictionary<String, GenieResponse> = Dictionary<String, GenieResponse>()
                     var idFinal: String?
                     var nameFinal: String?
                     var urlFinal: String?
@@ -250,15 +250,14 @@ class NetworkManager {
                             println(theResponse.getPrice())
                             println(theResponse.getRetailer())
                     
-                            results?.append(theResponse)
+                            results[theResponse.getId()] = theResponse
                         }
-                        println(results?.count)
+                        println(results.count)
                     }
                     
                     if(httpResponse.statusCode == 200) {
                         //Send genie object through notification
-                        var resultDict: Dictionary<String,[GenieResponse]> = ["genieresponse": results!]
-                        NSNotificationCenter.defaultCenter().postNotificationName("GenieSuccess", object: nil, userInfo: resultDict)
+                        NSNotificationCenter.defaultCenter().postNotificationName("GenieSuccess", object: nil, userInfo: results)
                     } else {
                         println("Network Manager: Response code was not 200")
                         NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)

@@ -46,7 +46,7 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImageCell") as? ImageCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as? GenieResultCell
         
         cell?.textLabel?.text = "Test"
         
