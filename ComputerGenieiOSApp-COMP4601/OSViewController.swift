@@ -49,7 +49,7 @@ class OSViewController: UIViewController {
     @IBAction func buttonPushed(sender: UIButton) {
         switch sender.tag {
         case OS.Windows.rawValue:
-            self.genieRequest?.setOS("Windows")
+            self.genieRequest?.setOS("Win")
             self.performSegueWithIdentifier("use_segue", sender: sender)
         case OS.Mac.rawValue:
             self.genieRequest?.setOS("Mac")
