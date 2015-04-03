@@ -122,7 +122,8 @@ class NetworkManager {
     }
 
     func sendGenieRequest(genieRequest: GenieRequest, user: User) {
-        var request = NSMutableURLRequest(URL: NSURL(string: APPGENIE + user.getToken()!)!)
+        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var request = NSMutableURLRequest(URL: NSURL(string: APPGENIE + tokenString!)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
@@ -201,7 +202,8 @@ class NetworkManager {
                     var retailerFinal: String?
                     
                     //GenieResponses
-                    if let responses = xml.root["GenieResponses"]["GenieResponse"].all {
+                    if let responses = xml.root["GenieResponse"].all {
+                        println("Insied xml")
                         for response in responses {
                             if let id = response["id"].value {
                                 idFinal = id
@@ -239,9 +241,18 @@ class NetworkManager {
                                 println("Broken genie response")
                                 continue
                             }
+                            var theResponse = GenieResponse(id: idFinal!, name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!)
                             
-                            results?.append(GenieResponse(id: idFinal!, name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!))
+                            println(theResponse.getId())
+                            println(theResponse.getName())
+                            println(theResponse.getUrl())
+                            println(theResponse.getImage())
+                            println(theResponse.getPrice())
+                            println(theResponse.getRetailer())
+                    
+                            results?.append(theResponse)
                         }
+                        println(results?.count)
                     }
                     
                     if(httpResponse.statusCode == 200) {
