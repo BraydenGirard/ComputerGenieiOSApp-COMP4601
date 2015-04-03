@@ -60,7 +60,7 @@ class UseViewController: UIViewController {
             self.genieRequest?.setUse("Gaming")
             self.performSegueWithIdentifier("price_segue", sender: sender)
         case Use.Work.rawValue:
-            self.genieRequest?.setUse("Work")
+            self.genieRequest?.setUse("Business")
             self.performSegueWithIdentifier("price_segue", sender: sender)
         case Use.Leisure.rawValue:
             self.genieRequest?.setUse("Leisure")
