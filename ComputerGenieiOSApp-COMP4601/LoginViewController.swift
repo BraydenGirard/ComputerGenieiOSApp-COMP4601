@@ -67,7 +67,8 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
         
     }
-    func validationFailed(errors:[UITextField:ValidationError]) {
+    
+    func validationFailed(errors:[UITextField:ValidationError]?, viewErrors: [UITextView:ValidationError]?) {
         println("Validation FAILED!")
         self.setErrors()
     }
@@ -76,6 +77,7 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
         self.clearErrors()
         validator.validateAll(self)
     }
+    
     private func setErrors(){
         for (field, error) in validator.errors {
             field.layer.borderColor = UIColor.redColor().CGColor

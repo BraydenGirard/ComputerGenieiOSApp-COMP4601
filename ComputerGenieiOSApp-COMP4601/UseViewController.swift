@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UseViewController: UIViewController {
+class UseViewController: UIViewController, ENSideMenuDelegate {
     enum Use: Int {
         case School = 1, Gaming, Work, Leisure
     }
@@ -37,6 +37,7 @@ class UseViewController: UIViewController {
         let barButton2 = UIBarButtonItem(customView: button2)
         
         self.navigationItem.rightBarButtonItem = barButton2
+        self.sideMenuController()?.sideMenu?.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -79,5 +80,9 @@ class UseViewController: UIViewController {
             let destinationViewController = segue.destinationViewController as PriceViewController
             destinationViewController.setGenieRequest(self.genieRequest)
         }
+    }
+    
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
     }
 }

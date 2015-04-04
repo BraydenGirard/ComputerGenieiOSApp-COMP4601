@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OSViewController: UIViewController {
+class OSViewController: UIViewController, ENSideMenuDelegate {
     enum OS: Int {
         case Windows = 1, Mac, Chrome
     }
@@ -36,6 +36,7 @@ class OSViewController: UIViewController {
         let barButton2 = UIBarButtonItem(customView: button2)
         
         self.navigationItem.rightBarButtonItem = barButton2
+         self.sideMenuController()?.sideMenu?.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -77,5 +78,8 @@ class OSViewController: UIViewController {
         }
     }
     
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
+    }
 
 }

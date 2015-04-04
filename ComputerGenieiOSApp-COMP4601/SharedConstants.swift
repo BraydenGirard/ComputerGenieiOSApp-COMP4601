@@ -29,3 +29,6 @@ let APPUSER: String = APPCURRENTSERVER + "/user/"
 //Genie Request = POST /genierequest
 let APPGENIE: String = APPCURRENTSERVER + "/genie/"
 
+//Products & Reviews
+let APPPRODUCT: String = APPCURRENTSERVER + "/product/"
+

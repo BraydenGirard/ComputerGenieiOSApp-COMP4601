@@ -11,13 +11,15 @@ import UIKit
 
 @objc protocol ValidationDelegate {
     func validationWasSuccessful()
-    func validationFailed(errors:[UITextField:ValidationError])
+    func validationFailed(errors:[UITextField:ValidationError]?, viewErrors: [UITextView:ValidationError]?)
 }
 
 class Validator {
     // dictionary to handle complex view hierarchies like dynamic tableview cells
     var errors:[UITextField:ValidationError] = [:]
+    var viewErrors: [UITextView:ValidationError] = [:]
     var validations:[UITextField:ValidationRule] = [:]
+    var validationsView:[UITextView:ValidationRule] = [:]
     
     init(){}
     
@@ -29,6 +31,14 @@ class Validator {
     
     func registerField(textField:UITextField, errorLabel:UILabel, rules:[Rule]) {
         validations[textField] = ValidationRule(textField: textField, rules:rules, errorLabel:errorLabel)
+    }
+    
+    func registerView(textView: UITextView, rules:[Rule]) {
+        validationsView[textView] = ValidationRule(textView: textView, rules: rules, errorLabel: nil)
+    }
+    
+    func registerView(textView: UITextView, errorLabel: UILabel, rules:[Rule]) {
+        validationsView[textView] = ValidationRule(textView: textView, rules: rules, errorLabel: errorLabel)
     }
     
     func validateAll(delegate:ValidationDelegate) {
@@ -46,15 +56,31 @@ class Validator {
             }
         }
         
-        if errors.isEmpty {
+        for view in validationsView.keys {
+            if let currentRule:ValidationRule = validationsView[view] {
+                if var error:ValidationError = currentRule.validateView() {
+                    if(currentRule.errorLabel != nil) {
+                        error.errorLabel = currentRule.errorLabel
+                    }
+                    viewErrors[view] = error
+                } else {
+                    viewErrors.removeValueForKey(view)
+                }
+            }
+        }
+        
+        if errors.isEmpty && viewErrors.isEmpty {
             delegate.validationWasSuccessful()
+        } else if viewErrors.isEmpty {
+            delegate.validationFailed(errors, viewErrors: nil)
         } else {
-            delegate.validationFailed(errors)
+            delegate.validationFailed(nil, viewErrors: viewErrors)
         }
     }
     
     func clearErrors(){
         self.errors = [:]
+        self.viewErrors = [:]
     }
     
 }

@@ -9,9 +9,14 @@
 import UIKit
 
 class ProductsViewController: UITableViewController, ENSideMenuDelegate {
-
+    
+    var genieResponse: [GenieResponse] = []
+    var imageCache: NSCache!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageCache = NSCache()
         
         self.title = "My Reviews"
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
@@ -25,7 +30,17 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedProductList:", name: "AllProductsSuccess", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchProductList:", name: "AllProductsFail", object: nil)
+        
+        NetworkManager.sharedInstance.sendAllProductsRequest(UserDefaultsManager.sharedInstance.getUserData())
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,30 +56,87 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 5
+        return self.genieResponse.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as? GenieResultCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as GenieResultCell
         
-        cell?.textLabel?.text = "Test"
+        var response = genieResponse[indexPath.row]
+        cell.setGenie(response)
         
-        return cell!
+        var image: UIImage? = self.imageCache.objectForKey(response.getId()) as? UIImage
+        
+        if(image != nil) {
+            cell.setThumbnailImage(image!)
+            
+        } else {
+            
+            cell.setThumbnailImage(UIImage(named: "find_btn.png")!)
+            var urlString = response.getImage()
+            
+            if urlString != "" {
+                var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                dispatch_async(q, {
+                    var image = (UIImage(named: "find_btn.png")!)
+                    
+                    let url = NSURL(string: urlString)
+                    if url != nil {
+                        if let data = NSData(contentsOfURL: url!) {
+                            image = (UIImage(data: data)!)
+                        }
+                    }
+                    
+                    self.imageCache.setObject(image, forKey: response.getId())
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.setThumbnailImage(image)
+                    });
+                });
+            } else {
+                cell.setThumbnailImage((UIImage(named: "find_btn.png")!))
+            }
+            
+        }
+        
+        return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50.0
+        return 120.0
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? GenieResultCell {
+            let url = cell.getGenie().getUrl()
+            UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        }
+    }
+    
+    func recievedProductList(notification: NSNotification) {
         
-        println("did select row: \(indexPath.row)")
-        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.genieResponse = []
+            
+            if let userInfo : Dictionary<String,GenieResponse> = notification.userInfo as? Dictionary<String,GenieResponse> {
+                for response in userInfo.values {
+                    self.genieResponse.append(response)
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func failedToFetchProductList(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Could not fetch products")
+        }
     }
     
     func toggleSideMenu(sender: UIButton) {
-        println("Button pushed")
         self.toggleSideMenuView()
     }
     

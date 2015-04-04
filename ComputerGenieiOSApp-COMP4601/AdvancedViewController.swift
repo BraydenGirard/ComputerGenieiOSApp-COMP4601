@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdvancedViewController: UIViewController {
+class AdvancedViewController: UIViewController, ENSideMenuDelegate {
     
     @IBOutlet var ssdSwitch: UISwitch!
     
@@ -53,6 +53,7 @@ class AdvancedViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = barButton2
         
+        self.sideMenuController()?.sideMenu?.delegate = self;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -178,6 +179,11 @@ class AdvancedViewController: UIViewController {
                 destinationViewController.setGenieResponse(userInfo)
             }
         }
+    }
+    
+    //MARK:- Side Menu Delegate
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
     }
     
 }

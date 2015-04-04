@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class ValidationRule {
-    var textField:UITextField
+    var textView:UITextView?
+    var textField:UITextField?
     var errorLabel:UILabel?
     var rules:[Rule] = []
     
@@ -20,13 +21,34 @@ class ValidationRule {
         self.rules = rules
     }
     
+    init(textView: UITextView, rules:[Rule], errorLabel:UILabel?){
+        self.textView = textView
+        self.rules = rules
+        self.errorLabel = errorLabel
+    }
+    
     func validateField() -> ValidationError? {
         for rule in rules {
-            var isValid:Bool = rule.validate(textField.text)
-            if !isValid {
-                return ValidationError(textField: self.textField, error: rule.errorMessage())
+            if textField != nil {
+                var isValid:Bool = rule.validate(textField!.text)
+                if !isValid {
+                    return ValidationError(textField: self.textField!, error: rule.errorMessage())
+                }
             }
         }
+        return nil
+    }
+    
+    func validateView() -> ValidationError? {
+        for rule in rules {
+            if textView != nil {
+                var isValid:Bool = rule.validate(textView!.text)
+                if !isValid {
+                    return ValidationError(textField: self.textField!, error: rule.errorMessage())
+                }
+            }
+        }
+        
         return nil
     }
     

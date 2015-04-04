@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PriceViewController: UIViewController {
+class PriceViewController: UIViewController, ENSideMenuDelegate {
 
     enum Price: Int {
         case FiveHundred = 1, OneThousand, TwoThousand, TwoThousandUp
@@ -38,6 +38,8 @@ class PriceViewController: UIViewController {
         let barButton2 = UIBarButtonItem(customView: button2)
         
         self.navigationItem.rightBarButtonItem = barButton2
+        
+        self.sideMenuController()?.sideMenu?.delegate = self;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -80,5 +82,9 @@ class PriceViewController: UIViewController {
             let destinationViewController = segue.destinationViewController as AdvancedViewController
             destinationViewController.setGenieRequest(self.genieRequest)
         }
+    }
+    
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
     }
 }

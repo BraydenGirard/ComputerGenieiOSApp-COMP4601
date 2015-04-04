@@ -69,7 +69,6 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     }
     
     func toggleSideMenu(sender: UIButton) {
-        println("Button pushed")
         self.toggleSideMenuView()
     }
     

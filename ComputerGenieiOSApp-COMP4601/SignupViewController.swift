@@ -144,7 +144,8 @@ class SignupViewController: UIViewController, ValidationDelegate, UITextFieldDel
         
         //self.presentViewController(alert, animated: true, completion: nil)
     }
-    func validationFailed(errors:[UITextField:ValidationError]) {
+    
+    func validationFailed(errors:[UITextField:ValidationError]?, viewErrors: [UITextView:ValidationError]?) {
         println("Validation FAILED!")
         self.setErrors()
     }

@@ -84,7 +84,6 @@ class GenieViewController: UITableViewController{
         
         var response = genieResponse[indexPath.row]
         cell?.setGenie(response)
-        println(response.getImage())
         
         var image: UIImage? = self.imageCache.objectForKey(response.getId()) as? UIImage
         
@@ -138,9 +137,6 @@ class GenieViewController: UITableViewController{
             let url = cell.getGenie().getUrl()
             UIApplication.sharedApplication().openURL(NSURL(string: url)!)
         }
-        
-        println("did select row: \(indexPath.row)")
-        
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -164,6 +160,7 @@ class GenieViewController: UITableViewController{
             let destinationViewController = segue.destinationViewController as ProductReviewsViewController
             if let cell = sender as? GenieResultCell {
                 destinationViewController.setProductId(cell.getGenie().getId())
+                destinationViewController.setViewTitle(cell.getGenie().getName())
             }
         }
     }

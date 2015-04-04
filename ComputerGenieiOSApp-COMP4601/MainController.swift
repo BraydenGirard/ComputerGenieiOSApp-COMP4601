@@ -39,7 +39,6 @@ class MainController: UIViewController, ENSideMenuDelegate {
     }
     
     @IBAction func toggleSideMenu(sender: UIButton) {
-        println("Button pushed")
         self.toggleSideMenuView()
     }
     

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F4DA1991ACF3B9F0044589B /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DA1981ACF3B9F0044589B /* ReviewCell.swift */; };
+		5F4DA19B1ACF3CFA0044589B /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DA19A1ACF3CFA0044589B /* Review.swift */; };
+		5F4DA19D1ACF4F9B0044589B /* MaxLengthRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DA19C1ACF4F9B0044589B /* MaxLengthRule.swift */; };
 		5FD9F88D1ACE43B000BAF6A3 /* ProductReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */; };
 		F610E49B1ACB1885000B1518 /* GenieResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F610E49A1ACB1885000B1518 /* GenieResultCell.swift */; };
 		F610E4A51ACB55E6000B1518 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F610E4A41ACB55D4000B1518 /* Montserrat-Regular.otf */; };
@@ -254,6 +257,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F4DA1981ACF3B9F0044589B /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		5F4DA19A1ACF3CFA0044589B /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		5F4DA19C1ACF4F9B0044589B /* MaxLengthRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxLengthRule.swift; sourceTree = "<group>"; };
 		5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewsViewController.swift; sourceTree = "<group>"; };
 		F610E49A1ACB1885000B1518 /* GenieResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieResultCell.swift; sourceTree = "<group>"; };
 		F610E4A01ACB55D4000B1518 /* Montserrat-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Black.otf"; path = "Resources/Fonts/Montserrat-Black.otf"; sourceTree = "<group>"; };
@@ -507,7 +513,6 @@
 				F6AD85AD1ACA06D5000B29B5 /* PriceViewController.swift */,
 				F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */,
 				F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */,
-				F610E49A1ACB1885000B1518 /* GenieResultCell.swift */,
 				5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */,
 			);
 			name = Controllers;
@@ -519,6 +524,7 @@
 				F66D70CC1AC73C430044B056 /* User.swift */,
 				F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */,
 				F6443D081ACB050900C8759F /* GenieResponse.swift */,
+				5F4DA19A1ACF3CFA0044589B /* Review.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -526,6 +532,8 @@
 		F6547CAE1AC7632900905BEB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5F4DA1981ACF3B9F0044589B /* ReviewCell.swift */,
+				F610E49A1ACB1885000B1518 /* GenieResultCell.swift */,
 				F6E629211AC71A2B00DA1009 /* Main.storyboard */,
 				F6E629261AC71A2B00DA1009 /* LaunchScreen.xib */,
 			);
@@ -712,6 +720,7 @@
 				F66D70E71AC740C70044B056 /* Validator.swift */,
 				F66D70E81AC740C70044B056 /* ZipCodeRule.swift */,
 				F6547CAF1AC7708400905BEB /* DateRule.swift */,
+				5F4DA19C1ACF4F9B0044589B /* MaxLengthRule.swift */,
 			);
 			name = "Swift-Validator";
 			sourceTree = "<group>";
@@ -1064,6 +1073,7 @@
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
 				F6EEAEB51AC9D7730064EDEA /* FindViewController.swift in Sources */,
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
+				5F4DA19D1ACF4F9B0044589B /* MaxLengthRule.swift in Sources */,
 				F6EEAEAF1AC9D7420064EDEA /* ProfileViewController.swift in Sources */,
 				F66D70EE1AC740C70044B056 /* PhoneNumberRule.swift in Sources */,
 				F6F281671AC8F7C000EFA6B8 /* ENSideMenu.swift in Sources */,
@@ -1076,7 +1086,9 @@
 				F66D70EB1AC740C70044B056 /* FullNameRule.swift in Sources */,
 				F66D70EF1AC740C70044B056 /* RequiredRule.swift in Sources */,
 				F66D70CF1AC73C430044B056 /* NetworkManager.swift in Sources */,
+				5F4DA19B1ACF3CFA0044589B /* Review.swift in Sources */,
 				F66D70EC1AC740C70044B056 /* MinLengthRule.swift in Sources */,
+				5F4DA1991ACF3B9F0044589B /* ReviewCell.swift in Sources */,
 				F66D70E91AC740C70044B056 /* ConfirmRule.swift in Sources */,
 				F66D70ED1AC740C70044B056 /* PasswordRule.swift in Sources */,
 				F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */,
