@@ -19,6 +19,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var reviewOpinion = "like"
+    
     var productId: String!
     var reviews: [Review]!
     
@@ -138,6 +140,12 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     func validationWasSuccessful() {
         activityIndicator.startAnimating()
         
+        var user =  UserDefaultsManager.sharedInstance.getUserData()
+        var name = user.getFirstName()
+        name += " "
+        name += user.getLastName()
+        
+        var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970)
         // TODO: Send review POST
         //NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
         
@@ -170,6 +178,32 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
             println("Controller: Could not fetch reviews")
             self.activityIndicator.stopAnimating()
         }
+    }
+    
+    @IBAction func likeSelected(sender: UIButton) {
+            
+            self.likeButton.backgroundColor = UIColor.grayColor()
+            self.likeButton.imageView?.alpha = 0.5
+            self.likeButton.titleLabel?.alpha = 0.5
+            
+            self.dislikeButton.backgroundColor = UIColor(red: 196.0/255, green: 47.0/255.0, blue: 43.0/255.0, alpha: 1)
+            self.dislikeButton.imageView?.alpha = 1
+            self.dislikeButton.titleLabel?.alpha = 1
+            
+            self.reviewOpinion = "like"
+    }
+    
+    @IBAction func dislikeSelected(sender: UIButton) {
+            
+        self.dislikeButton.backgroundColor = UIColor.grayColor()
+        self.dislikeButton.imageView?.alpha = 0.5
+        self.dislikeButton.titleLabel?.alpha = 0.5
+            
+        self.likeButton.backgroundColor = UIColor(red: 0.0, green: 204.0/255.0, blue: 0.0, alpha: 1)
+        self.likeButton.imageView?.alpha = 1
+        self.likeButton.titleLabel?.alpha = 1
+            
+        self.reviewOpinion = "dislike"
     }
     
 }
