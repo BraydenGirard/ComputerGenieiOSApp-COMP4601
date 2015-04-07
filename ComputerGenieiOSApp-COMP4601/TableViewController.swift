@@ -67,7 +67,7 @@ class TableViewController: UITableViewController {
             cell?.textLabel?.text = "Find Product"
             break
         case 3:
-            cell?.textLabel?.text = "My Reviews"
+            cell?.textLabel?.text = "My History"
             break
         case 4:
             cell?.textLabel?.text = "Settings"

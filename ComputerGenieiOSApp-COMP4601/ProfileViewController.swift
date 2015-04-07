@@ -60,4 +60,15 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
         return true
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "good_segue") {
+            let destinationViewController = segue.destinationViewController as MyReviewsController
+            destinationViewController.setTypeOfReviews("GOOD")
+        } else if(segue.identifier == "bad_segue") {
+            let destinationViewController = segue.destinationViewController as MyReviewsController
+            destinationViewController.setTypeOfReviews("BAD")
+        }
+    }
+    
+    
 }

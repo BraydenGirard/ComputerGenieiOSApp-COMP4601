@@ -149,6 +149,7 @@
 		F6E629251AC71A2B00DA1009 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6E629241AC71A2B00DA1009 /* Images.xcassets */; };
 		F6E629281AC71A2B00DA1009 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E629261AC71A2B00DA1009 /* LaunchScreen.xib */; };
 		F6E629341AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */; };
+		F6E7EFE31AD386A2001201CC /* MyReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E7EFE21AD386A2001201CC /* MyReviewsController.swift */; };
 		F6EEAEA91AC9D0FF0064EDEA /* menu_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA61AC9D0FF0064EDEA /* menu_button.png */; };
 		F6EEAEAA1AC9D0FF0064EDEA /* menu_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA71AC9D0FF0064EDEA /* menu_button@2x.png */; };
 		F6EEAEAB1AC9D0FF0064EDEA /* menu_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6EEAEA81AC9D0FF0064EDEA /* menu_button@3x.png */; };
@@ -402,6 +403,7 @@
 		F6E6292D1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ComputerGenieiOSApp-COMP4601Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E629321AC71A2B00DA1009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E629331AC71A2B00DA1009 /* ComputerGenieiOSApp_COMP4601Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerGenieiOSApp_COMP4601Tests.swift; sourceTree = "<group>"; };
+		F6E7EFE21AD386A2001201CC /* MyReviewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyReviewsController.swift; sourceTree = "<group>"; };
 		F6EEAEA61AC9D0FF0064EDEA /* menu_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_button.png; path = Resources/Images/menu_button.png; sourceTree = "<group>"; };
 		F6EEAEA71AC9D0FF0064EDEA /* menu_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu_button@2x.png"; path = "Resources/Images/menu_button@2x.png"; sourceTree = "<group>"; };
 		F6EEAEA81AC9D0FF0064EDEA /* menu_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu_button@3x.png"; path = "Resources/Images/menu_button@3x.png"; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				F6AD85AF1ACA06E9000B29B5 /* AdvancedViewController.swift */,
 				F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */,
 				5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */,
+				F6E7EFE21AD386A2001201CC /* MyReviewsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1073,6 +1076,7 @@
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
 				F6EEAEB51AC9D7730064EDEA /* FindViewController.swift in Sources */,
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
+				F6E7EFE31AD386A2001201CC /* MyReviewsController.swift in Sources */,
 				5F4DA19D1ACF4F9B0044589B /* MaxLengthRule.swift in Sources */,
 				F6EEAEAF1AC9D7420064EDEA /* ProfileViewController.swift in Sources */,
 				F66D70EE1AC740C70044B056 /* PhoneNumberRule.swift in Sources */,

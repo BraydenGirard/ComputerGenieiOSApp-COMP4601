@@ -901,4 +901,259 @@ class NetworkManager {
         
     }
     
+    func sendFetchAllGoodReviewsRequest(user: User) {
+        
+        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/positive")!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        
+        let data : NSData = ("").dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        println("sent")
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
+            
+            if(err != nil) {
+                var dictionary = Dictionary<String, String>()
+                dictionary["error"] = err!.localizedDescription
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    
+                    var results: Dictionary<String, Review> = Dictionary<String, Review>()
+                    var pIdFinal: String?
+                    var uIdFinal: String?
+                    var uNFinal: String?
+                    var contentFinal: String?
+                    var opinionFinal: String?
+                    var upscoreFinal: Int?
+                    var downscoreFinal: Int?
+                    var dateFinal: Double?
+                    
+                    //GenieResponses
+                    if let reviews = xml.root["review"].all {
+                        
+                        for review in reviews {
+                            if let id = review["productId"].value {
+                                pIdFinal = id
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let userId = review["userId"].value {
+                                uIdFinal = userId
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let name = review["userName"].value {
+                                uNFinal = name
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let content = review["content"].value {
+                                contentFinal = content
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let opinion = review["opinion"].value {
+                                opinionFinal = opinion
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let upscore = review["upScore"].value {
+                                upscoreFinal = Int((upscore as NSString).intValue)
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let downscore = review["downScore"].value {
+                                downscoreFinal = Int((downscore as NSString).intValue)
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let date = review["date"].value {
+                                dateFinal = (date as NSString).doubleValue
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            
+                            var theReview = Review(pId: pIdFinal!, uId: uIdFinal!, uName: uNFinal!, content: contentFinal!, opinion: opinionFinal!, upScore: upscoreFinal!, downScore: downscoreFinal!, date: dateFinal!)
+                            results[theReview.getPIDAndUIDPair()] = theReview
+                        }
+                        
+                    }
+                    
+                    if(httpResponse.statusCode == 200) {
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsSuccess", object: nil, userInfo: results)
+                    }
+                    else {
+                        println("Network Manager: Response code was not 200")
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                    }
+                }
+                else {
+                    println("Network Manager: Failed to parse xml")
+                    NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                }
+            } else {
+                println("Network Manager: Failed to get response code")
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+            }
+            
+            
+        })
+        
+        task.resume()
+        
+        
+    }
+
+    func sendFetchAllBadReviewsRequest(user: User) {
+        
+        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/negative")!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        
+        let data : NSData = ("").dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        println("sent")
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
+            
+            if(err != nil) {
+                var dictionary = Dictionary<String, String>()
+                dictionary["error"] = err!.localizedDescription
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    
+                    var results: Dictionary<String, Review> = Dictionary<String, Review>()
+                    var pIdFinal: String?
+                    var uIdFinal: String?
+                    var uNFinal: String?
+                    var contentFinal: String?
+                    var opinionFinal: String?
+                    var upscoreFinal: Int?
+                    var downscoreFinal: Int?
+                    var dateFinal: Double?
+                    
+                    //GenieResponses
+                    if let reviews = xml.root["review"].all {
+                        
+                        for review in reviews {
+                            if let id = review["productId"].value {
+                                pIdFinal = id
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let userId = review["userId"].value {
+                                uIdFinal = userId
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let name = review["userName"].value {
+                                uNFinal = name
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let content = review["content"].value {
+                                contentFinal = content
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let opinion = review["opinion"].value {
+                                opinionFinal = opinion
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let upscore = review["upScore"].value {
+                                upscoreFinal = Int((upscore as NSString).intValue)
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let downscore = review["downScore"].value {
+                                downscoreFinal = Int((downscore as NSString).intValue)
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            if let date = review["date"].value {
+                                dateFinal = (date as NSString).doubleValue
+                            } else {
+                                println("Broken review")
+                                continue
+                            }
+                            
+                            var theReview = Review(pId: pIdFinal!, uId: uIdFinal!, uName: uNFinal!, content: contentFinal!, opinion: opinionFinal!, upScore: upscoreFinal!, downScore: downscoreFinal!, date: dateFinal!)
+                            results[theReview.getPIDAndUIDPair()] = theReview
+                        }
+                        
+                    }
+                    
+                    if(httpResponse.statusCode == 200) {
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsSuccess", object: nil, userInfo: results)
+                    }
+                    else {
+                        println("Network Manager: Response code was not 200")
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                    }
+                }
+                else {
+                    println("Network Manager: Failed to parse xml")
+                    NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                }
+            } else {
+                println("Network Manager: Failed to get response code")
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+            }
+            
+            
+        })
+        
+        task.resume()
+        
+        
+    }
+
+    
 }
