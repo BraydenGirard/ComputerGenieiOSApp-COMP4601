@@ -280,7 +280,7 @@ class NetworkManager {
     }
     
     func sendReviewRequest(user: User, review: Review) {
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/review")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -378,11 +378,11 @@ class NetworkManager {
             xmlString += "<birthday></birthday>"
         }
         xmlString += "<lastLoginTime>\(user.getLastLogin())</lastLoginTime>"
-        xmlString += "<productIds>"
+        //xmlString += "<productIds>"
         for productId in user.getProductHistory() {
-            xmlString += "<productId>\(productId)</productId>"
+            xmlString += "<productIds>\(productId)</productIds>"
         }
-        xmlString += "</productIds>"
+        //xmlString += "</productIds>"
         xmlString += "</user>"
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
@@ -547,7 +547,7 @@ class NetworkManager {
                     
                     var productHistory: [String]?
                     
-                    if let productIds = xml.root["productIds"]["productId"].all {
+                    if let productIds = xml.root["productIds"].all {
                         for pid in productIds {
                             if let id = pid.value {
                                 productHistory?.append(id)
@@ -623,7 +623,7 @@ class NetworkManager {
                     
                     var productHistory: [String]?
                     
-                    if let productIds = xml.root["productIds"]["productId"].all {
+                    if let productIds = xml.root["productIds"].all {
                         for pid in productIds {
                             if let id = pid.value {
                                 productHistory?.append(id)

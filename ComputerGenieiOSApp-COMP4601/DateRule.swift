@@ -23,6 +23,8 @@ class DateRule: Rule {
         let test = NSPredicate(format: "SELF MATCHES %@", self.REGEX)
         if test!.evaluateWithObject(value) {
             return true
+        } else if(value == "") {
+            return true
         }
         return false
     }

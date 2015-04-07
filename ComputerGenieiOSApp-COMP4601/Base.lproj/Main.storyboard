@@ -62,6 +62,9 @@
             <string>Montserrat-Regular</string>
             <string>Montserrat-Regular</string>
             <string>Montserrat-Regular</string>
+            <string>Montserrat-Regular</string>
+            <string>Montserrat-Regular</string>
+            <string>Montserrat-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2226,7 +2229,7 @@
                         <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                         <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" id="8ta-MW-wed">
-                            <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                            <rect key="frame" x="0.0" y="142" width="600" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
@@ -2310,22 +2313,22 @@
                                         <mask key="constraints">
                                             <exclude reference="3M8-zj-ILd"/>
                                             <exclude reference="7Q8-cI-gYQ"/>
-                                            <exclude reference="ziL-iO-75q"/>
                                             <exclude reference="cTc-zW-2yB"/>
+                                            <exclude reference="ziL-iO-75q"/>
+                                            <exclude reference="2Hs-Jo-1tQ"/>
                                             <exclude reference="a6I-Qz-nk4"/>
                                             <exclude reference="d8A-eD-jmW"/>
                                             <exclude reference="hWo-Lc-lwq"/>
-                                            <exclude reference="2Hs-Jo-1tQ"/>
                                             <exclude reference="ozs-bj-PrP"/>
                                             <exclude reference="ulg-ZN-Shb"/>
+                                            <exclude reference="A0S-CB-Y89"/>
                                             <exclude reference="ElK-EZ-7se"/>
                                             <exclude reference="lWf-mf-0cA"/>
-                                            <exclude reference="A0S-CB-Y89"/>
                                             <exclude reference="BHV-uP-aYI"/>
-                                            <exclude reference="utR-hI-cN8"/>
+                                            <exclude reference="O1O-Sr-5yf"/>
                                             <exclude reference="c7Q-5E-tIa"/>
                                             <exclude reference="etW-L5-7Fo"/>
-                                            <exclude reference="O1O-Sr-5yf"/>
+                                            <exclude reference="utR-hI-cN8"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -2334,18 +2337,18 @@
                                             <include reference="7Q8-cI-gYQ"/>
                                             <include reference="ziL-iO-75q"/>
                                             <include reference="d8A-eD-jmW"/>
-                                            <include reference="ElK-EZ-7se"/>
                                             <include reference="A0S-CB-Y89"/>
-                                            <include reference="utR-hI-cN8"/>
+                                            <include reference="ElK-EZ-7se"/>
                                             <include reference="O1O-Sr-5yf"/>
+                                            <include reference="utR-hI-cN8"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=regular">
                                         <mask key="constraints">
                                             <include reference="cTc-zW-2yB"/>
+                                            <exclude reference="2Hs-Jo-1tQ"/>
                                             <include reference="a6I-Qz-nk4"/>
                                             <include reference="hWo-Lc-lwq"/>
-                                            <exclude reference="2Hs-Jo-1tQ"/>
                                             <include reference="ozs-bj-PrP"/>
                                             <include reference="ulg-ZN-Shb"/>
                                             <include reference="lWf-mf-0cA"/>
@@ -2372,7 +2375,7 @@
                     <navigationItem key="navigationItem" id="ULJ-Dy-qrw"/>
                     <connections>
                         <outlet property="activityView" destination="8ta-MW-wed" id="pjh-dU-xZq"/>
-                        <segue destination="Gxo-tA-Xnp" kind="show" identifier="productHistoryReviews" id="Zkj-WE-6zU"/>
+                        <segue destination="Gxo-tA-Xnp" kind="show" identifier="productReviews" id="Zkj-WE-6zU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EB5-Pu-QdP" userLabel="First Responder" sceneMemberID="firstResponder"/>

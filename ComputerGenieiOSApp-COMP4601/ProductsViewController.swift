@@ -35,11 +35,16 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate{
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeHistory:", name: "HistorySuccess", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failHistory:", name: "HistoryFail", object: nil)
+        println("Product view did load called")
+        
+        activityView.startAnimating()
+        NetworkManager.sharedInstance.sendHistoryRequest(UserDefaultsManager.sharedInstance.getUserData())
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
-        activityView.startAnimating()
-        NetworkManager.sharedInstance.sendHistoryRequest(UserDefaultsManager.sharedInstance.getUserData())
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -173,7 +178,7 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "productHistoryReviews") {
+        if (segue.identifier == "productReviews") {
             let destinationViewController = segue.destinationViewController as ProductReviewsViewController
             if let cell = sender as? GenieResultCell{
                 destinationViewController.setProductId(cell.getGenie().getId())
