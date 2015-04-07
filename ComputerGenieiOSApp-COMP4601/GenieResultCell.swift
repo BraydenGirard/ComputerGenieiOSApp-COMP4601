@@ -46,15 +46,15 @@ class GenieResultCell: UITableViewCell {
     
     private func setPrice(value: Float) {
         var print = NSString(format: "$ %.2f", value)
-        self.titleLabel?.text = print
+        self.priceLabel?.text = print
     }
     
     private func setTitle(value: String) {
-        self.priceLabel?.text = value
+        self.titleLabel?.text = value.capitalizedString
     }
     
     private func setRetailer(value: String) {
-        self.retailerLabel?.text = value
+        self.retailerLabel?.text = value.capitalizedString
     }
     
 }

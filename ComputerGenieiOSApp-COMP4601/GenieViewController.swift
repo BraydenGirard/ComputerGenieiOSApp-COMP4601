@@ -162,8 +162,10 @@ class GenieViewController: UITableViewController{
         if (segue.identifier == "productReviews") {
             let destinationViewController = segue.destinationViewController as ProductReviewsViewController
             if let cell = sender as? GenieResultCell{
-                destinationViewController.setProductId(cell.getGenie().getId())
-                destinationViewController.setViewTitle(cell.getGenie().getName())
+                var genie = cell.getGenie()
+                
+                destinationViewController.setProductIdAndUrl(genie.getId(), url: genie.getUrl())
+                destinationViewController.setViewTitle(genie.getName())
             }
         }
     }

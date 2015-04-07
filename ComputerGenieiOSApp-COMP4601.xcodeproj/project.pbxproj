@@ -11,6 +11,8 @@
 		5F4DA19B1ACF3CFA0044589B /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DA19A1ACF3CFA0044589B /* Review.swift */; };
 		5F4DA19D1ACF4F9B0044589B /* MaxLengthRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DA19C1ACF4F9B0044589B /* MaxLengthRule.swift */; };
 		5FD9F88D1ACE43B000BAF6A3 /* ProductReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */; };
+		5FDA3A571AD4580E00907B7C /* XmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA3A561AD4580E00907B7C /* XmlParser.swift */; };
+		5FDA3A5A1AD4636D00907B7C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA3A591AD4636D00907B7C /* WebViewController.swift */; };
 		F610E49B1ACB1885000B1518 /* GenieResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F610E49A1ACB1885000B1518 /* GenieResultCell.swift */; };
 		F610E4A51ACB55E6000B1518 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F610E4A41ACB55D4000B1518 /* Montserrat-Regular.otf */; };
 		F610E4A61ACB55E9000B1518 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F610E4A31ACB55D4000B1518 /* Montserrat-Light.otf */; };
@@ -262,6 +264,8 @@
 		5F4DA19A1ACF3CFA0044589B /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		5F4DA19C1ACF4F9B0044589B /* MaxLengthRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxLengthRule.swift; sourceTree = "<group>"; };
 		5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewsViewController.swift; sourceTree = "<group>"; };
+		5FDA3A561AD4580E00907B7C /* XmlParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmlParser.swift; sourceTree = "<group>"; };
+		5FDA3A591AD4636D00907B7C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F610E49A1ACB1885000B1518 /* GenieResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieResultCell.swift; sourceTree = "<group>"; };
 		F610E4A01ACB55D4000B1518 /* Montserrat-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Black.otf"; path = "Resources/Fonts/Montserrat-Black.otf"; sourceTree = "<group>"; };
 		F610E4A11ACB55D4000B1518 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "Resources/Fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 			children = (
 				F66D70CD1AC73C430044B056 /* NetworkManager.swift */,
 				F66D70771AC7261C0044B056 /* AEXML.swift */,
+				5FDA3A561AD4580E00907B7C /* XmlParser.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -517,6 +522,7 @@
 				F6AD85B11ACA06F8000B29B5 /* GenieViewController.swift */,
 				5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */,
 				F6E7EFE21AD386A2001201CC /* MyReviewsController.swift */,
+				5FDA3A591AD4636D00907B7C /* WebViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1096,6 +1102,7 @@
 				F66D70E91AC740C70044B056 /* ConfirmRule.swift in Sources */,
 				F66D70ED1AC740C70044B056 /* PasswordRule.swift in Sources */,
 				F66BBE961ACA47AE00564AC1 /* GenieRequest.swift in Sources */,
+				5FDA3A5A1AD4636D00907B7C /* WebViewController.swift in Sources */,
 				F6443D091ACB050900C8759F /* GenieResponse.swift in Sources */,
 				F6F281641AC8EA5800EFA6B8 /* UserDefaultsManager.swift in Sources */,
 				F66D70F31AC740C70044B056 /* Validator.swift in Sources */,
@@ -1108,6 +1115,7 @@
 				F6F281681AC8F7C000EFA6B8 /* ENSideMenuNavigationController.swift in Sources */,
 				F6E6291E1AC71A2B00DA1009 /* AppDelegate.swift in Sources */,
 				F66D70F41AC740C70044B056 /* ZipCodeRule.swift in Sources */,
+				5FDA3A571AD4580E00907B7C /* XmlParser.swift in Sources */,
 				F6AD85AC1ACA06C5000B29B5 /* UseViewController.swift in Sources */,
 				5FD9F88D1ACE43B000BAF6A3 /* ProductReviewsViewController.swift in Sources */,
 				F66D70F01AC740C70044B056 /* Rule.swift in Sources */,

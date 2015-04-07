@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class ProductReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ENSideMenuDelegate {
 
     @IBOutlet weak var reviewsTableView: UITableView!
     
@@ -22,6 +22,7 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     var reviewOpinion = "LIKE"
     
     var productId: String!
+    var productUrl: String!
     var reviews: [Review]! = []
     
     override func viewDidLoad() {
@@ -40,6 +41,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchReviews:", name: "FetchReviewsFail", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedSuccessfulPost:", name: "PostReviewSuccess", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToPost:", name: "PostReviewFail", object: nil)
+        
+        self.sideMenuController()?.sideMenu?.delegate = self;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,12 +56,13 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    func setProductId(value: String) {
-        self.productId = value
+    func setProductIdAndUrl(id: String, url: String) {
+        self.productId = id
+        self.productUrl = url
     }
     
     func setViewTitle(value: String) {
-        self.title = value
+        self.title = value.capitalizedString
     }
     
     private func setError(error: String){
@@ -147,7 +151,7 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         name += " "
         name += user.getLastName()
         
-        var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970)
+        var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970, productName: self.title!.lowercaseString, url: self.productUrl)
         
         NetworkManager.sharedInstance.sendReviewRequest(user, review: review)
     }
@@ -221,4 +225,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         self.view.endEditing(true)
     }
     
+    //MARK:- Side Menu Delegate
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
+    }
 }
