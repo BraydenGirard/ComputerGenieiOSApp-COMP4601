@@ -18,6 +18,7 @@ class User {
     private var birthDate: String?
     private var gender: String?
     private var lastLogin: String?
+    private var productHistory: [String] = []
     
     init(id: String, email: String, password: String, name: String) {
         self.id = id
@@ -26,7 +27,7 @@ class User {
         self.name = name
     }
     
-    init(token: String?, id: String, email: String, password: String, name: String, birthdate: String?, gender: String?, lastLogin: String?) {
+    init(token: String?, id: String, email: String, password: String, name: String, birthdate: String?, gender: String?, lastLogin: String?, productHistory: [String]?) {
         self.token = token
         self.id = id
         self.email = email
@@ -35,6 +36,12 @@ class User {
         self.birthDate = birthdate
         self.gender = gender
         self.lastLogin = lastLogin
+        
+        if let productIds = productHistory {
+            self.productHistory = productIds
+        } else {
+            self.productHistory = []
+        }
     }
     
     func getAge() -> Int {
@@ -137,5 +144,17 @@ class User {
     
     func getLastLogin() -> String? {
         return self.lastLogin
+    }
+    
+    func setProductHistory(productHistory: [String]) {
+        self.productHistory = productHistory
+    }
+    
+    func addProductHistory(productId: String) {
+        self.productHistory.append(productId)
+    }
+    
+    func getProductHistory() -> [String] {
+        return self.productHistory
     }
 }

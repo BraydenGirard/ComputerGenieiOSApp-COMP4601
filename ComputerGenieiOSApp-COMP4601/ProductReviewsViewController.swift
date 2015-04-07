@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ValidationDelegate {
+class ProductReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
 
     @IBOutlet weak var reviewsTableView: UITableView!
     
@@ -19,15 +19,15 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var reviewOpinion = "like"
+    var reviewOpinion = "LIKE"
     
     var productId: String!
-    var reviews: [Review]!
-    
-    let validator = Validator()
+    var reviews: [Review]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         self.navigationItem.hidesBackButton = false
         
         self.reviewsTableView.dataSource = self
@@ -35,8 +35,6 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         self.reviewsTableView.allowsSelection = false
         
         self.reviewTextView.delegate = self
-        
-        validator.registerView(reviewTextView, errorLabel: errorLabel, rules: [RequiredRule(), MaxLengthRule()])
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedReviewList:", name: "FetchReviewsSuccess", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchReviews:", name: "FetchReviewsFail", object: nil)
@@ -63,27 +61,31 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         self.title = value
     }
     
-    private func setErrors(){
-        for (field, error) in validator.viewErrors {
-            field.layer.borderColor = UIColor.redColor().CGColor
-            field.layer.borderWidth = 1.0
-            error.errorLabel?.text = error.errorMessage
-            error.errorLabel?.hidden = false
-        }
+    private func setError(error: String){
+            errorLabel.text = error
+            errorLabel.hidden = false
     }
     
-    private func clearErrors(){
-        for (field, error) in validator.viewErrors {
-            field.layer.borderWidth = 0.0
-            error.errorLabel?.hidden = true
-        }
+    private func clearError(){
+        
+            errorLabel.layer.borderWidth = 0.0
+            errorLabel.hidden = true
     }
     
     // MARK: Actions
     
     @IBAction func submitPushed(sender: UIButton) {
-        clearErrors()
-        validator.validateAll(self)
+        clearError()
+        
+        let text = reviewTextView.text.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
+        
+        if(text.utf16Count > 300) {
+            setError("Review is too long!")
+        } else if(text.utf16Count < 1) {
+            setError("Review is empty!")
+        } else {
+            validationWasSuccessful()
+        }
     }
     
     // MARK: - Table view data source
@@ -146,13 +148,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         name += user.getLastName()
         
         var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970)
-        // TODO: Send review POST
-        //NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
         
-    }
-    
-    func validationFailed(errors:[UITextField:ValidationError]?, viewErrors: [UITextView:ValidationError]?) {
-        self.setErrors()
+        NetworkManager.sharedInstance.sendReviewRequest(user, review: review)
     }
     
     //MARK: Notification Handlers 
@@ -180,6 +177,20 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    func failedToPost(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Could not post review")
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func recievedSuccessfulPost(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: Review posted successfully")
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
     @IBAction func likeSelected(sender: UIButton) {
             
             self.likeButton.backgroundColor = UIColor.grayColor()
@@ -190,7 +201,7 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
             self.dislikeButton.imageView?.alpha = 1
             self.dislikeButton.titleLabel?.alpha = 1
             
-            self.reviewOpinion = "like"
+            self.reviewOpinion = "LIKE"
     }
     
     @IBAction func dislikeSelected(sender: UIButton) {
@@ -203,7 +214,11 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         self.likeButton.imageView?.alpha = 1
         self.likeButton.titleLabel?.alpha = 1
             
-        self.reviewOpinion = "dislike"
+        self.reviewOpinion = "DISLIKE"
+    }
+    
+    func hideKeyboard(){
+        self.view.endEditing(true)
     }
     
 }

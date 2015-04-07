@@ -16,6 +16,7 @@ let userNameKeyConstant = "name"
 let userBirthdateKeyConstant = "birthdate"
 let userGenderKeyConstant = "gender"
 let userLastLoginKeyConstant = "lastlogin"
+let userProductHistoryKeyConstant = "productHistory"
 
 
 class UserDefaultsManager {
@@ -70,10 +71,11 @@ class UserDefaultsManager {
         saveBirthdate(user.getBirthDate())
         saveGender(user.getGender())
         saveLastLogin(user.getLastLogin())
+        saveProductHistory(user.getProductHistory())
     }
     
     func getUserData() -> User {
-        return User(token: getToken(), id: getUserID(), email: getEmailID(), password: getPassword(), name: getUserName(), birthdate: getBirthdate(), gender: getGender(), lastLogin: getLastLogin())
+        return User(token: getToken(), id: getUserID(), email: getEmailID(), password: getPassword(), name: getUserName(), birthdate: getBirthdate(), gender: getGender(), lastLogin: getLastLogin(), productHistory: getProductHistory())
     }
     
     //Email - Save / Get
@@ -137,5 +139,14 @@ class UserDefaultsManager {
     
     func getLastLogin() -> String {
         return userDefaults.valueForKey(userLastLoginKeyConstant) == nil ? "" : userDefaults.valueForKey(userLastLoginKeyConstant) as String
+    }
+    
+    //Product History - Save / Get
+    private func saveProductHistory(productHistory: [String]) {
+        userDefaults.setValue(productHistory, forKey: userProductHistoryKeyConstant)
+    }
+    
+    func getProductHistory() -> [String] {
+        return userDefaults.valueForKey(userProductHistoryKeyConstant) as [String]
     }
 }

@@ -32,3 +32,5 @@ let APPGENIE: String = APPCURRENTSERVER + "/genie/"
 //Products & Reviews
 let APPPRODUCT: String = APPCURRENTSERVER + "/product/"
 
+//Product History
+let APPHISTORY: String = APPCURRENTSERVER + "/genie/"

@@ -135,6 +135,9 @@ class GenieViewController: UITableViewController{
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? GenieResultCell {
             let url = cell.getGenie().getUrl()
+            var user = UserDefaultsManager.sharedInstance.getUserData()
+            user.addProductHistory(cell.getGenie().getId())
+            UserDefaultsManager.sharedInstance.saveUserData(user)
             UIApplication.sharedApplication().openURL(NSURL(string: url)!)
         }
     }
@@ -156,9 +159,9 @@ class GenieViewController: UITableViewController{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "genie_segue") {
+        if (segue.identifier == "productReviews") {
             let destinationViewController = segue.destinationViewController as ProductReviewsViewController
-            if let cell = sender as? GenieResultCell {
+            if let cell = sender as? GenieResultCell{
                 destinationViewController.setProductId(cell.getGenie().getId())
                 destinationViewController.setViewTitle(cell.getGenie().getName())
             }

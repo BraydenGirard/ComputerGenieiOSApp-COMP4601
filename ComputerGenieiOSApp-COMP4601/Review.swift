@@ -58,7 +58,19 @@ class Review: NSObject {
         return self.upScore - self.downScore
     }
     
+    func getUpScore() -> Int {
+        return self.upScore
+    }
+    
+    func getDownScore() -> Int {
+        return self.downScore
+    }
+    
     func getDateAsDate() -> NSDate {
         return NSDate(timeIntervalSince1970: self.date)
+    }
+    
+    func getDate() -> Double {
+        return self.date
     }
 }

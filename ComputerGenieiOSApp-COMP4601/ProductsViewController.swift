@@ -1,5 +1,5 @@
 //
-//  ProductsViewController.swift
+//  GenieViewController.swift
 //  ComputerGenieiOSApp-COMP4601
 //
 //  Created by Brayden Girard on 2015-03-30.
@@ -8,43 +8,79 @@
 
 import UIKit
 
-class ProductsViewController: UITableViewController, ENSideMenuDelegate {
+class ProductsViewController: UITableViewController, ENSideMenuDelegate{
     
     var genieResponse: [GenieResponse] = []
     var imageCache: NSCache!
+    
+    @IBOutlet var activityView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imageCache = NSCache()
         
-        self.title = "My Reviews"
+        self.title = "My History"
+        self.navigationItem.hidesBackButton = true;
+        
         let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         button.frame = CGRectMake(0, 0, 25, 18)
         button.setImage(UIImage(named: "menu_button"), forState: UIControlState.Normal)
         button.addTarget(self, action: "toggleSideMenu:", forControlEvents: UIControlEvents.TouchUpInside)
         
         let barButton = UIBarButtonItem(customView: button)
-
+        
         self.navigationItem.leftBarButtonItem = barButton
+
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "completeHistory:", name: "HistorySuccess", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failHistory:", name: "HistoryFail", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedProductList:", name: "AllProductsSuccess", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchProductList:", name: "AllProductsFail", object: nil)
-        
-        NetworkManager.sharedInstance.sendAllProductsRequest(UserDefaultsManager.sharedInstance.getUserData())
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        activityView.startAnimating()
+        NetworkManager.sharedInstance.sendHistoryRequest(UserDefaultsManager.sharedInstance.getUserData())
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func toggleSideMenu(sender: UIButton) {
+        println("Button pushed")
+        self.toggleSideMenuView()
+    }
+    
+    func completeHistory(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: History request completed")
+            self.activityView.stopAnimating()
+            
+            if let userInfo: Dictionary<String, GenieResponse> = notification.userInfo as? Dictionary<String, GenieResponse> {
+                self.setGenieResponse(userInfo)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func failHistory(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            println("Controller: History request failed")
+            self.activityView.stopAnimating()
+        }
+    }
+    
+    func setGenieResponse(responses: Dictionary<String, GenieResponse>) {
+        
+        for response in responses.values {
+            self.genieResponse.append(response)
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func donePushed(sender: UIButton) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     // MARK: - Table view data source
@@ -61,10 +97,10 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as GenieResultCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("GenieResultCell") as GenieResultCell!
         
         var response = genieResponse[indexPath.row]
-        cell.setGenie(response)
+        cell?.setGenie(response)
         
         var image: UIImage? = self.imageCache.objectForKey(response.getId()) as? UIImage
         
@@ -100,14 +136,19 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
             
         }
         
-        return cell
+        return cell!
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 120.0
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? GenieResultCell {
             let url = cell.getGenie().getUrl()
@@ -115,42 +156,29 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate {
         }
     }
     
-    func recievedProductList(notification: NSNotification) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.genieResponse = []
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        
+        var reviewProductAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Review", handler:{action, indexpath in
+            println("MORE•ACTION");
+            self.performSegueWithIdentifier("productReviews", sender: tableView.cellForRowAtIndexPath(indexPath))
             
-            if let userInfo : Dictionary<String,GenieResponse> = notification.userInfo as? Dictionary<String,GenieResponse> {
-                for response in userInfo.values {
-                    self.genieResponse.append(response)
-                }
-                
-                self.tableView.reloadData()
+        });
+        reviewProductAction.backgroundColor = UIColor(red: 184.0/255.0, green: 120.0/255.0, blue: 22.0/255.0, alpha: 1.0);
+        
+        return [reviewProductAction]
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "productHistoryReviews") {
+            let destinationViewController = segue.destinationViewController as ProductReviewsViewController
+            if let cell = sender as? GenieResultCell{
+                destinationViewController.setProductId(cell.getGenie().getId())
+                destinationViewController.setViewTitle(cell.getGenie().getName())
             }
         }
-    }
-    
-    func failedToFetchProductList(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            println("Could not fetch products")
-        }
-    }
-    
-    func toggleSideMenu(sender: UIButton) {
-        self.toggleSideMenuView()
-    }
-    
-    // MARK: - ENSideMenu Delegate
-    func sideMenuWillOpen() {
-        println("sideMenuWillOpen")
-    }
-    
-    func sideMenuWillClose() {
-        println("sideMenuWillClose")
-    }
-    
-    func sideMenuShouldOpenSideMenu() -> Bool {
-        println("sideMenuShouldOpenSideMenu")
-        return true
     }
 }
