@@ -39,20 +39,19 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     
     func completeLogin(notification: NSNotification) {
         //Log the user in here and give them their token from the notification
-        
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            println("Controller: Login successful")
             self.activityIndicator.stopAnimating()
             self.navigationController?.popViewControllerAnimated(true)
-        }
-       
+        }       
     }
     
     func failLogin(notification:NSNotification) {
         //Show an error
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            println("Controller: Login failed")
             self.activityIndicator.stopAnimating()
+            var alert = UIAlertController(title: "Login Failed", message: "Incorrect username or password", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
 
@@ -60,16 +59,11 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     // MARK: ValidationDelegate Methods
     
     func validationWasSuccessful() {
-        println("Validation Success!")
-        
-        // TODO: Send login request to server
         activityIndicator.startAnimating()
         NetworkManager.sharedInstance.sendLoginRequet(emailField.text, password: passwordField.text)
-        
     }
     
     func validationFailed(errors:[UITextField:ValidationError]?, viewErrors: [UITextView:ValidationError]?) {
-        println("Validation FAILED!")
         self.setErrors()
     }
     

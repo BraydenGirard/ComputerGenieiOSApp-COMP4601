@@ -40,7 +40,7 @@ class OSViewController: UIViewController, ENSideMenuDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        genieRequest?.print()
+
     }
     
     override func didReceiveMemoryWarning() {

@@ -40,7 +40,6 @@ class FindViewController: UIViewController, ENSideMenuDelegate {
     
     override func viewDidAppear(animated: Bool) {
         genieRequest = GenieRequest()
-        genieRequest?.print()
     }
     
     override func didReceiveMemoryWarning() {

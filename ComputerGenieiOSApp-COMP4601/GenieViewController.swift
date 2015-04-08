@@ -138,7 +138,8 @@ class GenieViewController: UITableViewController{
             var user = UserDefaultsManager.sharedInstance.getUserData()
             user.addProductHistory(cell.getGenie().getId())
             UserDefaultsManager.sharedInstance.saveUserData(user)
-            UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+            
+            self.performSegueWithIdentifier("genie_webview_segue", sender: cell)
         }
     }
     
@@ -166,6 +167,13 @@ class GenieViewController: UITableViewController{
                 
                 destinationViewController.setProductIdAndUrl(genie.getId(), url: genie.getUrl())
                 destinationViewController.setViewTitle(genie.getName())
+            }
+        } else if (segue.identifier == "genie_webview_segue") {
+            let destinationViewController = segue.destinationViewController as WebViewController
+            if let cell = sender as? GenieResultCell{
+                var genie = cell.getGenie()
+                
+                destinationViewController.setNSURL(genie.getUrl())
             }
         }
     }

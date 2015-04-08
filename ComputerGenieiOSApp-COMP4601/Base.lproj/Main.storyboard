@@ -622,10 +622,10 @@
             </objects>
             <point key="canvasLocation" x="649.5" y="110.99999999999999"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="94e-UJ-8ii">
             <objects>
-                <viewController id="oY3-X9-B8z" sceneMemberID="viewController">
+                <viewController id="oY3-X9-B8z" customClass="WebViewController" customModule="ComputerGenieiOSApp_COMP4601" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N3Q-sT-hhM"/>
                         <viewControllerLayoutGuide type="bottom" id="a0o-Z8-GF5"/>
@@ -634,39 +634,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-tF-jST">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wq7-sR-0cC">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <barButtonItem systemItem="stop" id="rQp-eL-jlP"/>
+                                    <barButtonItem systemItem="stop" id="rQp-eL-jlP">
+                                        <connections>
+                                            <action selector="closeWebViewPressed:" destination="oY3-X9-B8z" id="hOZ-x9-DdG"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zBG-kL-YLb"/>
-                                    <barButtonItem image="ic_back" id="ddR-Tr-spw"/>
+                                    <barButtonItem image="ic_back" id="ddR-Tr-spw">
+                                        <connections>
+                                            <action selector="backWebViewPressed:" destination="oY3-X9-B8z" id="8mK-ug-Syg"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="stZ-3u-TSB"/>
-                                    <barButtonItem systemItem="refresh" id="KNg-sZ-7dt"/>
+                                    <barButtonItem systemItem="refresh" id="KNg-sZ-7dt">
+                                        <connections>
+                                            <action selector="refreshWebViewPressed:" destination="oY3-X9-B8z" id="Ici-5H-DV3"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ail-w5-74q"/>
-                                    <barButtonItem image="ic_forward" id="xuG-BD-l5G"/>
+                                    <barButtonItem image="ic_forward" id="xuG-BD-l5G">
+                                        <connections>
+                                            <action selector="forwardWebViewPressed:" destination="oY3-X9-B8z" id="DEl-5x-dP6"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-tF-jST">
+                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Etu-eg-MbJ">
+                                <rect key="frame" x="290" y="278" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="XAw-tF-jST" firstAttribute="leading" secondItem="36D-nL-Adc" secondAttribute="leading" id="Cna-Rd-Ais"/>
                             <constraint firstItem="a0o-Z8-GF5" firstAttribute="top" secondItem="wq7-sR-0cC" secondAttribute="bottom" id="Eev-9M-t5f"/>
+                            <constraint firstItem="Etu-eg-MbJ" firstAttribute="centerY" secondItem="XAw-tF-jST" secondAttribute="centerY" id="GXr-xN-qF1"/>
                             <constraint firstAttribute="trailing" secondItem="XAw-tF-jST" secondAttribute="trailing" id="Vt1-U1-XBm"/>
                             <constraint firstItem="wq7-sR-0cC" firstAttribute="top" secondItem="XAw-tF-jST" secondAttribute="bottom" id="fJp-w4-fab"/>
-                            <constraint firstItem="XAw-tF-jST" firstAttribute="top" secondItem="36D-nL-Adc" secondAttribute="top" id="g2C-aa-Tyo"/>
+                            <constraint firstItem="XAw-tF-jST" firstAttribute="top" secondItem="36D-nL-Adc" secondAttribute="top" constant="20" id="g2C-aa-Tyo"/>
+                            <constraint firstItem="Etu-eg-MbJ" firstAttribute="centerX" secondItem="XAw-tF-jST" secondAttribute="centerX" id="n7t-QE-i4n"/>
                             <constraint firstAttribute="trailing" secondItem="wq7-sR-0cC" secondAttribute="trailing" id="og5-wv-BQG"/>
                             <constraint firstItem="wq7-sR-0cC" firstAttribute="leading" secondItem="36D-nL-Adc" secondAttribute="leading" id="zF2-AZ-vll"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Etu-eg-MbJ" id="Exh-18-7YI"/>
+                        <outlet property="webview" destination="XAw-tF-jST" id="X5u-uo-cvP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-RT-MYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1513" y="-835"/>
+            <point key="canvasLocation" x="206" y="-1128"/>
         </scene>
         <!--Use View Controller-->
         <scene sceneID="2yh-l2-7TZ">
@@ -1141,7 +1167,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ije-TQ-gCv" id="IW0-FN-Ned">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foR-rf-2Zn">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foR-rf-2Zn">
                                             <rect key="frame" x="101" y="16" width="483" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Ybe-Xi-A8J"/>
@@ -1248,6 +1274,7 @@
                     <navigationItem key="navigationItem" id="j67-Zb-wpd"/>
                     <connections>
                         <segue destination="Gxo-tA-Xnp" kind="show" identifier="productReviews" id="axF-Qo-Vha"/>
+                        <segue destination="oY3-X9-B8z" kind="presentation" identifier="genie_webview_segue" id="6Rl-eg-HbP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QDA-b8-ZlP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1912,7 +1939,10 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="downvotesLabel" destination="goE-VI-eRh" id="E5n-mw-Kmi"/>
                         <outlet property="profile_img" destination="wqe-b1-Tfm" id="oyZ-OC-xqX"/>
+                        <outlet property="reviewsLabel" destination="U77-qu-RuJ" id="Sjg-Z8-wbs"/>
+                        <outlet property="upvotesLabel" destination="6BK-F8-scd" id="oUZ-0u-jbB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngQ-Vv-ndU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2021,7 +2051,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vf-Ak-8rU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-364" y="-928"/>
+            <point key="canvasLocation" x="788" y="924"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -2219,7 +2249,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CHd-w1-Wt5" id="tCD-Cj-dSM">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFs-vY-hIO">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFs-vY-hIO">
                                             <rect key="frame" x="101" y="16" width="483" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="230" id="QSZ-3l-cci"/>
@@ -2304,8 +2334,8 @@
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="SGD-Oy-NeX"/>
-                                            <exclude reference="dLW-t5-rlN"/>
                                             <exclude reference="aL2-ci-LQB"/>
+                                            <exclude reference="dLW-t5-rlN"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -2331,7 +2361,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EB5-Pu-QdP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="537" y="-840"/>
+            <point key="canvasLocation" x="1945" y="-1380"/>
         </scene>
         <!--My Reviews Controller-->
         <scene sceneID="8fE-Id-owL">
@@ -2496,6 +2526,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="pSP-z3-zxV" id="C12-fG-7Sb"/>
                         <outlet property="reviewsTableView" destination="tOI-k9-dIR" id="Dhs-Jr-red"/>
+                        <segue destination="oY3-X9-B8z" kind="presentation" identifier="reviews_webview_segue" id="frJ-V4-53g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkn-2v-9ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2535,7 +2566,8 @@
         <image name="work_btn.png" width="50" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="axF-Qo-Vha"/>
+        <segue reference="Zkj-WE-6zU"/>
+        <segue reference="6Rl-eg-HbP"/>
         <segue reference="MYr-bX-ijt"/>
     </inferredMetricsTieBreakers>
 </document>

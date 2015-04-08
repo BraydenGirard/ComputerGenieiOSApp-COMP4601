@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 class User {
     
@@ -138,7 +139,7 @@ class User {
     
     func updateLastLogin() {
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
         self.lastLogin = dateFormatter.stringFromDate(NSDate())
     }
     
@@ -156,5 +157,59 @@ class User {
     
     func getProductHistory() -> [String] {
         return self.productHistory
+    }
+    
+    func toXMLString(isNew: Bool) -> String {
+        
+        let passwordHash = self.getPassword().sha512()
+        
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<user>"
+        
+        if(isNew) {
+            xmlString += "<authToken>0</authToken>"
+            xmlString += "<id>\(self.getId())</id>"
+            xmlString += "<firstname>\(self.getFirstName())</firstname>"
+            xmlString += "<lastname>\(self.getLastName())</lastname>"
+            xmlString += "<email>\(self.getEmail())</email>"
+            xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
+            if let genderFinal = self.getGender() {
+                xmlString += "<gender>\(genderFinal)</gender>"
+            } else {
+                xmlString += "<gender></gender>"
+            }
+            if let birthdateFinal = self.getBirthDate() {
+                xmlString += "<birthday>\(birthdateFinal)</birthday>"
+            } else {
+                xmlString += "<birthday></birthday>"
+            }
+            xmlString += "<lastLoginTime>\(NSDate().timeIntervalSince1970)</lastLoginTime>"
+            xmlString += "<productIds></productIds>"
+            
+        } else {
+            xmlString += "<authToken>\(self.getToken())</authToken>"
+            xmlString += "<id>\(self.getId())</id>"
+            xmlString += "<firstname>\(self.getFirstName())</firstname>"
+            xmlString += "<lastname>\(self.getLastName())</lastname>"
+            xmlString += "<email>\(self.getEmail())</email>"
+            xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
+            if let genderFinal = self.getGender() {
+                xmlString += "<gender>\(genderFinal)</gender>"
+            } else {
+                xmlString += "<gender></gender>"
+            }
+            if let birthdateFinal = self.getBirthDate() {
+                xmlString += "<birthday>\(birthdateFinal)</birthday>"
+            } else {
+                xmlString += "<birthday></birthday>"
+            }
+            xmlString += "<lastLoginTime>\(self.getLastLogin()!)</lastLoginTime>"
+            for productId in self.getProductHistory() {
+                xmlString += "<productIds>\(productId)</productIds>"
+            }
+        }
+        
+        xmlString += "</user>"
+        return xmlString
     }
 }

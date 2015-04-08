@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CryptoSwift
 
 class NetworkManager {
     
@@ -24,48 +23,14 @@ class NetworkManager {
         return Static.instance!
     }
     
-    /******************************************
-    POST network requests
-    ******************************************/
+    //MARK: - POST Requests
     
     func sendSignupRequest(newUser: User) {
         var request = NSMutableURLRequest(URL: NSURL(string: APPSIGNUP)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
-        let id = newUser.getId()
-        let firstname = newUser.getFirstName()
-        let lastname = newUser.getLastName()
-        let email = newUser.getEmail()
-        let password = newUser.getPassword()
-        let passwordHash = password.sha512()
-        let gender = newUser.getGender()
-        let birthdate = newUser.getBirthDate()
-        let lastLogin = newUser.getLastLogin()
-        
-        var xmlString = "<?xml version=\"1.0\" ?>\n"
-        xmlString += "<user>"
-        xmlString += "<authToken>0</authToken>"
-        xmlString += "<id>\(id)</id>"
-        xmlString += "<firstname>\(firstname)</firstname>"
-        xmlString += "<lastname>\(lastname)</lastname>"
-        xmlString += "<email>\(email)</email>"
-        xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
-        if let genderFinal = gender {
-            println("Found a gender")
-            xmlString += "<gender>\(genderFinal)</gender>"
-        } else {
-            xmlString += "<gender></gender>"
-        }
-        if let birthdateFinal = birthdate {
-            println("Found a birthdate")
-            xmlString += "<birthday>\(birthdateFinal)</birthday>"
-        } else {
-            xmlString += "<birthday></birthday>"
-        }
-        xmlString += "<lastLoginTime>\(lastLogin)</lastLoginTime>"
-        xmlString += "<productIds></productIds>"
-        xmlString += "</user>"
+        let xmlString = newUser.toXMLString(true)
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
         let length: NSString = NSString(format: "%d", data.length)
@@ -128,39 +93,7 @@ class NetworkManager {
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
-        let form = genieRequest.getForm()
-        let os = genieRequest.getOS()
-        let use = genieRequest.getUse()
-        let price = genieRequest.getPrice()
-        let screen = genieRequest.getScreen()
-        let memory = genieRequest.getMemory()
-        let hdd = genieRequest.getHDD()
-        let ssd = genieRequest.getSSD()
-        
-        var xmlString = "<?xml version=\"1.0\" ?>\n"
-        xmlString += "<GenieRequest>"
-        xmlString += "<form>\(form)</form>"
-        xmlString += "<os>\(os)</os>"
-        xmlString += "<use>\(use)</use>"
-        xmlString += "<price>\(price)</price>"
-        if screen == 0 {
-            xmlString += "<screen></screen>"
-        } else {
-            xmlString += "<screen>\(screen)</screen>"
-        }
-        
-        if memory == 0 {
-            xmlString += "<memory></memory>"
-        } else {
-            xmlString += "<memory>\(memory)</memory>"
-        }
-        if hdd == 0 {
-            xmlString += "<hdd></hdd>"
-        } else {
-            xmlString += "<hdd>\(hdd)</hdd>"
-        }
-        xmlString += "<ssd>\(ssd)</ssd>"
-        xmlString += "</GenieRequest>"
+        let xmlString = genieRequest.toXMLString()
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
         let length: NSString = NSString(format: "%d", data.length)
@@ -183,8 +116,6 @@ class NetworkManager {
             println("============================THE XML Received==============================")
             println(strData)
             
-            
-            
             var err: NSError? = error
             
             if(err != nil) {
@@ -194,67 +125,7 @@ class NetworkManager {
                 
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
                     
-                    var results: Dictionary<String, GenieResponse> = Dictionary<String, GenieResponse>()
-                    var idFinal: String?
-                    var nameFinal: String?
-                    var urlFinal: String?
-                    var imageFinal: String?
-                    var priceFinal: Float?
-                    var retailerFinal: String?
-                    
-                    //GenieResponses
-                    if let responses = xml.root["GenieResponse"].all {
-                        println("Insied xml")
-                        for response in responses {
-                            if let id = response["id"].value {
-                                idFinal = id
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            if let name = response["name"].value {
-                                nameFinal = name
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            if let url = response["url"].value {
-                                urlFinal = url
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            if let image = response["image"].value {
-                                imageFinal = image
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            if let price = response["price"].value {
-                                priceFinal = (price as NSString).floatValue
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            if let retailer = response["retailer"].value {
-                                retailerFinal = retailer
-                            } else {
-                                println("Broken genie response")
-                                continue
-                            }
-                            var theResponse = GenieResponse(id: idFinal!, name: nameFinal!, url: urlFinal!, image: imageFinal!, price: priceFinal!, retailer: retailerFinal!)
-                            
-                            println(theResponse.getId())
-                            println(theResponse.getName())
-                            println(theResponse.getUrl())
-                            println(theResponse.getImage())
-                            println(theResponse.getPrice())
-                            println(theResponse.getRetailer())
-                            
-                            results[theResponse.getId()] = theResponse
-                        }
-                        println(results.count)
-                    }
+                    var results = XmlParser.parseGenieResponses(xml)
                     
                     if(httpResponse.statusCode == 200) {
                         //Send genie object through notification
@@ -263,10 +134,6 @@ class NetworkManager {
                         println("Network Manager: Response code was not 200")
                         NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
                     }
-                } else
-                {
-                    println("Network Manager: Failed to parse success")
-                    NSNotificationCenter.defaultCenter().postNotificationName("GenieFail", object: nil)
                 }
             }
             else {
@@ -285,19 +152,7 @@ class NetworkManager {
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
-        var xmlString = "<?xml version=\"1.0\" ?>\n"
-        xmlString += "<review>"
-        xmlString += "<productId>\(review.getProductId())</productId>"
-        xmlString += "<userId>\(review.getUserId())</userId>"
-        xmlString += "<userName>\(review.getUserName())</userName>"
-        xmlString += "<content>\(review.getContent())</content>"
-        xmlString += "<opinion>\(review.getOpinion())</opinion>"
-        xmlString += "<upScore>\(review.getUpScore())</upScore>"
-        xmlString += "<downScore>\(review.getDownScore())</downScore>"
-        xmlString += "<date>\(review.getDate())</date>"
-        xmlString += "<productName>\(review.getProductName())</productName>"
-        xmlString += "<url>\(review.getUrl())</url>"
-        xmlString += "</review>"
+        let xmlString = review.toXMLString()
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
         let length: NSString = NSString(format: "%d", data.length)
@@ -357,32 +212,7 @@ class NetworkManager {
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
-        let passwordHash = user.getPassword().sha512()
-        
-        var xmlString = "<?xml version=\"1.0\" ?>\n"
-        xmlString += "<user>"
-        xmlString += "<authToken>\(user.getToken())</authToken>"
-        xmlString += "<id>\(user.getId())</id>"
-        xmlString += "<firstname>\(user.getFirstName())</firstname>"
-        xmlString += "<lastname>\(user.getLastName())</lastname>"
-        xmlString += "<email>\(user.getEmail())</email>"
-        xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
-        if let genderFinal = user.getGender() {
-            println("Found a gender")
-            xmlString += "<gender>\(genderFinal)</gender>"
-        } else {
-            xmlString += "<gender></gender>"
-        }
-        if let birthdateFinal = user.getBirthDate() {
-            xmlString += "<birthday>\(birthdateFinal)</birthday>"
-        } else {
-            xmlString += "<birthday></birthday>"
-        }
-        xmlString += "<lastLoginTime>\(user.getLastLogin())</lastLoginTime>"
-        for productId in user.getProductHistory() {
-            xmlString += "<productIds>\(productId)</productIds>"
-        }
-        xmlString += "</user>"
+        var xmlString = user.toXMLString(false)
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
         let length: NSString = NSString(format: "%d", data.length)
@@ -431,10 +261,7 @@ class NetworkManager {
         task.resume()
     }
     
-    
-    /******************************************
-    GET network requests
-    ******************************************/
+    //MARK: - GET Requests
     
     func sendLoginRequet(email: String, password: String) {
         
@@ -451,9 +278,7 @@ class NetworkManager {
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
-        
-        println("sent")
-        
+
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
@@ -466,26 +291,11 @@ class NetworkManager {
                 NSNotificationCenter.defaultCenter().postNotificationName("LoginFail", object: nil)
             } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse  {
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
-                    let token = xml.root["authToken"].value!
-                    let id = xml.root["id"].value!
-                    let firstname = xml.root["firstname"].value!
-                    let lastname = xml.root["lastname"].value!
-                    let gender = xml.root["gender"].value
-                    let birthday = xml.root["birthday"].value
-                    let lastLogin = xml.root["lastLoginTime"].value!
                     
-                    var productHistory: [String]?
-                    
-                    if let productIds = xml.root["productIds"].all {
-                        for pid in productIds {
-                            if let id = pid.value {
-                                productHistory?.append(id)
-                            }
-                        }
-                    }
+                    let loggedInUser = XmlParser.parseUser(xml, password: email, email: password)
                     
                     if(httpResponse.statusCode == 200) {
-                        UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + " " + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin, productHistory: productHistory))
+                        UserDefaultsManager.sharedInstance.saveUserData(loggedInUser)
                         
                         NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil)
                         
@@ -537,29 +347,11 @@ class NetworkManager {
             } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
                 
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
-                    
-                    let token = xml.root["authToken"].value!
-                    let id = xml.root["id"].value!
-                    let firstname = xml.root["firstname"].value!
-                    let lastname = xml.root["lastname"].value!
-                    let gender = xml.root["gender"].value
-                    let birthday = xml.root["birthday"].value
-                    let lastLogin = xml.root["lastLoginTime"].value!
-                    let email = xml.root["email"].value!
-                    let password = xml.root["passwordHash"].value!
-                    
-                    var productHistory: [String]?
-                    
-                    if let productIds = xml.root["productIds"].all {
-                        for pid in productIds {
-                            if let id = pid.value {
-                                productHistory?.append(id)
-                            }
-                        }
-                    }
+    
+                    let user = XmlParser.parseUser(xml)
                     
                     if(httpResponse.statusCode == 200) {
-                        UserDefaultsManager.sharedInstance.saveUserData(User(token: token, id: id, email: email, password: password, name: firstname + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin, productHistory: productHistory))
+                        UserDefaultsManager.sharedInstance.saveUserData(user)
                         NSNotificationCenter.defaultCenter().postNotificationName("LoginSuccess", object: nil)
                         
                     } else {
@@ -683,10 +475,17 @@ class NetworkManager {
         task.resume()
     }
     
-    func sendFetchAllGoodReviewsRequest(user: User) {
+    func sendFetchAllReviewsForUserWithOpinionRequest(user: User, positive: Bool) {
         
         var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-        var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/positive")!)
+        
+        var request: NSMutableURLRequest
+        if(positive) {
+            request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/positive")!)
+        } else {
+            request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/negative")!)
+        }
+        
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
         
@@ -734,10 +533,10 @@ class NetworkManager {
         task.resume()
     }
     
-    func sendFetchAllBadReviewsRequest(user: User) {
-        
+    func fetchProfileForUserRequest(user: User) {
         var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-        var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/negative")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: APPUSER + tokenString! + "/profile")!)
+      
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
         
@@ -759,31 +558,30 @@ class NetworkManager {
             if(err != nil) {
                 var dictionary = Dictionary<String, String>()
                 dictionary["error"] = err!.localizedDescription
-                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
-            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchProfileFail", object: nil)
                 
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
-                    
-                    var results = XmlParser.parseReviews(xml)
+                    var results = XmlParser.parseUserProfile(xml)
                     
                     if(httpResponse.statusCode == 200) {
                         
-                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsSuccess", object: nil, userInfo: results)
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchProfileSuccess", object: nil, userInfo: results)
                     }
                     else {
                         println("Network Manager: Response code was not 200")
-                        NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("FetchProfileFail", object: nil)
                     }
                 }
             } else {
                 println("Network Manager: Failed to get response code")
-                NSNotificationCenter.defaultCenter().postNotificationName("FetchReviewsFail", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("FetchProfileFail", object: nil)
             }
             
         })
         
         task.resume()
+        
     }
-    
     
 }

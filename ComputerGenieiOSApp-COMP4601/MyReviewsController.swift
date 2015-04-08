@@ -15,11 +15,11 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var reviewOpinion = "LIKE"
-    
     var typeOfReviews: String?
-    
     var productId: String!
     var reviews: [Review]! = []
+    
+    var webVC: WebViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +40,10 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         activityIndicator.startAnimating()
         var user = UserDefaultsManager.sharedInstance.getUserData()
         if(self.typeOfReviews == "GOOD") {
-            NetworkManager.sharedInstance.sendFetchAllGoodReviewsRequest(user)
+            NetworkManager.sharedInstance.sendFetchAllReviewsForUserWithOpinionRequest(user, positive: true)
             self.title = "Positive Reviews"
         } else if (self.typeOfReviews == "BAD") {
-            NetworkManager.sharedInstance.sendFetchAllBadReviewsRequest(user)
+            NetworkManager.sharedInstance.sendFetchAllReviewsForUserWithOpinionRequest(user, positive: false)
             self.title = "Negative Reviews"
         }
     }
@@ -56,12 +56,10 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // Return the number of sections.
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
         return self.reviews.count
     }
     
@@ -87,8 +85,7 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var cell = tableView.cellForRowAtIndexPath(indexPath) as ReviewCell!
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        //TODO: Load Product Url
+        self.performSegueWithIdentifier("reviews_webview_segue", sender: cell)
     }
     
     //MARK: Notification Handlers
@@ -113,6 +110,17 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         NSOperationQueue.mainQueue().addOperationWithBlock {
             println("Controller: Could not fetch reviews")
             self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "reviews_webview_segue") {
+            let destinationViewController = segue.destinationViewController as WebViewController
+            if let cell = sender as? ReviewCell {
+                var rev = cell.getReview()
+                
+                destinationViewController.setNSURL(rev.getUrl())
+            }
         }
     }
     

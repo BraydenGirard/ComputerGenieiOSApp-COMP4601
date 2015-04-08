@@ -10,6 +10,45 @@ import UIKit
 
 class XmlParser: NSObject {
     
+    class func parseUser(xml: AEXMLDocument, password: String?=nil, email: String?=nil) -> User {
+        
+        let token = xml.root["authToken"].value!
+        let id = xml.root["id"].value!
+        let firstname = xml.root["firstname"].value!
+        let lastname = xml.root["lastname"].value!
+        let gender = xml.root["gender"].value
+        let birthday = xml.root["birthday"].value
+        let lastLogin = xml.root["lastLoginTime"].value!
+        
+        var productHistory: [String]?
+        if let productIds = xml.root["productIds"].all {
+            for pid in productIds {
+                if let id = pid.value {
+                    productHistory?.append(id)
+                }
+            }
+        }
+        
+        var passwordFinal: String!
+        var emailFinal: String!
+        
+        if let pass = password {
+           passwordFinal = pass
+        } else {
+            passwordFinal = xml.root["passwordHash"].value!
+        }
+        
+        if let em = email {
+            emailFinal = em
+        } else {
+            emailFinal = xml.root["email"].value!
+        }
+        
+        var result = User(token: token, id: id, email: emailFinal, password: passwordFinal, name: firstname + " " + lastname, birthdate: birthday, gender: gender, lastLogin: lastLogin, productHistory: productHistory)
+        
+        return result
+    }
+    
     class func parseReviews(xml: AEXMLDocument) -> Dictionary<String, Review> {
         
         var results: Dictionary<String, Review> = Dictionary<String, Review>()
@@ -150,6 +189,19 @@ class XmlParser: NSObject {
                 results[theResponse.getId()] = theResponse
             }
         }
+        
+        return results
+    }
+    
+    class func parseUserProfile(xml: AEXMLDocument) -> Dictionary<String, UserProfile> {
+        var results: Dictionary<String, UserProfile> = Dictionary<String, UserProfile>()
+        
+        let userId = xml.root["userId"].value
+        let upvotes = xml.root["upvotes"].value
+        let downvotes = xml.root["downvotes"].value
+        let total = xml.root["total"].value
+        
+        results[userId!] = UserProfile(upvotes: upvotes!, downvotes: downvotes!, total: total!)
         
         return results
     }

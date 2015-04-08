@@ -13,6 +13,7 @@
 		5FD9F88D1ACE43B000BAF6A3 /* ProductReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */; };
 		5FDA3A571AD4580E00907B7C /* XmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA3A561AD4580E00907B7C /* XmlParser.swift */; };
 		5FDA3A5A1AD4636D00907B7C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA3A591AD4636D00907B7C /* WebViewController.swift */; };
+		5FDA3A5C1AD48F2800907B7C /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA3A5B1AD48F2800907B7C /* UserProfile.swift */; };
 		F610E49B1ACB1885000B1518 /* GenieResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F610E49A1ACB1885000B1518 /* GenieResultCell.swift */; };
 		F610E4A51ACB55E6000B1518 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F610E4A41ACB55D4000B1518 /* Montserrat-Regular.otf */; };
 		F610E4A61ACB55E9000B1518 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F610E4A31ACB55D4000B1518 /* Montserrat-Light.otf */; };
@@ -266,6 +267,7 @@
 		5FD9F88C1ACE43B000BAF6A3 /* ProductReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewsViewController.swift; sourceTree = "<group>"; };
 		5FDA3A561AD4580E00907B7C /* XmlParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmlParser.swift; sourceTree = "<group>"; };
 		5FDA3A591AD4636D00907B7C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		5FDA3A5B1AD48F2800907B7C /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		F610E49A1ACB1885000B1518 /* GenieResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenieResultCell.swift; sourceTree = "<group>"; };
 		F610E4A01ACB55D4000B1518 /* Montserrat-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Black.otf"; path = "Resources/Fonts/Montserrat-Black.otf"; sourceTree = "<group>"; };
 		F610E4A11ACB55D4000B1518 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "Resources/Fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				F66BBE951ACA47AE00564AC1 /* GenieRequest.swift */,
 				F6443D081ACB050900C8759F /* GenieResponse.swift */,
 				5F4DA19A1ACF3CFA0044589B /* Review.swift */,
+				5FDA3A5B1AD48F2800907B7C /* UserProfile.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1080,6 +1083,7 @@
 				F6F281491AC8836600EFA6B8 /* MainController.swift in Sources */,
 				F66D70CE1AC73C430044B056 /* User.swift in Sources */,
 				F66D70F21AC740C70044B056 /* ValidationRule.swift in Sources */,
+				5FDA3A5C1AD48F2800907B7C /* UserProfile.swift in Sources */,
 				F6EEAEB51AC9D7730064EDEA /* FindViewController.swift in Sources */,
 				F66D70EA1AC740C70044B056 /* EmailRule.swift in Sources */,
 				F6E7EFE31AD386A2001201CC /* MyReviewsController.swift in Sources */,

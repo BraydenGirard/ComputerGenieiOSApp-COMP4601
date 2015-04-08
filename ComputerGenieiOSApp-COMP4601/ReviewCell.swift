@@ -39,6 +39,10 @@ class ReviewCell: UITableViewCell {
         setDate(rev.getDateAsDate())
     }
     
+    func getReview() -> Review {
+        return self.review
+    }
+    
     func setReviewCellProductMode() {
         if(review != nil) {
             self.setUserName(review.getProductName().capitalizedString)
