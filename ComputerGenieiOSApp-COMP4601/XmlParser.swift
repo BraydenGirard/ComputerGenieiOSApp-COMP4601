@@ -128,7 +128,7 @@ class XmlParser: NSObject {
         var nameFinal: String?
         var urlFinal: String?
         var imageFinal: String?
-        var priceFinal: Float?
+        var priceFinal: String?
         var retailerFinal: String?
         
         //GenieResponses
@@ -160,7 +160,7 @@ class XmlParser: NSObject {
                     continue
                 }
                 if let price = response["price"].value {
-                    priceFinal = (price as NSString).floatValue
+                    priceFinal = price
                 } else {
                     println("Broken genie response")
                     continue

@@ -44,9 +44,8 @@ class GenieResultCell: UITableViewCell {
         self.imageViewCell.image = image
     }
     
-    private func setPrice(value: Float) {
-        var print = NSString(format: "$ %.2f", value)
-        self.priceLabel?.text = print
+    private func setPrice(value: String) {
+        self.priceLabel?.text = value
     }
     
     private func setTitle(value: String) {

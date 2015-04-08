@@ -2162,11 +2162,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="R43-bt-Gti" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-194" id="0Fo-wg-rAc"/>
+                            <constraint firstItem="R43-bt-Gti" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-194" id="0Fo-wg-rAc">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-54"/>
+                            </constraint>
                             <constraint firstItem="aFo-kT-cQj" firstAttribute="leading" secondItem="mZg-au-f7A" secondAttribute="leading" constant="29" id="35C-00-ftb"/>
                             <constraint firstItem="CmC-sL-y4W" firstAttribute="centerX" secondItem="GLA-E4-P0M" secondAttribute="centerX" id="7jF-bh-sUW"/>
-                            <constraint firstItem="aFo-kT-cQj" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-139" id="D8x-KF-soP"/>
-                            <constraint firstItem="R43-bt-Gti" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="7" id="JVc-Tk-E32"/>
+                            <constraint firstItem="aFo-kT-cQj" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-139" id="D8x-KF-soP">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-279"/>
+                            </constraint>
+                            <constraint firstItem="R43-bt-Gti" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="7" id="JVc-Tk-E32">
+                                <variation key="heightClass=regular-widthClass=compact" constant="147"/>
+                            </constraint>
                             <constraint firstAttribute="centerY" secondItem="nwA-mb-DsP" secondAttribute="centerY" constant="-32" id="Kbs-im-Q6d"/>
                             <constraint firstItem="mZg-au-f7A" firstAttribute="bottom" secondItem="Nd8-8c-XYF" secondAttribute="bottom" constant="16" id="NIi-aA-dwl"/>
                             <constraint firstItem="auu-li-cdg" firstAttribute="centerX" secondItem="mZg-au-f7A" secondAttribute="centerX" id="SFA-cW-Ceg"/>
@@ -2179,10 +2185,14 @@
                                 <variation key="heightClass=regular-widthClass=compact" constant="171"/>
                             </constraint>
                             <constraint firstAttribute="centerX" secondItem="nwA-mb-DsP" secondAttribute="centerX" constant="1" id="ZPD-wU-t9v"/>
-                            <constraint firstItem="aFo-kT-cQj" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="168" id="ZmW-HR-bJr"/>
+                            <constraint firstItem="aFo-kT-cQj" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="168" id="ZmW-HR-bJr">
+                                <variation key="heightClass=regular-widthClass=compact" constant="28"/>
+                            </constraint>
                             <constraint firstItem="R43-bt-Gti" firstAttribute="leading" secondItem="mZg-au-f7A" secondAttribute="leading" constant="99" id="aCo-1X-YXs"/>
                             <constraint firstItem="auu-li-cdg" firstAttribute="centerY" secondItem="mZg-au-f7A" secondAttribute="centerY" constant="-0.5" id="aF8-Ff-eA5"/>
-                            <constraint firstItem="GLA-E4-P0M" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="225" id="exN-u7-0aT"/>
+                            <constraint firstItem="GLA-E4-P0M" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="225" id="exN-u7-0aT">
+                                <variation key="heightClass=regular-widthClass=compact" constant="85"/>
+                            </constraint>
                             <constraint firstItem="pvm-oZ-qVk" firstAttribute="top" secondItem="mZg-au-f7A" secondAttribute="top" constant="288" id="f8W-4f-rok"/>
                             <constraint firstItem="mZg-au-f7A" firstAttribute="leading" secondItem="Nd8-8c-XYF" secondAttribute="leading" constant="-13" id="fyx-Mx-VUZ"/>
                             <constraint firstItem="mZg-au-f7A" firstAttribute="top" secondItem="Nd8-8c-XYF" secondAttribute="top" constant="-289" id="haT-BB-xtF"/>
@@ -2194,7 +2204,9 @@
                             </constraint>
                             <constraint firstItem="R43-bt-Gti" firstAttribute="trailing" secondItem="mZg-au-f7A" secondAttribute="trailing" constant="-90" id="rk2-WY-9rS"/>
                             <constraint firstAttribute="centerX" secondItem="mZg-au-f7A" secondAttribute="centerX" constant="-0.5" id="sv8-ed-2yV"/>
-                            <constraint firstItem="GLA-E4-P0M" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-81" id="tsQ-E3-Q5c"/>
+                            <constraint firstItem="GLA-E4-P0M" firstAttribute="bottom" secondItem="mZg-au-f7A" secondAttribute="bottom" constant="-81" id="tsQ-E3-Q5c">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-221"/>
+                            </constraint>
                             <constraint firstItem="aZN-as-WSu" firstAttribute="centerX" secondItem="aFo-kT-cQj" secondAttribute="centerX" id="uLi-Ig-sMH"/>
                             <constraint firstItem="aFo-kT-cQj" firstAttribute="trailing" secondItem="mZg-au-f7A" secondAttribute="trailing" constant="-29" id="xue-m6-6qF"/>
                             <constraint firstAttribute="centerY" secondItem="mZg-au-f7A" secondAttribute="centerY" constant="-19" id="zYN-8J-KPi"/>

@@ -14,10 +14,10 @@ class GenieResponse {
     private let name: String
     private let url: String
     private let image: String
-    private let price: Float
+    private let price: String
     private let retailer: String
     
-    init(id: String, name: String, url: String, image: String, price: Float, retailer: String) {
+    init(id: String, name: String, url: String, image: String, price: String, retailer: String) {
         self.name = name
         self.url = url
         self.image = image
@@ -42,7 +42,7 @@ class GenieResponse {
         return self.image
     }
     
-    func getPrice() -> Float {
+    func getPrice() -> String {
         return self.price
     }
     
