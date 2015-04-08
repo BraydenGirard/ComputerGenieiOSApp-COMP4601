@@ -25,11 +25,9 @@ class MainController: UIViewController, ENSideMenuDelegate {
     override func viewDidAppear(animated: Bool) {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        if let token = defaults.stringForKey(userTokenKeyConstant)
-        {
+        if let token = defaults.stringForKey(userTokenKeyConstant) {
             //Setup view
         } else {
-            println("Calling login segue")
             self.performSegueWithIdentifier(loginSegue, sender: self)
         }
     }

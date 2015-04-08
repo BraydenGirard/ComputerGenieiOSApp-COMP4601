@@ -8,18 +8,18 @@
 
 import UIKit
 
-class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ENSideMenuDelegate {
     
     @IBOutlet weak var reviewsTableView: UITableView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var reviewOpinion = "LIKE"
-    
     var typeOfReviews: String?
-    
     var productId: String!
     var reviews: [Review]! = []
+    
+    var webVC: WebViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,24 +28,23 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.reviewsTableView.dataSource = self
         self.reviewsTableView.delegate = self
-        self.reviewsTableView.allowsSelection = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedReviewList:", name: "FetchReviewsSuccess", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchReviews:", name: "FetchReviewsFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedSuccessfulPost:", name: "PostReviewSuccess", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToPost:", name: "PostReviewFail", object: nil)
+        
+        self.sideMenuController()?.sideMenu?.delegate = self;
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
         var user = UserDefaultsManager.sharedInstance.getUserData()
-        
-        println(typeOfReviews)
         if(self.typeOfReviews == "GOOD") {
             NetworkManager.sharedInstance.sendFetchAllGoodReviewsRequest(user)
+            self.title = "Positive Reviews"
         } else if (self.typeOfReviews == "BAD") {
             NetworkManager.sharedInstance.sendFetchAllBadReviewsRequest(user)
+            self.title = "Negative Reviews"
         }
     }
     
@@ -54,23 +53,13 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func setProductId(value: String) {
-        self.productId = value
-    }
-    
-    func setViewTitle(value: String) {
-        self.title = value
-    }
-    
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // Return the number of sections.
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
         return self.reviews.count
     }
     
@@ -80,6 +69,7 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         
         var review = reviews[indexPath.row]
         cell?.setReview(review)
+        cell?.setReviewCellProductMode()
         
         return cell!
     }
@@ -89,26 +79,13 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        return false
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        var upVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Helpful", handler:{action, indexpath in
-            println("Helpful");
-            //TODO: Disblae once pressed send an upvote request to server and up the score in the app by 1
-            
-        });
-        upVoteAction.backgroundColor = UIColor(red: 0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1.0);
-        
-        var downVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Not Helpful", handler:{action, indexpath in
-            println("Not Helpful");
-            //TODO: Disblae once pressed send an downvote request to server and down the score in the app by 1
-            
-        });
-        downVoteAction.backgroundColor = UIColor(red: 196.0/255.0, green: 47.0/255.0, blue: 43.0/255.0, alpha: 1.0);
-        
-        return [upVoteAction, downVoteAction]
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as ReviewCell!
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.performSegueWithIdentifier("reviews_webview_segue", sender: cell)
     }
     
     //MARK: Notification Handlers
@@ -136,17 +113,14 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    func failedToPost(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            println("Controller: Could not post review")
-            self.activityIndicator.stopAnimating()
-        }
-    }
-    
-    func recievedSuccessfulPost(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            println("Controller: Review posted successfully")
-            self.navigationController?.popViewControllerAnimated(true)
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "reviews_webview_segue") {
+            let destinationViewController = segue.destinationViewController as WebViewController
+            if let cell = sender as? ReviewCell {
+                var rev = cell.getReview()
+                
+                destinationViewController.setNSURL(rev.getUrl())
+            }
         }
     }
     
@@ -154,4 +128,8 @@ class MyReviewsController: UIViewController, UITableViewDataSource, UITableViewD
         self.typeOfReviews = type
     }
     
+    //MARK:- Side Menu Delegate
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        return false;
+    }
 }

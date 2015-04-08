@@ -107,4 +107,34 @@ class GenieRequest {
         println("HDD: \(self.hdd)")
         println("=======================================")
     }
+    
+    func toXMLString() -> String {
+        
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<GenieRequest>"
+        xmlString += "<form>\(form)</form>"
+        xmlString += "<os>\(os)</os>"
+        xmlString += "<use>\(use)</use>"
+        xmlString += "<price>\(price)</price>"
+        if screen == 0 {
+            xmlString += "<screen></screen>"
+        } else {
+            xmlString += "<screen>\(screen)</screen>"
+        }
+        
+        if memory == 0 {
+            xmlString += "<memory></memory>"
+        } else {
+            xmlString += "<memory>\(memory)</memory>"
+        }
+        if hdd == 0 {
+            xmlString += "<hdd></hdd>"
+        } else {
+            xmlString += "<hdd>\(hdd)</hdd>"
+        }
+        xmlString += "<ssd>\(ssd)</ssd>"
+        xmlString += "</GenieRequest>"
+        
+        return xmlString
+    }
 }

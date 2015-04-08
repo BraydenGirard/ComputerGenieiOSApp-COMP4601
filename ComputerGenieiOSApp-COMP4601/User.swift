@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 let UNKNOWN = "Unknown"
 
@@ -140,7 +141,7 @@ class User {
     
     func updateLastLogin() {
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
         self.lastLogin = dateFormatter.stringFromDate(NSDate())
     }
     
@@ -158,5 +159,27 @@ class User {
     
     func getProductHistory() -> [String] {
         return self.productHistory
+    }
+    
+    func toXMLString() -> String {
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<user>"
+        xmlString += "<authToken>\(self.getToken())</authToken>"
+        xmlString += "<id>\(self.getId())</id>"
+        xmlString += "<firstname>\(self.getFirstName())</firstname>"
+        xmlString += "<lastname>\(self.getLastName())</lastname>"
+        xmlString += "<email>\(self.getEmail())</email>"
+        xmlString += "<passwordHash>\(self.getPassword().sha512()!)</passwordHash>"
+        xmlString += "<gender>\(self.getGender())</gender>"
+        xmlString += "<birthday>\(self.getBirthDate())</birthday>"
+        xmlString += "<lastLoginTime>\(self.getLastLogin())</lastLoginTime>"
+        if(self.getProductHistory().count < 1) {
+            xmlString += "<productIds></productIds>"
+        }
+        for productId in self.getProductHistory() {
+            xmlString += "<productIds>\(productId)</productIds>"
+        }
+        xmlString += "</user>"
+        return xmlString
     }
 }

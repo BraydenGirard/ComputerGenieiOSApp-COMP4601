@@ -19,7 +19,10 @@ class Review: NSObject {
     private var downScore: Int!
     private var date: Double!
     
-    init(pId: String, uId: String, uName: String, content: String, opinion: String, upScore: Int, downScore: Int, date: Double) {
+    private var productName: String!
+    private var url: String!
+    
+    init(pId: String, uId: String, uName: String, content: String, opinion: String, upScore: Int, downScore: Int, date: Double, productName: String, url: String) {
         self.productId = pId
         self.userId = uId
         self.userName = uName
@@ -28,6 +31,8 @@ class Review: NSObject {
         self.upScore = upScore
         self.downScore = downScore
         self.date = date
+        self.productName = productName
+        self.url = url
     }
     
     func getPIDAndUIDPair() -> String {
@@ -72,5 +77,36 @@ class Review: NSObject {
     
     func getDate() -> Double {
         return self.date
+    }
+    
+    func getProductName() -> String {
+        return self.productName
+    }
+    
+    func getUrl() -> String {
+        return self.url
+    }
+    
+    func getNSUrl() -> NSURL {
+        return NSURL(string: self.url)!
+    }
+    
+    func toXMLString() -> String {
+        
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<review>"
+        xmlString += "<productId>\(self.getProductId())</productId>"
+        xmlString += "<userId>\(self.getUserId())</userId>"
+        xmlString += "<userName>\(self.getUserName())</userName>"
+        xmlString += "<content>\(self.getContent())</content>"
+        xmlString += "<opinion>\(self.getOpinion())</opinion>"
+        xmlString += "<upScore>\(self.getUpScore())</upScore>"
+        xmlString += "<downScore>\(self.getDownScore())</downScore>"
+        xmlString += "<date>\(self.getDate())</date>"
+        xmlString += "<productName>\(self.getProductName())</productName>"
+        xmlString += "<url>\(self.getUrl())</url>"
+        xmlString += "</review>"
+        
+        return xmlString
     }
 }

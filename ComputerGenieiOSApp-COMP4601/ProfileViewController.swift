@@ -10,8 +10,11 @@ import UIKit
 
 class ProfileViewController: UIViewController, ENSideMenuDelegate {
     
-
-    @IBOutlet var profile_img: UIImageView!
+    @IBOutlet weak var profile_img: UIImageView!
+    
+    @IBOutlet weak var upvotesLabel: UILabel!
+    @IBOutlet weak var downvotesLabel: UILabel!
+    @IBOutlet weak var reviewsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +34,19 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
         
         self.navigationItem.leftBarButtonItem = barButton
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedProfile:", name: "FetchProfileSuccess", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "failedToFetchProfile:", name: "FetchProfileFail", object: nil)
+        
+        var user = UserDefaultsManager.sharedInstance.getUserData()
+        NetworkManager.sharedInstance.fetchProfileForUserRequest(user)
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,7 +54,6 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
     }
     
     func toggleSideMenu(sender: UIButton) {
-        println("Button pushed")
         self.toggleSideMenuView()
     }
     
@@ -70,5 +81,28 @@ class ProfileViewController: UIViewController, ENSideMenuDelegate {
         }
     }
     
+    //MARK: - Notification Handlers
     
+    func recievedProfile(notification: NSNotification) {
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            if let userInfo : Dictionary<String,UserProfile> = notification.userInfo as? Dictionary<String,UserProfile> {
+                if userInfo.count > 0 {
+                    let profile = userInfo.values.array[0]
+                    self.reviewsLabel?.text = profile.getTotal()
+                    self.upvotesLabel?.text = profile.getUpVotes()
+                    self.downvotesLabel?.text = profile.getDownVotes()
+                } else {
+                    self.reviewsLabel.text = "0"
+                    self.upvotesLabel.text = "0"
+                    self.downvotesLabel.text = "0"
+                }
+            }
+        }
+        
+    }
+    
+    func failedToFetchProfile(notification: NSNotification) {
+        
+    }
 }

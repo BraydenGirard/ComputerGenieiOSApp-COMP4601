@@ -49,4 +49,9 @@ class GenieResponse {
     func getRetailer() -> String {
         return self.retailer
     }
+    
+    func toXMLString() -> String {
+        
+        return ""
+    }
 }

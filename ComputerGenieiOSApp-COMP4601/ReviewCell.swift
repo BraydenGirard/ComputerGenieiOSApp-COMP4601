@@ -39,6 +39,16 @@ class ReviewCell: UITableViewCell {
         setDate(rev.getDateAsDate())
     }
     
+    func getReview() -> Review {
+        return self.review
+    }
+    
+    func setReviewCellProductMode() {
+        if(review != nil) {
+            self.setUserName(review.getProductName().capitalizedString)
+        }
+    }
+    
     private func setContent(value: String) {
         self.contentLabel.text = value
     }
@@ -48,7 +58,7 @@ class ReviewCell: UITableViewCell {
     }
     
     private func setImage(value: String) {
-        if(value == "Like") {
+        if(value == "LIKE") {
             self.opinionImageView.image = UIImage(named: "happy_icon.png")
         } else {
             self.opinionImageView.image = UIImage(named: "sad_icon.png")
