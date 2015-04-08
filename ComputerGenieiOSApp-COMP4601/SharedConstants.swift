@@ -9,10 +9,12 @@
 import Foundation
 
 //current active server
-let APPCURRENTSERVER: String = APPSERVERLOCAL + RESTBASE
+let APPCURRENTSERVER: String = APPMEGANS + RESTBASE
 
 //Server addresses
 let APPSERVERLOCAL: String = "http://localhost:8080"
+let APPSERVERAMAZON: String = "http://ec2-54-149-76-190.us-west-2.compute.amazonaws.com"
+let APPMEGANS: String = "http://192.168.1.212:8080"
 
 //Server REST Calls
 let RESTBASE: String = "/ComputerGenie/rest/api"
