@@ -191,6 +191,15 @@
 		F6FBF5DA1ACDCF6D00D9E8A9 /* lamp_0.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FBF5C81ACDCF6D00D9E8A9 /* lamp_0.png */; };
 		F6FBF5DB1ACDCF6D00D9E8A9 /* lamp_0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FBF5C91ACDCF6D00D9E8A9 /* lamp_0@3x.png */; };
 		F6FBF5DC1ACDCF6D00D9E8A9 /* lamp_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FBF5CA1ACDCF6D00D9E8A9 /* lamp_0@2x.png */; };
+		F6FDDA001AD5AA3400FF8F04 /* Icon29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDD9FD1AD5AA3400FF8F04 /* Icon29@3x.png */; };
+		F6FDDA011AD5AA3400FF8F04 /* Icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDD9FE1AD5AA3400FF8F04 /* Icon29.png */; };
+		F6FDDA021AD5AA3400FF8F04 /* Icon29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDD9FF1AD5AA3400FF8F04 /* Icon29@2x.png */; };
+		F6FDDA051AD5AA5200FF8F04 /* Icon40.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA031AD5AA5200FF8F04 /* Icon40.png */; };
+		F6FDDA061AD5AA5200FF8F04 /* Icon40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA041AD5AA5200FF8F04 /* Icon40@3x.png */; };
+		F6FDDA091AD5AA5C00FF8F04 /* Icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA071AD5AA5C00FF8F04 /* Icon60.png */; };
+		F6FDDA0A1AD5AA5C00FF8F04 /* Icon60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA081AD5AA5C00FF8F04 /* Icon60@3x.png */; };
+		F6FDDA0C1AD5AAAA00FF8F04 /* Icon40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA0B1AD5AAAA00FF8F04 /* Icon40@2x.png */; };
+		F6FDDA0E1AD5AAB200FF8F04 /* Icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FDDA0D1AD5AAB200FF8F04 /* Icon60@2x.png */; };
 		F6FF1E331ACDA44200CBD765 /* up_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FF1E271ACDA44200CBD765 /* up_icon.png */; };
 		F6FF1E341ACDA44200CBD765 /* up_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FF1E281ACDA44200CBD765 /* up_icon@2x.png */; };
 		F6FF1E351ACDA44200CBD765 /* up_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6FF1E291ACDA44200CBD765 /* up_icon@3x.png */; };
@@ -448,6 +457,15 @@
 		F6FBF5C81ACDCF6D00D9E8A9 /* lamp_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lamp_0.png; path = Resources/Images/lamp_0.png; sourceTree = "<group>"; };
 		F6FBF5C91ACDCF6D00D9E8A9 /* lamp_0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lamp_0@3x.png"; path = "Resources/Images/lamp_0@3x.png"; sourceTree = "<group>"; };
 		F6FBF5CA1ACDCF6D00D9E8A9 /* lamp_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lamp_0@2x.png"; path = "Resources/Images/lamp_0@2x.png"; sourceTree = "<group>"; };
+		F6FDD9FD1AD5AA3400FF8F04 /* Icon29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon29@3x.png"; path = "Resources/Images/Icon29@3x.png"; sourceTree = "<group>"; };
+		F6FDD9FE1AD5AA3400FF8F04 /* Icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon29.png; path = Resources/Images/Icon29.png; sourceTree = "<group>"; };
+		F6FDD9FF1AD5AA3400FF8F04 /* Icon29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon29@2x.png"; path = "Resources/Images/Icon29@2x.png"; sourceTree = "<group>"; };
+		F6FDDA031AD5AA5200FF8F04 /* Icon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon40.png; path = Resources/Images/Icon40.png; sourceTree = "<group>"; };
+		F6FDDA041AD5AA5200FF8F04 /* Icon40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon40@3x.png"; path = "Resources/Images/Icon40@3x.png"; sourceTree = "<group>"; };
+		F6FDDA071AD5AA5C00FF8F04 /* Icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon60.png; path = Resources/Images/Icon60.png; sourceTree = "<group>"; };
+		F6FDDA081AD5AA5C00FF8F04 /* Icon60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon60@3x.png"; path = "Resources/Images/Icon60@3x.png"; sourceTree = "<group>"; };
+		F6FDDA0B1AD5AAAA00FF8F04 /* Icon40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon40@2x.png"; path = "Resources/Images/Icon40@2x.png"; sourceTree = "<group>"; };
+		F6FDDA0D1AD5AAB200FF8F04 /* Icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon60@2x.png"; path = "Resources/Images/Icon60@2x.png"; sourceTree = "<group>"; };
 		F6FF1E271ACDA44200CBD765 /* up_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = up_icon.png; path = Resources/Images/up_icon.png; sourceTree = "<group>"; };
 		F6FF1E281ACDA44200CBD765 /* up_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "up_icon@2x.png"; path = "Resources/Images/up_icon@2x.png"; sourceTree = "<group>"; };
 		F6FF1E291ACDA44200CBD765 /* up_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "up_icon@3x.png"; path = "Resources/Images/up_icon@3x.png"; sourceTree = "<group>"; };
@@ -649,6 +667,15 @@
 				F6547CB91AC779DE00905BEB /* logo.png */,
 				F6547CBA1AC779DE00905BEB /* logo@2x.png */,
 				F6547CBB1AC779DE00905BEB /* logo@3x.png */,
+				F6FDD9FE1AD5AA3400FF8F04 /* Icon29.png */,
+				F6FDD9FF1AD5AA3400FF8F04 /* Icon29@2x.png */,
+				F6FDD9FD1AD5AA3400FF8F04 /* Icon29@3x.png */,
+				F6FDDA031AD5AA5200FF8F04 /* Icon40.png */,
+				F6FDDA0B1AD5AAAA00FF8F04 /* Icon40@2x.png */,
+				F6FDDA041AD5AA5200FF8F04 /* Icon40@3x.png */,
+				F6FDDA071AD5AA5C00FF8F04 /* Icon60.png */,
+				F6FDDA0D1AD5AAB200FF8F04 /* Icon60@2x.png */,
+				F6FDDA081AD5AA5C00FF8F04 /* Icon60@3x.png */,
 				F6547CBC1AC779DE00905BEB /* male_selected.png */,
 				F6547CBD1AC779DE00905BEB /* male_selected@2x.png */,
 				F6547CBE1AC779DE00905BEB /* male_selected@3x.png */,
@@ -759,14 +786,14 @@
 		F6E6291A1AC71A2B00DA1009 /* ComputerGenieiOSApp-COMP4601 */ = {
 			isa = PBXGroup;
 			children = (
-				F6F281621AC8EA4300EFA6B8 /* Utilities */,
-				F6547CB11AC779C900905BEB /* Resources */,
 				F6E6291D1AC71A2B00DA1009 /* AppDelegate.swift */,
 				F6547CAE1AC7632900905BEB /* Views */,
 				F6547CAD1AC7631700905BEB /* Models */,
 				F6547CAC1AC7630700905BEB /* Controllers */,
 				F6547CA81AC762F000905BEB /* Networking */,
+				F6F281621AC8EA4300EFA6B8 /* Utilities */,
 				F66D70DC1AC740A10044B056 /* Swift-Validator */,
+				F6547CB11AC779C900905BEB /* Resources */,
 				F6E6291B1AC71A2B00DA1009 /* Supporting Files */,
 				F6E629241AC71A2B00DA1009 /* Images.xcassets */,
 			);
@@ -920,12 +947,16 @@
 				F610E4D41ACB89C0000B1518 /* error_field.png in Resources */,
 				F610E4ED1ACBA339000B1518 /* find_button@3x.png in Resources */,
 				F610E4A61ACB55E9000B1518 /* Montserrat-Light.otf in Resources */,
+				F6FDDA091AD5AA5C00FF8F04 /* Icon60.png in Resources */,
 				F6FBF5B61ACDC15200D9E8A9 /* back_btn.png in Resources */,
 				F61E68011ACC811300DEDAFE /* review_btn@2x.png in Resources */,
 				F61E68421ACCC06000DEDAFE /* cheap_btn@3x.png in Resources */,
 				F6547CC21AC779DE00905BEB /* female_selected.png in Resources */,
+				F6FDDA0A1AD5AA5C00FF8F04 /* Icon60@3x.png in Resources */,
+				F6FDDA0E1AD5AAB200FF8F04 /* Icon60@2x.png in Resources */,
 				F6FBF5B71ACDC15200D9E8A9 /* back_btn@3x.png in Resources */,
 				F6FBF5D31ACDCF6D00D9E8A9 /* lamp_3@2x.png in Resources */,
+				F6FDDA0C1AD5AAAA00FF8F04 /* Icon40@2x.png in Resources */,
 				F6FBF5D61ACDCF6D00D9E8A9 /* lamp_2@3x.png in Resources */,
 				F61E68331ACCC06000DEDAFE /* gaming_btn.png in Resources */,
 				F610E4C31ACB89C0000B1518 /* signup_button@3x.png in Resources */,
@@ -940,7 +971,9 @@
 				F61E684B1ACCC06000DEDAFE /* chrome_btn@3x.png in Resources */,
 				F610E4FC1ACBAA49000B1518 /* bad_review@2x.png in Resources */,
 				F6547CC91AC779DE00905BEB /* logo@2x.png in Resources */,
+				F6FDDA051AD5AA5200FF8F04 /* Icon40.png in Resources */,
 				F6FBF5CB1ACDCF6D00D9E8A9 /* lamp_5@3x.png in Resources */,
+				F6FDDA011AD5AA3400FF8F04 /* Icon29.png in Resources */,
 				F6FF1E3C1ACDA44200CBD765 /* down_icon@3x.png in Resources */,
 				F610E4D51ACB89C0000B1518 /* error_field@2x.png in Resources */,
 				F6547CCD1AC779DE00905BEB /* male_selected@3x.png in Resources */,
@@ -956,6 +989,7 @@
 				F610E4A81ACB55EE000B1518 /* Montserrat-Bold.otf in Resources */,
 				F6FF1E331ACDA44200CBD765 /* up_icon.png in Resources */,
 				F61E680E1ACC897F00DEDAFE /* laptop_btn@3x.png in Resources */,
+				F6FDDA001AD5AA3400FF8F04 /* Icon29@3x.png in Resources */,
 				F61E683C1ACCC06000DEDAFE /* genie_btn@3x.png in Resources */,
 				F6FBF5D41ACDCF6D00D9E8A9 /* lamp_2.png in Resources */,
 				F6FBF5CE1ACDCF6D00D9E8A9 /* lamp_4.png in Resources */,
@@ -1022,6 +1056,7 @@
 				F610E4E21ACB9E7B000B1518 /* background_login@2x.png in Resources */,
 				F61E68301ACCC06000DEDAFE /* windows_btn.png in Resources */,
 				F61E68041ACC811300DEDAFE /* find_btn@2x.png in Resources */,
+				F6FDDA061AD5AA5200FF8F04 /* Icon40@3x.png in Resources */,
 				F6FBF5A81ACDAC7D00D9E8A9 /* review_icon@2x.png in Resources */,
 				F6547CCE1AC779DE00905BEB /* male.png in Resources */,
 				F61E68441ACCC06000DEDAFE /* cheap_btn@2x.png in Resources */,
@@ -1053,6 +1088,7 @@
 				F610E4FF1ACBAA49000B1518 /* background_profile.png in Resources */,
 				F61E683B1ACCC06000DEDAFE /* school_btn@3x.png in Resources */,
 				F610E4C11ACB89C0000B1518 /* signup_button.png in Resources */,
+				F6FDDA021AD5AA3400FF8F04 /* Icon29@2x.png in Resources */,
 				F610E4C91ACB89C0000B1518 /* login_button@3x.png in Resources */,
 				F610E4A51ACB55E6000B1518 /* Montserrat-Regular.otf in Resources */,
 				F6547CCA1AC779DE00905BEB /* logo@3x.png in Resources */,
