@@ -33,6 +33,16 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         self.navigationItem.hidesBackButton = false
         
+        let button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 25, 18)
+        
+        button.setImage(UIImage(named: "back_btn"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        
+        self.navigationItem.leftBarButtonItem = barButton
+        
         self.reviewsTableView.dataSource = self
         self.reviewsTableView.delegate = self
         self.reviewTextView.delegate = self
@@ -55,6 +65,10 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func setProductIdAndUrl(id: String, url: String) {

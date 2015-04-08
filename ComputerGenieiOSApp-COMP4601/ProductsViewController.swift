@@ -156,7 +156,7 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate{
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? GenieResultCell {
             let url = cell.getGenie().getUrl()
-            UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+            self.performSegueWithIdentifier("history_webview_segue", sender: cell)
         }
     }
     
@@ -185,6 +185,14 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate{
                 destinationViewController.setProductIdAndUrl(genie.getId(), url: genie.getUrl())
                 destinationViewController.setViewTitle(genie.getName())
             }
+        } else if (segue.identifier == "history_webview_segue") {
+            let destinationViewController = segue.destinationViewController as WebViewController
+            if let cell = sender as? GenieResultCell{
+                var genie = cell.getGenie()
+                
+                destinationViewController.setNSURL(genie.getUrl())
+            }
         }
+
     }
 }
