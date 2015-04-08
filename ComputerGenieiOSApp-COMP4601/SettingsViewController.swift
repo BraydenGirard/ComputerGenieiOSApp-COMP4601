@@ -52,12 +52,22 @@ class SettingsViewController: UIViewController, ENSideMenuDelegate {
     }
     @IBAction func logoutPushed(sender: UIButton) {
         println("User logging out")
-        UserDefaultsManager.sharedInstance.clearUserDefaults()
-        
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
 
-        var homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("NavigationViewController") as ENSideMenuNavigationController
-        
-        self.presentViewController(homeViewController, animated: true, completion: {})
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            println("Update user dispatched on background thread")
+            NetworkManager.sharedInstance.sendUserUpdateRequest(UserDefaultsManager.sharedInstance.getUserData())
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                println("This is run on the main queue, after the previous code in outer block")
+                UserDefaultsManager.sharedInstance.clearUserDefaults()
+                
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
+                
+                var homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("NavigationViewController") as ENSideMenuNavigationController
+                
+                self.presentViewController(homeViewController, animated: true, completion: {})
+            })
+        })
     }
 }

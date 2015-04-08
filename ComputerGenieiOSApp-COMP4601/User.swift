@@ -8,16 +8,18 @@
 
 import Foundation
 
+let UNKNOWN = "Unknown"
+
 class User {
     
-    private var token: String?
+    private var token: String
     private let id: String
     private let email: String
     private var password: String
     private var name: String
-    private var birthDate: String?
-    private var gender: String?
-    private var lastLogin: String?
+    private var birthDate: String
+    private var gender: String
+    private var lastLogin: String
     private var productHistory: [String] = []
     
     init(id: String, email: String, password: String, name: String) {
@@ -25,9 +27,14 @@ class User {
         self.email = email
         self.password = password
         self.name = name
+        self.token = UNKNOWN
+        self.birthDate = UNKNOWN
+        self.gender = UNKNOWN
+        self.lastLogin = UNKNOWN
+        self.productHistory = []
     }
     
-    init(token: String?, id: String, email: String, password: String, name: String, birthdate: String?, gender: String?, lastLogin: String?, productHistory: [String]?) {
+    init(token: String, id: String, email: String, password: String, name: String, birthdate: String, gender: String, lastLogin: String, productHistory: [String]) {
         self.token = token
         self.id = id
         self.email = email
@@ -36,12 +43,7 @@ class User {
         self.birthDate = birthdate
         self.gender = gender
         self.lastLogin = lastLogin
-        
-        if let productIds = productHistory {
-            self.productHistory = productIds
-        } else {
-            self.productHistory = []
-        }
+        self.productHistory = productHistory
     }
     
     func getAge() -> Int {
@@ -49,7 +51,7 @@ class User {
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MM-DD-YY"
         
-        if let birthday = dateFormatter.dateFromString(birthDate!) {
+        if let birthday = dateFormatter.dateFromString(birthDate) {
        
             var now = NSDate()
             var calendar : NSCalendar = NSCalendar.currentCalendar()
@@ -65,11 +67,11 @@ class User {
         return 0
     }
     
-    func getToken() -> String? {
+    func getToken() -> String {
         return self.token
     }
     
-    func setToken(token: String ) {
+    func setToken(token: String) {
         self.token = token
     }
     
@@ -124,7 +126,7 @@ class User {
         self.birthDate = birthDate
     }
     
-    func getBirthDate() -> String? {
+    func getBirthDate() -> String {
         return self.birthDate
     }
     
@@ -132,7 +134,7 @@ class User {
         self.gender = gender
     }
     
-    func getGender() -> String? {
+    func getGender() -> String {
         return self.gender
     }
     
@@ -142,7 +144,7 @@ class User {
         self.lastLogin = dateFormatter.stringFromDate(NSDate())
     }
     
-    func getLastLogin() -> String? {
+    func getLastLogin() -> String {
         return self.lastLogin
     }
     

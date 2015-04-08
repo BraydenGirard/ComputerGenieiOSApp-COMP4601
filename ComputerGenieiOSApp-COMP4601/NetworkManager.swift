@@ -33,38 +33,26 @@ class NetworkManager {
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
-        let id = newUser.getId()
-        let firstname = newUser.getFirstName()
-        let lastname = newUser.getLastName()
-        let email = newUser.getEmail()
-        let password = newUser.getPassword()
-        let passwordHash = password.sha512()
-        let gender = newUser.getGender()
-        let birthdate = newUser.getBirthDate()
-        let lastLogin = newUser.getLastLogin()
-        
         var xmlString = "<?xml version=\"1.0\" ?>\n"
         xmlString += "<user>"
-        xmlString += "<authToken>0</authToken>"
-        xmlString += "<id>\(id)</id>"
-        xmlString += "<firstname>\(firstname)</firstname>"
-        xmlString += "<lastname>\(lastname)</lastname>"
-        xmlString += "<email>\(email)</email>"
-        xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
-        if let genderFinal = gender {
-            println("Found a gender")
-            xmlString += "<gender>\(genderFinal)</gender>"
-        } else {
-            xmlString += "<gender></gender>"
+        xmlString += "<authToken>\(newUser.getToken())</authToken>"
+        xmlString += "<id>\(newUser.getId())</id>"
+        xmlString += "<firstname>\(newUser.getFirstName())</firstname>"
+        xmlString += "<lastname>\(newUser.getLastName())</lastname>"
+        xmlString += "<email>\(newUser.getEmail())</email>"
+        xmlString += "<passwordHash>\(newUser.getPassword().sha512()!)</passwordHash>"
+        xmlString += "<gender>\(newUser.getGender())</gender>"
+        xmlString += "<birthday>\(newUser.getBirthDate())</birthday>"
+        xmlString += "<lastLoginTime>\(newUser.getLastLogin())</lastLoginTime>"
+    
+        if newUser.getProductHistory().count < 1 {
+            xmlString += "<productIds></productIds>"
         }
-        if let birthdateFinal = birthdate {
-            println("Found a birthdate")
-            xmlString += "<birthday>\(birthdateFinal)</birthday>"
-        } else {
-            xmlString += "<birthday></birthday>"
+        
+        for pid in newUser.getProductHistory() {
+            xmlString += "<productIds>\(pid)</productIds>"
         }
-        xmlString += "<lastLoginTime>\(lastLogin)</lastLoginTime>"
-        xmlString += "<productIds></productIds>"
+        
         xmlString += "</user>"
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
@@ -75,12 +63,19 @@ class NetworkManager {
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         
+        println("============================THE URL SENT==============================")
+        println(APPSIGNUP)
+        println("============================THE XML SENT==============================")
         println(xmlString)
-        println("Url: " + APPSIGNUP)
+        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("============================THE RESPONSE RECEIVED==============================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("============================THE XML Received==============================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -123,7 +118,7 @@ class NetworkManager {
     }
     
     func sendGenieRequest(genieRequest: GenieRequest, user: User) {
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPGENIE + tokenString!)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -171,7 +166,7 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         
         println("============================THE URL SENT==============================")
-        println(APPGENIE + user.getToken()!)
+        println(APPGENIE + tokenString!)
         println("============================THE XML SENT==============================")
         println(xmlString)
         
@@ -280,7 +275,7 @@ class NetworkManager {
     }
     
     func sendReviewRequest(user: User, review: Review) {
-        let tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/review")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -305,12 +300,19 @@ class NetworkManager {
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         
+        println("============================THE URL SENT==============================")
+        println(APPPRODUCT + tokenString!)
+        println("============================THE XML SENT==============================")
         println(xmlString)
-        println("Url: " + APPPRODUCT + user.getToken()! + "/review")
+        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("============================THE RESPONSE RECEIVED==============================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("============================THE XML Received==============================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -350,12 +352,10 @@ class NetworkManager {
     }
     
     func sendHistoryRequest(user: User) {
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPHISTORY + tokenString! + "/history")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
-        
-        let passwordHash = user.getPassword().sha512()
         
         var xmlString = "<?xml version=\"1.0\" ?>\n"
         xmlString += "<user>"
@@ -364,25 +364,19 @@ class NetworkManager {
         xmlString += "<firstname>\(user.getFirstName())</firstname>"
         xmlString += "<lastname>\(user.getLastName())</lastname>"
         xmlString += "<email>\(user.getEmail())</email>"
-        xmlString += "<passwordHash>\(passwordHash!)</passwordHash>"
-        if let genderFinal = user.getGender() {
-            println("Found a gender")
-            xmlString += "<gender>\(genderFinal)</gender>"
-        } else {
-            xmlString += "<gender></gender>"
-        }
-        if let birthdateFinal = user.getBirthDate() {
-            println("Found a birthdate")
-            xmlString += "<birthday>\(birthdateFinal)</birthday>"
-        } else {
-            xmlString += "<birthday></birthday>"
-        }
+        xmlString += "<passwordHash>\(user.getPassword().sha512()!)</passwordHash>"
+        xmlString += "<gender>\(user.getGender())</gender>"
+        xmlString += "<birthday>\(user.getBirthDate())</birthday>"
         xmlString += "<lastLoginTime>\(user.getLastLogin())</lastLoginTime>"
-        //xmlString += "<productIds>"
-        for productId in user.getProductHistory() {
-            xmlString += "<productIds>\(productId)</productIds>"
+        
+        if user.getProductHistory().count < 1 {
+            xmlString += "<productIds></productIds>"
         }
-        //xmlString += "</productIds>"
+        
+        for pid in user.getProductHistory() {
+            xmlString += "<productIds>\(pid)</productIds>"
+        }
+        
         xmlString += "</user>"
         
         let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
@@ -502,6 +496,81 @@ class NetworkManager {
         task.resume()
     }
     
+    func sendUserUpdateRequest(user: User) {
+        let tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        var request = NSMutableURLRequest(URL: NSURL(string: APPUSER + tokenString + "/update")!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        let passwordHash = user.getPassword().sha512()
+        
+        var xmlString = "<?xml version=\"1.0\" ?>\n"
+        xmlString += "<user>"
+        xmlString += "<authToken>\(user.getToken())</authToken>"
+        xmlString += "<id>\(user.getId())</id>"
+        xmlString += "<firstname>\(user.getFirstName())</firstname>"
+        xmlString += "<lastname>\(user.getLastName())</lastname>"
+        xmlString += "<email>\(user.getEmail())</email>"
+        xmlString += "<passwordHash>\(user.getPassword().sha512()!)</passwordHash>"
+        xmlString += "<gender>\(user.getGender())</gender>"
+        xmlString += "<birthday>\(user.getBirthDate())</birthday>"
+        xmlString += "<lastLoginTime>\(user.getLastLogin())</lastLoginTime>"
+        
+        if user.getProductHistory().count < 1 {
+            xmlString += "<productIds></productIds>"
+        }
+        
+        for pid in user.getProductHistory() {
+            xmlString += "<productIds>\(pid)</productIds>"
+        }
+        
+        xmlString += "</user>"
+        
+        let data : NSData = (xmlString).dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        
+        println("================THE URL SENT=================")
+        println(APPUSER + tokenString + "/history")
+        println("================THE XML SENT=================")
+        println(xmlString)
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("=================THE XML Received=================")
+            println(strData)
+            
+            
+            
+            var err: NSError? = error
+            
+            if(err != nil) {
+                println("Network Manager: Eror sending request to update user.");
+                
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                if(httpResponse.statusCode == 200) {
+                    println("Network Manager: Successful request to update user.");
+                } else {
+                    println("Network Manager: Response code was not 200")
+                }
+            }
+            else {
+                println("Network Manager: Did not get response code")
+            }
+            
+        })
+        
+        task.resume()
+    }
+
+    
     
     /******************************************
     GET network requests
@@ -509,8 +578,7 @@ class NetworkManager {
     
     func sendLoginRequet(email: String, password: String) {
         
-        let passwordHash = password.sha512()
-        var request = NSMutableURLRequest(URL: NSURL(string: APPLOGIN + email + "/" + passwordHash!)!)
+        var request = NSMutableURLRequest(URL: NSURL(string: APPLOGIN + email + "/" + password.sha512()!)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
         
@@ -523,12 +591,17 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
-        println("sent")
+        println("================THE URL SENT=================")
+        println(APPLOGIN + email + "/" + password.sha512()!)
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("=================THE XML Received=================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -541,16 +614,16 @@ class NetworkManager {
                     let id = xml.root["id"].value!
                     let firstname = xml.root["firstname"].value!
                     let lastname = xml.root["lastname"].value!
-                    let gender = xml.root["gender"].value
-                    let birthday = xml.root["birthday"].value
+                    let gender = xml.root["gender"].value!
+                    let birthday = xml.root["birthday"].value!
                     let lastLogin = xml.root["lastLoginTime"].value!
                     
-                    var productHistory: [String]?
+                    var productHistory: [String] = []
                     
                     if let productIds = xml.root["productIds"].all {
                         for pid in productIds {
                             if let id = pid.value {
-                                productHistory?.append(id)
+                                productHistory.append(id)
                             }
                         }
                     }
@@ -595,12 +668,17 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
-        println("sent")
+        println("================THE URL SENT=================")
+        println(APPUSER + token + "/" + id)
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("=================THE XML Received=================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -615,18 +693,18 @@ class NetworkManager {
                     let id = xml.root["id"].value!
                     let firstname = xml.root["firstname"].value!
                     let lastname = xml.root["lastname"].value!
-                    let gender = xml.root["gender"].value
-                    let birthday = xml.root["birthday"].value
+                    let gender = xml.root["gender"].value!
+                    let birthday = xml.root["birthday"].value!
                     let lastLogin = xml.root["lastLoginTime"].value!
                     let email = xml.root["email"].value!
                     let password = xml.root["passwordHash"].value!
                     
-                    var productHistory: [String]?
+                    var productHistory: [String] = []
                     
                     if let productIds = xml.root["productIds"].all {
                         for pid in productIds {
                             if let id = pid.value {
-                                productHistory?.append(id)
+                                productHistory.append(id)
                             }
                         }
                     }
@@ -661,7 +739,7 @@ class NetworkManager {
     
     func sendAllProductsRequest(user: User) {
         
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString!)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
@@ -675,9 +753,15 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
+        println("================THE URL SENT=================")
+        println(APPPRODUCT + tokenString!)
+
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+        
+            println("=================THE RESPONSE RECEIVED=================")
             println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("=================THE XML Received=================")
             println(strData)
             
             var err: NSError? = error
@@ -776,7 +860,7 @@ class NetworkManager {
     
     func sendFetchAllReviewsRequest(productId: String, user: User) {
         
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/" + productId)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
@@ -790,12 +874,17 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
-        println("sent")
+        println("================THE URL SENT=================")
+        println(APPPRODUCT + tokenString! + "/reviews/" + productId)
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("=================THE XML Received=================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -903,7 +992,7 @@ class NetworkManager {
     
     func sendFetchAllGoodReviewsRequest(user: User) {
         
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/positive")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
@@ -917,12 +1006,17 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
-        println("sent")
+        println("================THE URL SENT=================")
+        println(APPPRODUCT + tokenString! + "/reviews/positive")
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("=================THE XML Received=================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
@@ -1030,7 +1124,7 @@ class NetworkManager {
 
     func sendFetchAllBadReviewsRequest(user: User) {
         
-        var tokenString = user.getToken()!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/negative")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
@@ -1044,12 +1138,17 @@ class NetworkManager {
         request.addValue(length, forHTTPHeaderField: "Content-Length")
         request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
         
-        println("sent")
+        println("================THE URL SENT=================")
+        println(APPPRODUCT + tokenString! + "/reviews/negative")
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            
+            println("=================THE RESPONSE RECEIVED=================")
+            println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            println("=================THE XML Received=================")
+            println(strData)
+            
             var err: NSError? = error
             
             if(err != nil) {
