@@ -125,17 +125,28 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
         var upVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Helpful", handler:{action, indexpath in
-            println("Helpful");
-            //TODO: Disblae once pressed send an upvote request to server and up the score in the app by 1
+
+            //TODO: Disable button after press?
+            // Need a way of tracking which things a user has upvoted or downvoted? ie like reddit?
             
-        });
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ReviewCell {
+                var review: Review = cell.getReview()
+                review.upVote()
+                cell.setReview(review)
+                NetworkManager.sharedInstance.sendReviewVoteRequest(UserDefaultsManager.sharedInstance.getUserData(), review: review, isUpVote: true)
+            }
+        })
         upVoteAction.backgroundColor = UIColor(red: 0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1.0);
         
         var downVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Not Helpful", handler:{action, indexpath in
-            println("Not Helpful");
-            //TODO: Disblae once pressed send an downvote request to server and down the score in the app by 1
             
-        });
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ReviewCell {
+                var review: Review = cell.getReview()
+                review.downVote()
+                cell.setReview(review)
+                NetworkManager.sharedInstance.sendReviewVoteRequest(UserDefaultsManager.sharedInstance.getUserData(), review: review, isUpVote: false)
+            }
+        })
         downVoteAction.backgroundColor = UIColor(red: 196.0/255.0, green: 47.0/255.0, blue: 43.0/255.0, alpha: 1.0);
         
         return [upVoteAction, downVoteAction]
