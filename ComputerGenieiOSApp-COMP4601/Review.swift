@@ -67,8 +67,16 @@ class Review: NSObject {
         return self.upScore
     }
     
+    func upVote() {
+        self.upScore = self.upScore + 1
+    }
+    
     func getDownScore() -> Int {
         return self.downScore
+    }
+    
+    func downVote() {
+        self.downScore = self.downScore + 1
     }
     
     func getDateAsDate() -> NSDate {

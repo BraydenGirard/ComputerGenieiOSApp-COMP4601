@@ -196,13 +196,11 @@ class NetworkManager {
                             println("Network Manager: Success is equal to: \(successFinal)")
                             NSNotificationCenter.defaultCenter().postNotificationName("PostReviewFail", object: nil)
                         }
-                    } else
-                    {
+                    } else {
                         println("Network Manager: Failed to parse success")
                         NSNotificationCenter.defaultCenter().postNotificationName("PostReviewFail", object: nil)
                     }
-                }
-                else {
+                } else {
                     println("Network Manager: Failed to parse xml")
                     NSNotificationCenter.defaultCenter().postNotificationName("PostReviewFail", object: nil)
                 }
@@ -316,7 +314,7 @@ class NetworkManager {
         
         task.resume()
     }
-
+    
     //MARK: - GET Requests
     
     func sendLoginRequet(email: String, password: String) {
@@ -336,7 +334,7 @@ class NetworkManager {
         
         println("================THE URL SENT=================")
         println(APPLOGIN + email + "/" + password.sha512()!)
-
+        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
             println("=================THE RESPONSE RECEIVED=================")
@@ -456,9 +454,9 @@ class NetworkManager {
         
         println("================THE URL SENT=================")
         println(APPPRODUCT + tokenString!)
-
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
         
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            
             println("=================THE RESPONSE RECEIVED=================")
             println(response)
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
@@ -557,7 +555,7 @@ class NetworkManager {
         
         var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/reviews/positive")!)
-
+        
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
         
@@ -572,7 +570,7 @@ class NetworkManager {
         
         println("================THE URL SENT=================")
         println(APPPRODUCT + tokenString! + "/reviews/positive")
-
+        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
             println("=================THE RESPONSE RECEIVED=================")
@@ -590,7 +588,7 @@ class NetworkManager {
             } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
                 
                 if let xml = AEXMLDocument(xmlData: data!, error: &err) {
-                   
+                    
                     var results = XmlParser.parseReviews(xml)
                     
                     if(httpResponse.statusCode == 200) {
@@ -670,7 +668,69 @@ class NetworkManager {
         
         task.resume()
     }
-
+    
+    func sendReviewVoteRequest(user: User, review: Review, isUpVote: Bool) {
+        
+        var vote = "0"
+        if isUpVote {
+            vote = "1"
+        }
+        var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/review/" + review.getProductId() +
+            "/" + user.getId() + "/" + vote)!)
+        
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        
+        let data : NSData = ("").dataUsingEncoding(NSUTF8StringEncoding)!;
+        let length: NSString = NSString(format: "%d", data.length)
+        
+        var err: NSError?
+        request.HTTPBody = data
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue(length, forHTTPHeaderField: "Content-Length")
+        request.addValue("application/xml; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError? = error
+            
+            if(err != nil) {
+                var dictionary = Dictionary<String, String>()
+                dictionary["error"] = err!.localizedDescription
+                NSNotificationCenter.defaultCenter().postNotificationName("PostScoreFail", object: nil)
+                
+            } else if let httpResponse: NSHTTPURLResponse! = response as? NSHTTPURLResponse {
+                if let xml = AEXMLDocument(xmlData: data!, error: &err) {
+                    let httpCode = xml.root["httpCode"].value
+                    let httpMessage = xml.root["httpMessage"].value
+                    let serverMessage = xml.root["serverMessage"].value!
+                    let success = xml.root["success"].value
+                    
+                    if let successFinal = success {
+                        if(successFinal == "true") {
+                            NSNotificationCenter.defaultCenter().postNotificationName("PostScoreSuccess", object: nil)
+                        } else {
+                            println("Network Manager: Success is equal to: \(successFinal)")
+                            NSNotificationCenter.defaultCenter().postNotificationName("PostScoreFail", object: nil)
+                        }
+                    } else {
+                        println("Network Manager: Failed to parse success")
+                        NSNotificationCenter.defaultCenter().postNotificationName("PostScoreFail", object: nil)
+                    }
+                } else {
+                    println("Network Manager: Failed to parse xml")
+                    NSNotificationCenter.defaultCenter().postNotificationName("PostScoreFail", object: nil)
+                }
+            }
+        })
+        
+        task.resume()
+        
+    }
+    
     func fetchProfileForUserRequest(user: User) {
         var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPUSER + tokenString! + "/profile")!)
