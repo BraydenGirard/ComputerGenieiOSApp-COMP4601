@@ -49,6 +49,10 @@ class ReviewCell: UITableViewCell {
         }
     }
     
+    func setReviewVoted() {
+        self.scoreLabel?.textColor = UIColor(red: 184.0/255.0, green: 120.0/255.0, blue: 22.0/255.0, alpha: 1.0);
+    }
+    
     private func setContent(value: String) {
         self.contentLabel.text = value
     }

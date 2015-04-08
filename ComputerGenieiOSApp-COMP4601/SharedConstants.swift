@@ -9,7 +9,7 @@
 import Foundation
 
 //current active server
-let APPCURRENTSERVER: String = APPSERVERAMAZON + RESTBASE
+let APPCURRENTSERVER: String = APPSERVERLOCAL + RESTBASE
 
 //Server addresses
 let APPSERVERLOCAL: String = "http://localhost:8080"

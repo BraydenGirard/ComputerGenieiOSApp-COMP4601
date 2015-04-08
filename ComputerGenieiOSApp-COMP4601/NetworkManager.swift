@@ -677,7 +677,7 @@ class NetworkManager {
         }
         var tokenString = user.getToken().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         var request = NSMutableURLRequest(URL: NSURL(string: APPPRODUCT + tokenString! + "/review/" + review.getProductId() +
-            "/" + user.getId() + "/" + vote)!)
+            "/" + review.getUserId() + "/" + vote)!)
         
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"

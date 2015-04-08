@@ -25,6 +25,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     var productUrl: String!
     var reviews: [Review]! = []
     
+    var user: User!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,8 +35,6 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         
         self.reviewsTableView.dataSource = self
         self.reviewsTableView.delegate = self
-        self.reviewsTableView.allowsSelection = false
-        
         self.reviewTextView.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "recievedReviewList:", name: "FetchReviewsSuccess", object: nil)
@@ -48,7 +48,8 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
-        NetworkManager.sharedInstance.sendFetchAllReviewsRequest(self.productId, user: UserDefaultsManager.sharedInstance.getUserData())
+        self.user = UserDefaultsManager.sharedInstance.getUserData()
+        reloadFromServer()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,6 +64,10 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
     
     func setViewTitle(value: String) {
         self.title = value.capitalizedString
+    }
+    
+    func reloadFromServer() {
+        NetworkManager.sharedInstance.sendFetchAllReviewsRequest(self.productId, user: self.user)
     }
     
     private func setError(error: String){
@@ -111,6 +116,13 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         var review = reviews[indexPath.row]
         cell?.setReview(review)
         
+        var myUID = user.getId()
+        for voter in review.getVoters() {
+            if voter == myUID {
+                cell.setReviewVoted()
+            }
+        }
+        
         return cell!
     }
     
@@ -118,13 +130,38 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         return 120.0
     }
     
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        //Prevent user from rating thier own review and rating a review they have already rated
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ReviewCell {
+            var review = cell.getReview()
+            var myUID = user.getId()
+            if(review.getUserId() == myUID) {
+                return false
+            }
+
+            for voter in review.getVoters() {
+                if voter == myUID {
+                    cell.setReviewVoted()
+                    return false
+                }
+            }
+        }
+        
         return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // empty required to allow editing
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
-        var upVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Helpful", handler:{action, indexpath in
+        var upVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Like", handler:{action, indexpath in
 
             //TODO: Disable button after press?
             // Need a way of tracking which things a user has upvoted or downvoted? ie like reddit?
@@ -132,19 +169,23 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ReviewCell {
                 var review: Review = cell.getReview()
                 review.upVote()
+                review.addVoter(self.user.getId())
                 cell.setReview(review)
-                NetworkManager.sharedInstance.sendReviewVoteRequest(UserDefaultsManager.sharedInstance.getUserData(), review: review, isUpVote: true)
+                NetworkManager.sharedInstance.sendReviewVoteRequest(self.user, review: review, isUpVote: true)
+                tableView.setEditing(false, animated: true)
             }
         })
         upVoteAction.backgroundColor = UIColor(red: 0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1.0);
         
-        var downVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Not Helpful", handler:{action, indexpath in
+        var downVoteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Dislike", handler:{action, indexpath in
             
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ReviewCell {
                 var review: Review = cell.getReview()
                 review.downVote()
+                review.addVoter(self.user.getId())
                 cell.setReview(review)
-                NetworkManager.sharedInstance.sendReviewVoteRequest(UserDefaultsManager.sharedInstance.getUserData(), review: review, isUpVote: false)
+                NetworkManager.sharedInstance.sendReviewVoteRequest(self.user, review: review, isUpVote: false)
+                tableView.setEditing(false, animated: true)
             }
         })
         downVoteAction.backgroundColor = UIColor(red: 196.0/255.0, green: 47.0/255.0, blue: 43.0/255.0, alpha: 1.0);
@@ -162,7 +203,7 @@ class ProductReviewsViewController: UIViewController, UITableViewDataSource, UIT
         name += " "
         name += user.getLastName()
         
-        var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970, productName: self.title!.lowercaseString, url: self.productUrl)
+        var review = Review(pId: self.productId!, uId: user.getId(), uName: name, content: self.reviewTextView.text!, opinion: self.reviewOpinion, upScore: 0, downScore: 0, date: NSDate().timeIntervalSince1970, productName: self.title!.lowercaseString, url: self.productUrl, voters: [])
         
         NetworkManager.sharedInstance.sendReviewRequest(user, review: review)
     }

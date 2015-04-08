@@ -49,6 +49,7 @@ class XmlParser: NSObject {
         var dateFinal: Double?
         var proFinal: String?
         var urlFinal: String?
+        var votersFinal: [String] = []
         
         if let reviews = xml.root["review"].all {
             
@@ -113,8 +114,15 @@ class XmlParser: NSObject {
                     println("Broken review")
                     continue
                 }
+                if let voterIds = review["voter"].all {
+                    for uid in voterIds {
+                        if let id = uid.value {
+                            votersFinal.append(id)
+                        }
+                    }
+                }
                 
-                var theReview = Review(pId: pIdFinal!, uId: uIdFinal!, uName: uNFinal!, content: contentFinal!, opinion: opinionFinal!, upScore: upscoreFinal!, downScore: downscoreFinal!, date: dateFinal!, productName: proFinal!, url: urlFinal!)
+                var theReview = Review(pId: pIdFinal!, uId: uIdFinal!, uName: uNFinal!, content: contentFinal!, opinion: opinionFinal!, upScore: upscoreFinal!, downScore: downscoreFinal!, date: dateFinal!, productName: proFinal!, url: urlFinal!, voters: votersFinal)
                 results[theReview.getPIDAndUIDPair()] = theReview
             }
             

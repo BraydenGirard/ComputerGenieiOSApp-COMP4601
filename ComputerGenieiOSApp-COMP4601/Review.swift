@@ -22,7 +22,9 @@ class Review: NSObject {
     private var productName: String!
     private var url: String!
     
-    init(pId: String, uId: String, uName: String, content: String, opinion: String, upScore: Int, downScore: Int, date: Double, productName: String, url: String) {
+    private var voters: [String]!
+    
+    init(pId: String, uId: String, uName: String, content: String, opinion: String, upScore: Int, downScore: Int, date: Double, productName: String, url: String, voters: [String]) {
         self.productId = pId
         self.userId = uId
         self.userName = uName
@@ -33,6 +35,7 @@ class Review: NSObject {
         self.date = date
         self.productName = productName
         self.url = url
+        self.voters = voters
     }
     
     func getPIDAndUIDPair() -> String {
@@ -99,6 +102,14 @@ class Review: NSObject {
         return NSURL(string: self.url)!
     }
     
+    func getVoters() -> [String] {
+        return self.voters
+    }
+    
+    func addVoter(id: String) {
+        self.voters.append(id)
+    }
+    
     func toXMLString() -> String {
         
         var xmlString = "<?xml version=\"1.0\" ?>\n"
@@ -113,6 +124,12 @@ class Review: NSObject {
         xmlString += "<date>\(self.getDate())</date>"
         xmlString += "<productName>\(self.getProductName())</productName>"
         xmlString += "<url>\(self.getUrl())</url>"
+        if(self.getVoters().count < 1) {
+            xmlString += "<voter></voter>"
+        }
+        for voteId in self.getVoters() {
+            xmlString += "<voter>\(voteId)</voter>"
+        }
         xmlString += "</review>"
         
         return xmlString

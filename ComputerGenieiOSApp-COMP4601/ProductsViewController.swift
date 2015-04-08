@@ -52,7 +52,6 @@ class ProductsViewController: UITableViewController, ENSideMenuDelegate{
     }
     
     func toggleSideMenu(sender: UIButton) {
-        println("Button pushed")
         self.toggleSideMenuView()
     }
     
